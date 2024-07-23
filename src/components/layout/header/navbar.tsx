@@ -29,6 +29,10 @@ export const navItems = [
     title: "Events",
     href: "/events",
   },
+  {
+    title: "Contact",
+    href: "/contact",
+  },
 ];
 
 interface NavbarItemProps {
@@ -47,12 +51,12 @@ function NavbarItem({ title, href, dropdownItems }: NavbarItemProps) {
   return (
     <Menu isOpen={isOpen}>
       <MenuButton
-        // as={Link}
-        // href={href}
+        as={Link}
+        href={href}
         onMouseEnter={onOpen}
         onMouseLeave={onClose}
         role="group"
-        onClick={() => router.push(href)}
+        // onClick={() => router.push(href)}
       >
         <Flex
           alignItems="center"
@@ -62,7 +66,7 @@ function NavbarItem({ title, href, dropdownItems }: NavbarItemProps) {
           }}
           _focus={{ outline: "none" }}
         >
-          <Text fontSize={12} fontWeight={500}>
+          <Text fontSize={14} fontWeight={500}>
             {title}
           </Text>
           {dropdownItems ? <ChevronDownIcon /> : null}
