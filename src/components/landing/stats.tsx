@@ -50,7 +50,9 @@ function StatsSection() {
             fontStyle="italic"
             color="#ffffff"
           >
-            <Text>{count}</Text>
+            <Text fontStyle="normal" fontFamily="Poppins">
+              {count}
+            </Text>
             <Box>
               <Text>{title}</Text>
               {["#F4AC17", "#F4AC1750", "#F4AC1725"].map((color, j) => (
