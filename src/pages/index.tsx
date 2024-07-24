@@ -4,6 +4,7 @@ import HeroSection from "~/components/landing/hero";
 import AftermovieSection from "~/components/landing/aftermovie";
 import StatsSection from "~/components/landing/stats";
 import SportsSection from "~/components/landing/sports";
+import SponsorsSection from "~/components/landing/sponsors";
 
 function HomePage() {
   return (
@@ -12,6 +13,7 @@ function HomePage() {
       <AftermovieSection />
       <StatsSection />
       <SportsSection />
+      <SponsorsSection />
     </Layout>
   );
 }
