@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "Migra";
+  src: url("/fonts/migra/Migra-Extrabold.eot");
+  src: url("/fonts/migra/Migra-Extrabold.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/migra/Migra-Extrabold.woff2") format("woff2"),
+       url("/fonts/migra/Migra-Extrabold.woff") format("woff"),
+       url("/fonts/migra/Migra-Extrabold.ttf") format("truetype"),
+       url("/fonts/migra/Migra-Extrabold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Migra";
+  src: url("/fonts/migra/Migra-Extralight.eot");
+  src: url("/fonts/migra/Migra-Extralight.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/migra/Migra-Extralight.woff2") format("woff2"),
+       url("/fonts/migra/Migra-Extralight.woff") format("woff"),
+       url("/fonts/migra/Migra-Extralight.ttf") format("truetype"),
+       url("/fonts/migra/Migra-Extralight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Migra";
+  src: url("/fonts/migra/MigraItalic-ExtraboldItalic.eot");
+  src: url("/fonts/migra/MigraItalic-ExtraboldItalic.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/migra/MigraItalic-ExtraboldItalic.woff2") format("woff2"),
+       url("/fonts/migra/MigraItalic-ExtraboldItalic.woff") format("woff"),
+       url("/fonts/migra/MigraItalic-ExtraboldItalic.ttf") format("truetype"),
+       url("/fonts/migra/MigraItalic-ExtraboldItalic.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Migra";
+  src: url("/fonts/migra/MigraItalic-ExtralightItalic.eot");
+  src: url("/fonts/migra/MigraItalic-ExtralightItalic.eot?#iefix") format("embedded-opentype"),
+       url("/fonts/migra/MigraItalic-ExtralightItalic.woff2") format("woff2"),
+       url("/fonts/migra/MigraItalic-ExtralightItalic.woff") format("woff"),
+       url("/fonts/migra/MigraItalic-ExtralightItalic.ttf") format("truetype"),
+       url("/fonts/migra/MigraItalic-ExtralightItalic.otf") format("opentype");
+  font-weight: 200;
+  font-style: italic;
+}
