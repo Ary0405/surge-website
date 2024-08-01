@@ -1,5 +1,5 @@
-import { Spacer } from "@chakra-ui/react";
-
+import { Spacer, Box } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { Layout } from "~/components/layout";
 
 import HeroSection from "~/components/landing/hero";
@@ -10,8 +10,35 @@ import SponsorsSection from "~/components/landing/sponsors";
 import BlogsSection from "~/components/landing/blogs";
 
 function HomePage() {
+  
+  // useEffect(() => {
+  //   const lenis = new Lenis({
+  //     duration: 1.5,
+  //     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  //     smooth: true,
+  //     direction: "vertical",
+  //     smoothTouch: true,
+  //     touchMultiplier: 2,
+  //     infinite: false,
+  //   });
+
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
+
+  //   requestAnimationFrame(raf);
+
+  //   return () => {
+  //     // Cleanup function to stop the animation frame
+  //     lenis.destroy();
+  //   };
+  // }, []);
+
+
   return (
-    <Layout title="Home">
+    <Box >
+    <Layout title="Home" >
       <HeroSection />
       <AftermovieSection />
       <StatsSection />
@@ -21,6 +48,7 @@ function HomePage() {
 
       <Spacer h="5rem" />
     </Layout>
+    </Box>
   );
 }
 
