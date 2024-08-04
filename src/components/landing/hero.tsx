@@ -6,7 +6,7 @@ function HeroSection() {
     <Flex
       flexDir="column"
       alignItems="center"
-      mx="auto"
+      // mx="auto"
       background="url('/images/landing/hero/translucent_sportsperson_bg.png')"
       backgroundSize="cover"
       backgroundRepeat="no-repeat"
