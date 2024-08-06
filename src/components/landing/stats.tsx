@@ -11,7 +11,7 @@ const MotionFlex = motion(chakra.div);
 
 function StatsSection() {
   return (
-    <Flex mt="6rem" flexDir="column" alignItems="center" mx="auto" >
+    <Flex mt="6rem" flexDir="column" alignItems="center" mx="auto" overflowX="hidden">
       <Flex
         gap={0}
         fontSize={{ base: "40px", sm: "45px", md: "50px", lg: "55px", xl: "60px" }}
@@ -69,15 +69,16 @@ function StatsSection() {
         </MotionFlex>
       </Flex>
 
-      {/* <Grid
-        mt="4rem"
-        gap={16}
-        templateColumns={{ base: "repeat(3, 1fr)", md: "repeat(5, 1fr)" }}
-        templateRows={{ base: "repeat(2, 1fr)", md: "1fr" }}
+      <Grid
+        mt={{base: "2rem", sm: "2.5rem", md: "3rem", lg: "3.5rem", xl: "4rem" }}
+        gap={10}
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(5, 1fr)" }}
+        templateRows={{ base: "repeat(5, 1fr)", md: "1fr" }}
         justifyContent="space-evenly"
         alignItems="center"
-      > */}
-      <Flex
+        w="100vw"
+      >
+      {/* <Flex
         mt={{base: "2rem", sm: "2.5rem", md: "3rem", lg: "3.5rem", xl: "4rem" }}
         gap={10}
         flexDir="row"
@@ -85,7 +86,7 @@ function StatsSection() {
         alignItems="center"
         flexWrap="wrap"
         w="100vw"
-      >
+      > */}
         {[
           { title: "Teams", count: "10" },
           { title: "Events", count: "1" },
@@ -99,7 +100,7 @@ function StatsSection() {
             flexDir="column"
             justifyContent="space-evenly"
             alignItems="center"
-            fontSize={{base: "28px", sm: "33px", md: "38px", lg: "43px", xl: "48px" }}
+            fontSize={{base: "65px", sm: "70px", md: "38px", lg: "43px", xl: "48px" }}
             textTransform="uppercase"
             fontFamily="Migra"
             fontWeight={800}
@@ -126,8 +127,8 @@ function StatsSection() {
             </Box>
           </Flex>
         ))}
-      {/* </Grid> */}
-      </Flex>
+      </Grid>
+      {/* </Flex> */}
     </Flex>
   );
 }

@@ -39,7 +39,9 @@ function BlogsSection() {
         flexDir="row"
         flexShrink={0}
         justifyContent="flex-start"
-        w="100vw">
+        w="100vw"
+        overflowX="hidden"
+        >
         <MotionFlex
           initial={{ x: 0 }}
           animate={{ x: "-100%" }}
@@ -83,7 +85,7 @@ function BlogsSection() {
       </Flex>
 
       
-      <Grid mt="1rem" templateColumns="repeat(4, 1fr)" gap={28}>
+      <Grid mt="1rem" templateColumns="repeat(4, 1fr)" gap={28} overflowX="hidden">
         {[...Array(4).keys()].map((_, i) => (
           <Box position="relative" width="300px" height="400px" key={i}>
             <Image

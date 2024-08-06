@@ -33,7 +33,7 @@ const sponsors = [
 
 function SponsorsSection() {
   return (
-    <Flex mt="6rem" flexDir="column" alignItems="center" mx="auto">
+    <Flex mt="6rem" flexDir="column" alignItems="center" justifyContent="center">
       <Flex
         gap={0}
         fontSize={{ base: "40px", sm: "45px", md: "50px", lg: "55px", xl: "60px" }}
@@ -47,17 +47,18 @@ function SponsorsSection() {
         flexShrink={0}
         justifyContent="flex-start"
         w="100vw"
+        overflowX="hidden"
       >
-<MotionFlex
+        <MotionFlex
           initial={{ x: 0 }}
           animate={{ x: "-100%" }}
           transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
           display="flex"
           flexShrink={0}
-          
+
           gap={4}
-          
-          
+
+
         >
           <Text color="#121212" {...textBorder("#F4AC17")}>
             Sponsors
@@ -80,8 +81,8 @@ function SponsorsSection() {
           display="flex"
           flexShrink={0}
           gap={4}
-          
-          
+
+
         >
           <Text color="#121212" {...textBorder("#F4AC17")}>
             Sponsors
@@ -98,34 +99,46 @@ function SponsorsSection() {
         </MotionFlex>
       </Flex>
 
-      <Flex flexWrap="wrap"
-          justifyContent="space-evenly" mt="1rem" gap="20px" w="100vw">
+      <Grid 
+        gap={25}
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(4, 1fr)" }}
+        templateRows={{ base: "repeat(2, 1fr)", md: "1fr" }}
+        justifyContent="space-evenly"
+        alignItems="center"
+        w="100vw"
+      >
         {sponsors.map(({ title, image, href }, i) => (
-          <Flex  alignItems="center">
-            <Link
-              key={i}
-              href={href}
-              isExternal
-              filter="grayscale(100%)"
-              transition="all .2s ease-in"
-              _hover={{
-                filter: "none",
-              }}
-              
-            >
-              <Flex
-              
-              w={{ base: "100px", sm: "125px", md: "150px", lg: "175px", xl: "200px" }}
-              h={{ base: "50px", sm: "62.5px", md: "75px", lg: "87.5px", xl: "100px" }}
-              position="relative"
+          <Flex flexDir="column" justifyContent="center" alignItems="center">
+          <Link
+            key={i}
+            href={href}
+            isExternal
+            filter="grayscale(100%)"
+            transition="all .2s ease-in"
+            _hover={{
+              filter: "none",
+            }}
+            mt={{ base: "2rem", sm: "2.5rem", md: "3rem", lg: "3.5rem", xl: "4rem" }}
+          >
+            <Flex
 
-              >
+              w={{ base: "300px", sm: "200px", md: "150px", lg: "175px", xl: "200px" }}
+              h={{ base: "150px", sm: "100px", md: "75px", lg: "87.5px", xl: "100px" }}
+              // position="relative"
+              flexDir="column"
+              justifyContent="space-evenly"
+              alignItems="center"
+              flexWrap="wrap"
+              position="relative"
+            >
               <Image layout="fill" objectFit="fill" alt={title} src={image} />
-              </Flex>
-            </Link>
+            </Flex>
+          </Link>
           </Flex>
+
         ))}
-      </Flex>
+
+      </Grid>
     </Flex>
   );
 }

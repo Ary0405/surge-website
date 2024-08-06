@@ -1,6 +1,7 @@
 import { Spacer, Box } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Layout } from "~/components/layout";
+import { useScroll } from "framer-motion";
 
 import HeroSection from "~/components/landing/hero";
 import AftermovieSection from "~/components/landing/aftermovie";
@@ -10,7 +11,7 @@ import SponsorsSection from "~/components/landing/sponsors";
 import BlogsSection from "~/components/landing/blogs";
 
 function HomePage() {
-  
+
   // useEffect(() => {
   //   const lenis = new Lenis({
   //     duration: 1.5,
@@ -35,19 +36,49 @@ function HomePage() {
   //   };
   // }, []);
 
+  const [heroHeight, setHeroHeight] = useState(0);
+  const [heroHeightVh, setHeroHeightVh] = useState(0);
+
+  const container1 = useRef(null);
+  const { scrollYProgress:scrollYProgress1 } = useScroll({
+    target: container1,
+    offset: [`start ${heroHeightVh+10}vh`, "start start"]
+  })
+
+  // const container2 = useRef(null);
+  // const { scrollYProgress:scrollYProgress2 } = useScroll({
+  //   target: container2,
+  //   offset: ["start end", "start start"]
+  // })
+
+
+  useEffect(() => {
+    console.log(`HeroSection height in vh: ${(heroHeight )}vh`);
+  }, [heroHeight]);
 
   return (
     <Box >
-    <Layout title="Home" >
-      <HeroSection />
-      <AftermovieSection />
-      <StatsSection />
-      <SportsSection />
-      <SponsorsSection />
-      <BlogsSection />
+      <Layout title="Home" >
 
-      <Spacer h="5rem" />
-    </Layout>
+        <Box position="sticky" top={`${heroHeight}vh`} >
+        <HeroSection scrollYProgress1={scrollYProgress1} setHeight={setHeroHeight} setHeroHeightVh={setHeroHeightVh}/>
+        </Box>
+
+        <Box ref={container1}>
+        <AftermovieSection />
+        </Box>
+
+        <StatsSection />
+
+        {/* <Box position="sticky" top={`${100 - heroHeight2}vh`} ref={container2}> */}
+        <SportsSection/>
+        {/* </Box> */}
+
+        <SponsorsSection />
+        <BlogsSection />
+
+        <Spacer h="5rem" />
+      </Layout>
     </Box>
   );
 }
