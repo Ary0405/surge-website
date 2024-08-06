@@ -43,7 +43,7 @@ const MotionBox = motion(Box);
 function SportsSection() {
 
   const sectionRefs = useRef<(HTMLElement | SVGElement | null)[]>([]);
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const [height2, setHeight2] = useState(0);
   const [mt, setMt] = useState(0);
 
