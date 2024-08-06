@@ -8,7 +8,7 @@ const MotionFlex = motion(chakra.div);
 
 function BlogsSection() {
   return (
-    <Flex mt="6rem" flexDir="column" alignItems="center" mx="auto" w="100vw">
+    <Flex mt="6rem" flexDir="column" alignItems="center" w="100vw" overflowX="hidden">
       {/* <Flex
         gap={6}
         fontSize={60}
@@ -40,7 +40,7 @@ function BlogsSection() {
         flexShrink={0}
         justifyContent="flex-start"
         w="100vw"
-        overflowX="hidden"
+        // overflowX="hidden"
         >
         <MotionFlex
           initial={{ x: 0 }}
