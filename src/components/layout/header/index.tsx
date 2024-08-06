@@ -29,6 +29,8 @@ function Header() {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
+      px="4"
+      h="10vh"
     >
       <div className="container flex items-center justify-between py-6 mx-auto">
         <MotionLink
