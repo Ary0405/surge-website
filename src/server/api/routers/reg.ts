@@ -38,7 +38,6 @@ export const regRouter = createTRPCRouter({
         },
       });
     }),
-
   uploadPaymentProof: protectedProcedure
     .input(
       z.object({

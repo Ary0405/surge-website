@@ -10,13 +10,22 @@ const theme = extendTheme({
   styles: {
     global: () => ({
       body: {
-        bg: "",
-        color: "#ffffff",
-        fontFamily: "Gotham",
+        bg: "#000000", // Surge black background
+        color: "#FFFFFF", // White text
+        fontFamily: "Gotham, sans-serif", // Use Gotham font
       },
     }),
   },
   components: {
+    Modal: {
+      baseStyle: {
+        dialog: {
+          bg: "#000000", // Surge black background
+          color: "#FFFFFF", // White text
+          fontFamily: "Gotham, sans-serif", // Use Gotham font
+        },
+      },
+    },
     SideVideo: {
       baseStyle: {
         transition: "transform 0.2s ease-out",
