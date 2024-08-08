@@ -1,32 +1,26 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
     provider = "prisma-client-js"
+    // previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-    provider = "sqlite"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
+    provider     = "postgresql"
+    url          = env("DATABASE_URL")
+    directUrl    = env("DIRECT_URL")
+    relationMode = "prisma"
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
+model User {
+    id            String    @id @default(uuid())
+    name          String?   @db.VarChar(100)
+    email         String    @unique @db.VarChar(100)
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
+    Team          Team[]
 }
 
-// Necessary for Next auth
 model Account {
     id                       String  @id @default(cuid())
     userId                   String
@@ -54,21 +48,138 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
-}
-
 model VerificationToken {
     identifier String
     token      String   @unique
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Event {
+    id String @id @default(cuid())
+
+    name     String     @db.VarChar(100)
+    category Categories @default(MALE)
+
+    dateTo   String
+    dateFrom String
+
+    venue    String
+    location Locations @default(INDOOR)
+
+    rules String? @db.Text
+
+    winnerPrize       Int
+    winningTeamPrize  Int
+    runnerUpTeamPrize Int
+    runnerUpPrize     Int
+    minPlayers        Int
+    maxPlayers        Int
+    pricePerPlayer    Int
+
+    Team Team[]
+}
+
+model TeamMember {
+    id String @id @default(cuid())
+
+    name       String @db.VarChar(100)
+    email      String @db.VarChar(100)
+    phone      String @db.VarChar(100)
+    rollNumber String @db.VarChar(100)
+    eventId    String
+
+    playerType PlayerType @default(PLAYER)
+
+    teamId String
+    Team   Team   @relation(fields: [teamId], references: [id])
+
+    createdAt DateTime @default(now())
+}
+
+model Team {
+    id String @id @default(cuid())
+
+    registeredById String
+    registeredBy   User   @relation(fields: [registeredById], references: [id])
+
+    eventId String
+    Event   Event  @relation(fields: [eventId], references: [id])
+
+    TeamMembers    TeamMember[]
+    PaymentDetails PaymentDetails[]
+}
+
+model PaymentDetails {
+    id String @id @default(cuid())
+
+    paymentStatus PaymentStatus @default(NOT_PAID)
+
+    paymentProofUrl String @db.VarChar(100)
+    amount          Int
+
+    changedStatus DateTime @default(now())
+    createdAt     DateTime @default(now())
+
+    teamId String
+    Team   Team   @relation(fields: [teamId], references: [id])
+}
+
+model PlayerLog {
+    id Int @id @default(autoincrement())
+
+    userId       String
+    teamId       String
+    teamMemberId Int
+
+    PlayerState PlayerState @default(OUT_CAMPUS)
+
+    timestamp DateTime @default(now())
+}
+
+model GateLog {
+    id Int @id @default(autoincrement())
+
+    name     String      @default("")
+    phone    String      @default("")
+    college  String      @default("")
+    location PlayerState @default(IN_CAMPUS)
+
+    timestamp DateTime @default(now())
+}
+
+enum PaymentStatus {
+    PAID
+    NOT_PAID
+    MANUAL
+    PENDING
+}
+
+enum PlayerState {
+    IN_CAMPUS
+    OUT_CAMPUS
+}
+
+enum PlayerType {
+    CAPTAIN
+    PLAYER
+    ADDITIONAL
+}
+
+enum Role {
+    USER
+    ADMIN
+    ADMIN_SUPER
+}
+
+enum Categories {
+    MALE
+    FEMALE
+    MIXED
+}
+
+enum Locations {
+    INDOOR
+    OUTDOOR
 }

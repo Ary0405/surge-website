@@ -30,13 +30,11 @@ export function Layout({
       <GoogleAnalytics
         gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ""}
       />
-      <div className="max-w-screen-2xl px-0 mx-0" >
+      <div className="max-w-screen-2xl px-0 mx-auto">
         <div className=" z-50">
-        <Header />
+          <Header />
         </div>
-        <main className={`w-full pt-10 mx-0 ${customStyles}`}>
-          {children}
-        </main>
+        <main className={`w-full pt-10 mx-0 ${customStyles}`}>{children}</main>
       </div>
       {showFooter ? <Footer /> : null}
     </Providers>
