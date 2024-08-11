@@ -1,15 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import {
-  Flex,
-  Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 export const navItems = [
@@ -46,54 +38,23 @@ interface NavbarItemProps {
 
 function NavbarItem({ title, href, dropdownItems }: NavbarItemProps) {
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Menu isOpen={isOpen}>
-      <MenuButton
-        as={Link}
-        href={href}
-        onMouseEnter={onOpen}
-        onMouseLeave={onClose}
-        role="group"
-        // onClick={() => router.push(href)}
+    <Link href="#">
+      <Flex
+        alignItems="center"
+        transition="all .1s ease-in"
+        _groupHover={{
+          color: "#DAB785",
+        }}
+        _focus={{ outline: "none" }}
       >
-        <Flex
-          alignItems="center"
-          transition="all .1s ease-in"
-          _groupHover={{
-            color: "#DAB785",
-          }}
-          _focus={{ outline: "none" }}
-        >
-          <Text fontSize={14} fontWeight={500}>
-            {title}
-          </Text>
-          {dropdownItems ? <ChevronDownIcon /> : null}
-        </Flex>
-      </MenuButton>
-
-      {dropdownItems ? (
-        <MenuList
-          onMouseEnter={onOpen}
-          onMouseLeave={onClose}
-          bgColor="#002929"
-        >
-          {dropdownItems.map(({ title, href }, i) => (
-            <MenuItem
-              key={i}
-              as={Link}
-              href={href}
-              fontSize="14px"
-              bgColor="#002929"
-              _hover={{ bgColor: "#00191A" }}
-            >
-              {title}
-            </MenuItem>
-          ))}
-        </MenuList>
-      ) : null}
-    </Menu>
+        <Text fontSize={14} fontWeight={500}>
+          {title}
+        </Text>
+        {dropdownItems ? <ChevronDownIcon /> : null}
+      </Flex>
+    </Link>
   );
 }
 
