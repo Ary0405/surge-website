@@ -1,35 +1,33 @@
 import Image from "next/image";
 import { Flex, Box, Text, Grid } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { chakra } from '@chakra-ui/react';
+import { chakra } from "@chakra-ui/react";
 import { textBorder } from "./stats";
 
 const MotionFlex = motion(chakra.div);
 
 function BlogsSection() {
   return (
-    <Flex mt="6rem" flexDir="column" alignItems="center" w="100vw" overflowX="hidden">
-      {/* <Flex
-        gap={6}
-        fontSize={60}
-        whiteSpace="nowrap"
-        textTransform="uppercase"
-        fontFamily="Migra"
-        fontWeight={800}
-        fontStyle="italic"
-        color="#F4AC17"
-      >
-        <Text color="#121212" {...textBorder("#F4AC17")}>
-          Surge blogs
-        </Text>
-        <Text>Surge blogs</Text>
-        <Text color="#121212" {...textBorder("#F4AC17")}>
-          Surge blogs
-        </Text>
-      </Flex> */}
+    <Flex
+      mt="6rem"
+      flexDir="column"
+      alignItems="center"
+      mx="auto"
+      overflowX="hidden"
+      w="100vw"
+      position="relative"
+      left="50%"
+      ml="-50vw"
+    >
       <Flex
         gap={0}
-        fontSize={{ base: "40px", sm: "45px", md: "50px", lg: "55px", xl: "60px" }}
+        fontSize={{
+          base: "40px",
+          sm: "45px",
+          md: "50px",
+          lg: "55px",
+          xl: "60px",
+        }}
         whiteSpace="nowrap"
         textTransform="uppercase"
         fontFamily="Migra"
@@ -37,55 +35,38 @@ function BlogsSection() {
         fontStyle="italic"
         color="#F4AC17"
         flexDir="row"
-        flexShrink={0}
         justifyContent="flex-start"
         w="100vw"
-        // overflowX="hidden"
-        >
+        position="relative"
+      >
         <MotionFlex
-          initial={{ x: 0 }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          display="flex"
-          flexShrink={0}
-
-          gap={4}
-
-
-        >
-          <Text color="#121212" {...textBorder("#F4AC17")}>
-            Surge blogs
-          </Text>
-          <Text >Surge blogs</Text>
-          <Text color="#121212" {...textBorder("#F4AC17")}>
-            Surge blogs
-          </Text>
-          <Text pr={4}>Surge blogs</Text>
-        </MotionFlex>
-
-        <MotionFlex
-          initial={{ x: 0 }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 250, ease: "linear", repeat: Infinity }}
           display="flex"
           flexShrink={0}
           gap={4}
-
-
+          position="absolute"
         >
-          <Text color="#121212" {...textBorder("#F4AC17")}>
-            Surge blogs
-          </Text>
-          <Text >Surge blogs</Text>
-          <Text color="#121212" {...textBorder("#F4AC17")} >
-            Surge blogs
-          </Text>
-          <Text pr={4}>Surge blogs</Text>
+          {[...Array(100)].map((_, index) => (
+            <>
+              <Text>Surge blogs</Text>
+              <Text color="#121212" {...textBorder("#F4AC17")}>
+                Surge blogs
+              </Text>
+            </>
+          ))}
         </MotionFlex>
       </Flex>
 
-      
-      <Grid mt="1rem" templateColumns="repeat(4, 1fr)" gap={28} overflowX="hidden">
+      <Grid
+        mt="8rem"
+        gap={32}
+        templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(4, 1fr)" }}
+        templateRows={{ base: "repeat(4, 1fr)", md: "1fr" }}
+        justifyContent="space-evenly"
+        alignItems="center"
+        className="max-w-screen-2xl"
+      >
         {[...Array(4).keys()].map((_, i) => (
           <Box position="relative" width="300px" height="400px" key={i}>
             <Image

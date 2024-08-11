@@ -1,12 +1,10 @@
 import Image from "next/image";
-import { Flex, Box, Text, Grid, GridItem, Link } from "@chakra-ui/react";
+import { Flex, Text, Grid, Box, Link } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { chakra } from '@chakra-ui/react';
+import { chakra } from "@chakra-ui/react";
 import { textBorder } from "./stats";
-import { relative } from "path";
 
 const MotionFlex = motion(chakra.div);
-
 
 const sponsors = [
   {
@@ -33,10 +31,26 @@ const sponsors = [
 
 function SponsorsSection() {
   return (
-    <Flex mt="6rem" flexDir="column" alignItems="center" justifyContent="center">
+    <Flex
+      mt="6rem"
+      flexDir="column"
+      alignItems="center"
+      mx="auto"
+      overflowX="hidden"
+      w="100vw"
+      position="relative"
+      left="50%"
+      ml="-50vw"
+    >
       <Flex
         gap={0}
-        fontSize={{ base: "40px", sm: "45px", md: "50px", lg: "55px", xl: "60px" }}
+        fontSize={{
+          base: "40px",
+          sm: "45px",
+          md: "50px",
+          lg: "55px",
+          xl: "60px",
+        }}
         whiteSpace="nowrap"
         textTransform="uppercase"
         fontFamily="Migra"
@@ -44,100 +58,78 @@ function SponsorsSection() {
         fontStyle="italic"
         color="#F4AC17"
         flexDir="row"
-        flexShrink={0}
         justifyContent="flex-start"
         w="100vw"
-        overflowX="hidden"
+        position="relative"
       >
         <MotionFlex
-          initial={{ x: 0 }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          display="flex"
-          flexShrink={0}
-
-          gap={4}
-
-
-        >
-          <Text color="#121212" {...textBorder("#F4AC17")}>
-            Sponsors
-          </Text>
-          <Text >Sponsors</Text>
-          <Text color="#121212" {...textBorder("#F4AC17")}>
-            Sponsors
-          </Text>
-          <Text >Sponsors</Text>
-          <Text color="#121212" {...textBorder("#F4AC17")}>
-            Sponsors
-          </Text>
-          <Text pr={4}>Sponsors</Text>
-        </MotionFlex>
-
-        <MotionFlex
-          initial={{ x: 0 }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 250, ease: "linear", repeat: Infinity }}
           display="flex"
           flexShrink={0}
           gap={4}
-
-
+          position="absolute"
         >
-          <Text color="#121212" {...textBorder("#F4AC17")}>
-            Sponsors
-          </Text>
-          <Text >Sponsors</Text>
-          <Text color="#121212" {...textBorder("#F4AC17")}>
-            Sponsors
-          </Text>
-          <Text >Sponsors</Text>
-          <Text color="#121212" {...textBorder("#F4AC17")} >
-            Sponsors
-          </Text>
-          <Text pr={4}>Sponsors</Text>
+          {[...Array(100)].map((_, index) => (
+            <>
+              <Text>Sponsors</Text>
+              <Text color="#121212" {...textBorder("#F4AC17")}>
+                Sponsors
+              </Text>
+            </>
+          ))}
         </MotionFlex>
       </Flex>
 
-      <Grid 
-        gap={25}
+      <Grid
+        mt="8rem"
+        gap={32}
         templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(4, 1fr)" }}
-        templateRows={{ base: "repeat(2, 1fr)", md: "1fr" }}
+        templateRows={{ base: "repeat(4, 1fr)", md: "1fr" }}
         justifyContent="space-evenly"
         alignItems="center"
-        w="100vw"
+        className="max-w-screen-2xl"
       >
         {sponsors.map(({ title, image, href }, i) => (
-          <Flex flexDir="column" justifyContent="center" alignItems="center">
-          <Link
+          <Flex
             key={i}
-            href={href}
-            isExternal
-            filter="grayscale(100%)"
-            transition="all .2s ease-in"
-            _hover={{
-              filter: "none",
-            }}
-            mt={{ base: "2rem", sm: "2.5rem", md: "3rem", lg: "3.5rem", xl: "4rem" }}
+            flexDir="column"
+            justifyContent="center"
+            alignItems="center"
           >
-            <Flex
-
-              w={{ base: "300px", sm: "200px", md: "150px", lg: "175px", xl: "200px" }}
-              h={{ base: "150px", sm: "100px", md: "75px", lg: "87.5px", xl: "100px" }}
-              // position="relative"
-              flexDir="column"
-              justifyContent="space-evenly"
-              alignItems="center"
-              flexWrap="wrap"
-              position="relative"
+            <Link
+              href={href}
+              isExternal
+              filter="grayscale(100%)"
+              transition="all .2s ease-in"
+              _hover={{ filter: "none" }}
             >
-              <Image layout="fill" objectFit="fill" alt={title} src={image} />
-            </Flex>
-          </Link>
+              <Flex
+                w={{
+                  base: "300px",
+                  sm: "200px",
+                  md: "150px",
+                  lg: "175px",
+                  xl: "200px",
+                }}
+                h={{
+                  base: "150px",
+                  sm: "100px",
+                  md: "75px",
+                  lg: "87.5px",
+                  xl: "100px",
+                }}
+                flexDir="column"
+                justifyContent="space-evenly"
+                alignItems="center"
+                flexWrap="wrap"
+                position="relative"
+              >
+                <Image layout="fill" objectFit="fill" alt={title} src={image} />
+              </Flex>
+            </Link>
           </Flex>
-
         ))}
-
       </Grid>
     </Flex>
   );

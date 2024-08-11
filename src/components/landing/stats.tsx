@@ -1,6 +1,5 @@
-import { Flex, Box, Text, Grid, GridItem, flexbox } from "@chakra-ui/react";
+import { Flex, Box, Text, Grid } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { chakra } from "@chakra-ui/react";
 
 export const textBorder = (color: string) => ({
   textShadow: `1px 1px 0 ${color}, -1px 1px 0 ${color}, -1px -1px 0 ${color}, 1px -1px 0 ${color}`,
@@ -16,10 +15,10 @@ function StatsSection() {
       alignItems="center"
       mx="auto"
       overflowX="hidden"
-      w="100vw" // Full viewport width
+      w="100vw"
       position="relative"
-      left="50%" // Move the element left by 50% of its width
-      ml="-50vw" // Apply negative margin to account for the 50% shift
+      left="50%"
+      ml="-50vw"
     >
       <Flex
         gap={0}
@@ -43,27 +42,19 @@ function StatsSection() {
       >
         <MotionFlex
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+          transition={{ duration: 250, ease: "linear", repeat: Infinity }}
           display="flex"
           flexShrink={0}
           gap={4}
           position="absolute"
         >
-          {[...Array(2)].map((_, index) => (
-            <Flex key={index} display="flex" flexShrink={0} gap={4}>
-              <Text color="#121212" {...textBorder("#F4AC17")}>
-                Scene in the game
-              </Text>
+          {[...Array(100)].map((_, index) => (
+            <>
               <Text>Scene in the game</Text>
               <Text color="#121212" {...textBorder("#F4AC17")}>
                 Scene in the game
               </Text>
-              <Text pr={4}>Scene in the game</Text>
-              <Text color="#121212" {...textBorder("#F4AC17")}>
-                Scene in the game
-              </Text>
-              <Text pr={4}>Scene in the game</Text>
-            </Flex>
+            </>
           ))}
         </MotionFlex>
       </Flex>
