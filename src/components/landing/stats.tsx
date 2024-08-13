@@ -80,13 +80,7 @@ function StatsSection() {
             flexDir="column"
             justifyContent="space-evenly"
             alignItems="center"
-            fontSize={{
-              base: "65px",
-              sm: "70px",
-              md: "38px",
-              lg: "43px",
-              xl: "48px",
-            }}
+            fontSize={["45px", "55px"]}
             textTransform="uppercase"
             fontFamily="Migra"
             fontWeight={800}

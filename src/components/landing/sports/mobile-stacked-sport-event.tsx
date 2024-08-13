@@ -37,7 +37,7 @@ function MobileStackedSportEvent({
         h={"48rem"}
         templateColumns="1fr"
         bgColor="#000"
-        p={5}
+        p={10}
         borderRadius={15}
         boxShadow="0px 4px 25px 2px rgba(0,0,0,0.25)"
       >
@@ -53,7 +53,12 @@ function MobileStackedSportEvent({
           />
         </GridItem>
         <GridItem>
-          <Text fontWeight={600} fontSize={24}>
+          <Text
+            fontFamily="Alfa Slab One"
+            fontWeight={600}
+            fontSize={24}
+            textTransform="uppercase"
+          >
             {title}
           </Text>
           <Text mt={6}>{description}</Text>

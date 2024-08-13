@@ -158,13 +158,13 @@ function HeroSection({ scrollYProgress1, setHeight, setHeroHeightVh }) {
           <Text
             fontFamily="Migra"
             fontWeight={800}
-            fontSize="45px"
+            fontSize={["23px", "45px"]}
             fontStyle="italic"
             color="#F4AC17"
             textTransform="uppercase"
             textAlign="center"
           >
-            3&nbsp;4&nbsp;5&nbsp;November'23
+            3&nbsp;4&nbsp;5&nbsp;November'24
           </Text>
         </Box>
 
