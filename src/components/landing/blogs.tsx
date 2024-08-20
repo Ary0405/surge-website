@@ -47,7 +47,7 @@ function BlogsSection() {
           gap={4}
           position="absolute"
         >
-          {[...Array(100)].map((_, index) => (
+          {[...Array<number>(100)].map((_, index) => (
             <>
               <Text>Surge blogs</Text>
               <Text color="#121212" {...textBorder("#F4AC17")}>
@@ -85,7 +85,7 @@ function BlogsSection() {
               p={4}
             >
               <Text fontSize={25} fontWeight={600} color="#F4AC17">
-                Examining Kobe Bryant's Legacy?
+                Examining Kobe Bryant&apos;s Legacy?
               </Text>
             </Box>
           </Box>

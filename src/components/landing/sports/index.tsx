@@ -15,34 +15,82 @@ import MobileStackedSportEvent from "./mobile-stacked-sport-event";
 
 const sports = [
   {
-    title: "Tennis",
+    title: "Football",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean maximus mi nec consectetur facilisis. Cras egestas dapibus velit, eget ultrices velit sodales at. Proin accumsan dui at dui lobortis, vel vestibulum sem ullamcorper. Cras eros justo, tincidunt sit amet sapien vitae, vulputate molestie odio. Vivamus pellentesque dui finibus tortor condimentum, at malesuada ligula semper. Nam viverra tellus et gravida dictum.",
-    tempImg: "/images/landing/sports/tennis_stack.png",
+      "Where every pass counts and every goal ignites the crowd—football is more than a game; it's a battle of strategy and stamina on the ultimate field of dreams.",
+    tempImg: "/images/landing/sports/football_stack.png",
   },
   {
-    title: "Table Tennis",
+    title: "Badminton",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean maximus mi nec consectetur facilisis. Cras egestas dapibus velit, eget ultrices velit sodales at. Proin accumsan dui at dui lobortis, vel vestibulum sem ullamcorper. Cras eros justo, tincidunt sit amet sapien vitae, vulputate molestie odio. Vivamus pellentesque dui finibus tortor condimentum, at malesuada ligula semper. Nam viverra tellus et gravida dictum.",
-    tempImg: "/images/landing/sports/table_tennis_stack.png",
+      "In a game where agility meets precision, badminton is a lightning-fast duel where every shuttlecock can change the course of victory.",
+    tempImg: "/images/landing/sports/badminton_stack.png",
+  },
+  {
+    title: "Athletics",
+    description:
+      "The pursuit of excellence begins on the track—athletics is the purest form of human speed, strength, and endurance, pushing the limits of what’s possible.",
+    tempImg: "/images/landing/sports/athletics_stack.png",
   },
   {
     title: "Basketball",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean maximus mi nec consectetur facilisis. Cras egestas dapibus velit, eget ultrices velit sodales at. Proin accumsan dui at dui lobortis, vel vestibulum sem ullamcorper. Cras eros justo, tincidunt sit amet sapien vitae, vulputate molestie odio. Vivamus pellentesque dui finibus tortor condimentum, at malesuada ligula semper. Nam viverra tellus et gravida dictum.",
+      "Where the court is a canvas and each player paints with speed, skill, and slam dunks—basketball is the ultimate showcase of team dynamics and individual brilliance.",
     tempImg: "/images/landing/sports/basketball_stack.png",
   },
   {
-    title: "Football",
+    title: "Powerlifting",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean maximus mi nec consectetur facilisis. Cras egestas dapibus velit, eget ultrices velit sodales at. Proin accumsan dui at dui lobortis, vel vestibulum sem ullamcorper. Cras eros justo, tincidunt sit amet sapien vitae, vulputate molestie odio. Vivamus pellentesque dui finibus tortor condimentum, at malesuada ligula semper. Nam viverra tellus et gravida dictum.",
-    tempImg: "/images/landing/sports/football_stack.png",
+      "In the world of powerlifting, it’s all about raw strength and mental toughness—where the barbell is a test of will, and every lift is a statement of power.",
+    tempImg: "/images/landing/sports/powerlifting_stack.png",
+  },
+  {
+    title: "Cricket",
+    description:
+      "Cricket is a game of centuries and split-second decisions, where strategy and skill blend to create moments of brilliance on the pitch.",
+    tempImg: "/images/landing/sports/cricket_stack.png",
   },
   {
     title: "Volleyball",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean maximus mi nec consectetur facilisis. Cras egestas dapibus velit, eget ultrices velit sodales at. Proin accumsan dui at dui lobortis, vel vestibulum sem ullamcorper. Cras eros justo, tincidunt sit amet sapien vitae, vulputate molestie odio. Vivamus pellentesque dui finibus tortor condimentum, at malesuada ligula semper. Nam viverra tellus et gravida dictum.",
+      "Volleyball is a game of height, hustle, and heart, where the net separates but the spirit unites in every spike, set, and block.",
     tempImg: "/images/landing/sports/volleyball_stack.png",
+  },
+  {
+    title: "Table Tennis",
+    description:
+      "The thrill of table tennis lies in its lightning-fast exchanges and razor-sharp reflexes—a game where every spin and smash can turn the tide.",
+    tempImg: "/images/landing/sports/table_tennis_stack.png",
+  },
+  {
+    title: "Lawn Tennis",
+    description:
+      "On the lawn tennis court, every serve is a challenge and every rally a test of endurance, skill, and sheer willpower.",
+    tempImg: "/images/landing/sports/lawn_tennis_stack.png",
+  },
+  {
+    title: "Squash",
+    description:
+      "Squash is the ultimate test of speed and stamina, where every wall is an opportunity, and every shot is a test of reflexes and strategy.",
+    tempImg: "/images/landing/sports/squash_stack.png",
+  },
+  {
+    title: "Chess",
+    description:
+      "Chess is the battlefield of the mind, where every move is calculated, every piece a soldier, and the ultimate prize is a checkmate.",
+    tempImg: "/images/landing/sports/chess_stack.png",
+  },
+  {
+    title: "Valorant (E-Sport)",
+    description:
+      "In Valorant, precision and strategy are your weapons—where every round is a fight for dominance in a world where only the sharpest minds and quickest reflexes survive.",
+    tempImg: "/images/landing/sports/valorant_stack.png",
+  },
+  {
+    title: "FIFA (E-Sport)",
+    description:
+      "FIFA brings the beautiful game to the digital arena, where every virtual kick, pass, and goal mirrors the intensity of real-world football passion.",
+    tempImg: "/images/landing/sports/fifa_stack.png",
   },
 ];
 

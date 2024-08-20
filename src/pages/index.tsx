@@ -76,7 +76,7 @@ function HomePage() {
         {/* </Box> */}
 
         <SponsorsSection />
-        <BlogsSection />
+        {/* <BlogsSection /> */}
 
         <Spacer h="5rem" />
       </Layout>

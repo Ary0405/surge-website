@@ -48,7 +48,7 @@ function StatsSection() {
           gap={4}
           position="absolute"
         >
-          {[...Array(100)].map((_, index) => (
+          {[...Array<number>(100)].map((_, index) => (
             <>
               <Text>Scene in the game</Text>
               <Text color="#121212" {...textBorder("#F4AC17")}>
@@ -69,10 +69,10 @@ function StatsSection() {
         className="max-w-screen-2xl"
       >
         {[
-          { title: "Teams", count: "10" },
-          { title: "Events", count: "1" },
-          { title: "Players", count: "100" },
-          { title: "Footfall", count: "1k" },
+          { title: "Teams", count: "109+" },
+          { title: "Events", count: "17" },
+          { title: "Players", count: "1500+" },
+          { title: "Footfall", count: "15k+" },
           { title: "Sweat", count: "∞" },
         ].map(({ title, count }, i) => (
           <Flex

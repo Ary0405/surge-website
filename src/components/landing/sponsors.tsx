@@ -64,7 +64,7 @@ function SponsorsSection() {
           gap={4}
           position="absolute"
         >
-          {[...Array(100)].map((_, index) => (
+          {[...Array<number>(100)].map((_, index) => (
             <Box key={index} display="flex" flexDir="row" gap={4}>
               <Text>Sponsors</Text>
               <Text color="#121212" {...textBorder("#F4AC17")}>

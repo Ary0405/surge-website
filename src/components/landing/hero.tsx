@@ -1,16 +1,24 @@
 import { Flex, Box, Text, Button } from "@chakra-ui/react";
 import Image from "next/image";
-import { useTransform, motion } from "framer-motion";
+import { useTransform, motion, MotionValue } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const MotionBox = motion(Box);
 
-function HeroSection({ scrollYProgress1, setHeight, setHeroHeightVh }) {
+function HeroSection({
+  scrollYProgress1,
+  setHeight,
+  setHeroHeightVh,
+}: {
+  scrollYProgress1: MotionValue<number>;
+  setHeight: (value: number) => void;
+  setHeroHeightVh: (value: number) => void;
+}) {
   const sectionRef = useRef(null);
 
   useEffect(() => {
     if (sectionRef.current) {
-      const heightInPixels = sectionRef.current.offsetHeight;
+      const heightInPixels = (sectionRef.current as HTMLElement).offsetHeight;
       const heightInVh = (heightInPixels / window.innerHeight) * 100;
       setHeroHeightVh(heightInVh);
       if (100 - heightInVh <= 0) {
@@ -164,7 +172,7 @@ function HeroSection({ scrollYProgress1, setHeight, setHeroHeightVh }) {
             textTransform="uppercase"
             textAlign="center"
           >
-            3&nbsp;4&nbsp;5&nbsp;November'24
+            3&nbsp;4&nbsp;5&nbsp;November&apos;24
           </Text>
         </Box>
 
