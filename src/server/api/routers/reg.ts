@@ -1,4 +1,3 @@
-import { PaymentStatus } from "@prisma/client";
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -10,6 +9,28 @@ export const regRouter = createTRPCRouter({
   getAvailableSports: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.event.findMany();
   }),
+  getEventDetails: publicProcedure
+    .input(
+      z.object({
+        sportSlug: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const { sportSlug } = input;
+
+      const event = await ctx.db.event.findUnique({
+        where: {
+          slug: sportSlug,
+        },
+      });
+
+      if (!event) {
+        throw new Error("Event not found");
+      }
+
+      return event;
+    }),
+
   checkout: protectedProcedure
     .input(
       z.object({
@@ -38,6 +59,7 @@ export const regRouter = createTRPCRouter({
         },
       });
     }),
+
   uploadPaymentProof: protectedProcedure
     .input(
       z.object({
@@ -48,6 +70,7 @@ export const regRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const { teamId, paymentProofUrl, amount } = input;
+
       return await ctx.db.paymentDetails.create({
         data: {
           teamId,

@@ -13,84 +13,84 @@ import { useState, useRef, useEffect } from "react";
 
 import MobileStackedSportEvent from "./mobile-stacked-sport-event";
 
-const sports = [
+export const sportsEvents = [
   {
     title: "Football",
     description:
       "Where every pass counts and every goal ignites the crowd—football is more than a game; it's a battle of strategy and stamina on the ultimate field of dreams.",
-    tempImg: "/images/landing/sports/football_stack.png",
+    tempImg: "/images/landing/sports/football.png",
   },
   {
     title: "Badminton",
     description:
       "In a game where agility meets precision, badminton is a lightning-fast duel where every shuttlecock can change the course of victory.",
-    tempImg: "/images/landing/sports/badminton_stack.png",
+    tempImg: "/images/landing/sports/badminton.png",
   },
   {
     title: "Athletics",
     description:
       "The pursuit of excellence begins on the track—athletics is the purest form of human speed, strength, and endurance, pushing the limits of what’s possible.",
-    tempImg: "/images/landing/sports/athletics_stack.png",
+    tempImg: "/images/landing/sports/athletics.png",
   },
   {
     title: "Basketball",
     description:
       "Where the court is a canvas and each player paints with speed, skill, and slam dunks—basketball is the ultimate showcase of team dynamics and individual brilliance.",
-    tempImg: "/images/landing/sports/basketball_stack.png",
+    tempImg: "/images/landing/sports/basketball.png",
   },
   {
     title: "Powerlifting",
     description:
       "In the world of powerlifting, it’s all about raw strength and mental toughness—where the barbell is a test of will, and every lift is a statement of power.",
-    tempImg: "/images/landing/sports/powerlifting_stack.png",
+    tempImg: "/images/landing/sports/powerlifting.png",
   },
   {
     title: "Cricket",
     description:
       "Cricket is a game of centuries and split-second decisions, where strategy and skill blend to create moments of brilliance on the pitch.",
-    tempImg: "/images/landing/sports/cricket_stack.png",
+    tempImg: "/images/landing/sports/cricket.png",
   },
   {
     title: "Volleyball",
     description:
       "Volleyball is a game of height, hustle, and heart, where the net separates but the spirit unites in every spike, set, and block.",
-    tempImg: "/images/landing/sports/volleyball_stack.png",
+    tempImg: "/images/landing/sports/volleyball.png",
   },
   {
     title: "Table Tennis",
     description:
       "The thrill of table tennis lies in its lightning-fast exchanges and razor-sharp reflexes—a game where every spin and smash can turn the tide.",
-    tempImg: "/images/landing/sports/table_tennis_stack.png",
+    tempImg: "/images/landing/sports/table_tennis.png",
   },
   {
     title: "Lawn Tennis",
     description:
       "On the lawn tennis court, every serve is a challenge and every rally a test of endurance, skill, and sheer willpower.",
-    tempImg: "/images/landing/sports/lawn_tennis_stack.png",
+    tempImg: "/images/landing/sports/tennis.png",
   },
   {
     title: "Squash",
     description:
       "Squash is the ultimate test of speed and stamina, where every wall is an opportunity, and every shot is a test of reflexes and strategy.",
-    tempImg: "/images/landing/sports/squash_stack.png",
+    tempImg: "/images/landing/sports/squash.png",
   },
   {
     title: "Chess",
     description:
       "Chess is the battlefield of the mind, where every move is calculated, every piece a soldier, and the ultimate prize is a checkmate.",
-    tempImg: "/images/landing/sports/chess_stack.png",
+    tempImg: "/images/landing/sports/chess.png",
   },
   {
     title: "Valorant (E-Sport)",
     description:
       "In Valorant, precision and strategy are your weapons—where every round is a fight for dominance in a world where only the sharpest minds and quickest reflexes survive.",
-    tempImg: "/images/landing/sports/valorant_stack.png",
+    tempImg: "/images/landing/sports/valorant.png",
   },
   {
     title: "FIFA (E-Sport)",
     description:
       "FIFA brings the beautiful game to the digital arena, where every virtual kick, pass, and goal mirrors the intensity of real-world football passion.",
-    tempImg: "/images/landing/sports/fifa_stack.png",
+    tempImg: "/images/landing/sports/fifa.png",
   },
 ];
 
@@ -162,7 +162,7 @@ function SportsSection() {
   if (isMobile) {
     return (
       <Flex flexDir="column" maxW="60rem" mx="auto">
-        {sports.map((sport, i) => (
+        {sportsEvents.map((sport, i) => (
           <MobileStackedSportEvent key={i} {...sport} index={i} />
         ))}
       </Flex>
@@ -178,7 +178,7 @@ function SportsSection() {
         gap={8}
       >
         <GridItem>
-          {sports.map(({ title, description }, i) => (
+          {sportsEvents.map(({ title, description }, i) => (
             <SportSection
               key={i}
               title={title}
@@ -197,10 +197,10 @@ function SportsSection() {
         >
           <MotionImage
             key={activeIndex} // Ensure the image transitions smoothly
-            width={600}
-            height={600}
-            alt={sports[activeIndex]?.title ?? ""}
-            src={sports[activeIndex]?.tempImg ?? ""}
+            width={450}
+            height={450}
+            alt={sportsEvents[activeIndex]?.title ?? ""}
+            src={sportsEvents[activeIndex]?.tempImg ?? ""}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}

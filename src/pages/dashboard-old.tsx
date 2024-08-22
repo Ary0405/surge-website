@@ -37,6 +37,7 @@ const sportsEvents = [
 
 function Dashboard() {
   const { data: session } = useSession();
+  console.log({ session });
   const userName = session?.user?.name?.split(" ")[0] ?? "User";
   const [cart, setCart] = useState<string[]>([]);
   const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
