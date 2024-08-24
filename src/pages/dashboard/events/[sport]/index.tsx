@@ -9,6 +9,7 @@ import {
   Icon,
   SimpleGrid,
   Spacer,
+  Spinner,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
@@ -33,7 +34,15 @@ const EventPage = () => {
   if (isLoading) {
     return (
       <Layout>
-        <Text>Loading...</Text>
+        <Flex justifyContent="center" alignItems="center" height="30vh">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="#F4AC18"
+            size="xl"
+          />
+        </Flex>
       </Layout>
     );
   }
@@ -45,6 +54,10 @@ const EventPage = () => {
       </Layout>
     );
   }
+
+  const handleRegisterClick = () => {
+    router.push(`${router.asPath}/register`);
+  };
 
   return (
     <Layout>
@@ -116,6 +129,7 @@ const EventPage = () => {
               transition="all 0.3s ease"
               color="#fff"
               bgColor="#F4AC17"
+              onClick={handleRegisterClick}
             >
               Register Now
             </Button>

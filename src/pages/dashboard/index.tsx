@@ -1,55 +1,15 @@
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  Text,
-  Spacer,
-  Button,
-  Image,
-} from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
-import { Global } from "@emotion/react";
+import { Box, Button, Flex, Spacer, Icon, Text, Badge } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import { FaCalendarAlt, FaHotel, FaShoppingCart } from "react-icons/fa";
 import { Layout } from "~/components/layout";
 import { textBorder } from "~/components/landing/stats";
+import { Global } from "@emotion/react";
 import { api } from "~/utils/api";
-import { FaArrowRight } from "react-icons/fa";
 
 function Dashboard() {
-  const { data: session } = useSession();
   const router = useRouter();
-
-  // Fetch sports events using tRPC
-  const {
-    data: sportsEvents,
-    isLoading,
-    isError,
-  } = api.reg.getAvailableSports.useQuery();
-
-  if (isLoading) {
-    return (
-      <Layout title="Events">
-        <Text>Loading...</Text>
-      </Layout>
-    );
-  }
-
-  if (isError) {
-    return (
-      <Layout title="Events">
-        <Text>Error loading events.</Text>
-      </Layout>
-    );
-  }
-
-  // Function to map the event name to its corresponding image file
-  const getSportImage = (slug: string) => {
-    return `/images/landing/sports/${slug.replace("-", "_")}.png`;
-  };
-
   return (
-    <Layout title="Events">
+    <Layout title="Dashboard">
       <Global
         styles={{
           body: {
@@ -57,6 +17,7 @@ function Dashboard() {
           },
         }}
       />
+
       <Flex
         textTransform="uppercase"
         fontFamily="Migra"
@@ -72,9 +33,9 @@ function Dashboard() {
       >
         {[...Array<number>(8)].map((_, index) => (
           <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Events</Text>
+            <Text>Dashboard</Text>
             <Text color="#121212" {...textBorder("#F4AC17")}>
-              Events
+              Dashboard
             </Text>
           </Box>
         ))}
@@ -96,9 +57,9 @@ function Dashboard() {
       >
         {[...Array<number>(8)].map((_, index) => (
           <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Events</Text>
+            <Text>Dashboard</Text>
             <Text color="#121212" {...textBorder("#F4AC17")}>
-              Events
+              Dashboard
             </Text>
           </Box>
         ))}
@@ -120,96 +81,68 @@ function Dashboard() {
       >
         {[...Array<number>(8)].map((_, index) => (
           <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Events</Text>
+            <Text>Dashboard</Text>
             <Text color="#121212" {...textBorder("#F4AC17")}>
-              Events
+              Dashboard
             </Text>
           </Box>
         ))}
       </Flex>
 
-      <Grid templateColumns="1fr 1fr" mx="5rem" gap={10}>
-        {sportsEvents &&
-          sportsEvents.map(
-            ({ name, slug, dateFrom, dateTo, pricePerPlayer, rules }, i) => (
-              <GridItem
-                key={i}
-                bgColor="#171717"
-                borderRadius="10rem"
-                as={Grid}
-                templateColumns="2fr 3fr"
-                templateRows="1fr"
-                gap={8}
-                p="35px"
-                cursor="pointer"
-                transition="all .1s ease-in"
-                onClick={() => router.push(`/dashboard/events/${slug}`)}
-                _hover={{
-                  transform: "translateY(-1px)",
-                }}
-              >
-                <GridItem
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                >
-                  <Image
-                    src={getSportImage(slug)}
-                    alt={name}
-                    borderRadius="full"
-                    boxSize="200px"
-                  />
-                </GridItem>
-                <GridItem>
-                  <Text fontSize="25px" fontWeight={600} color="white">
-                    {name}
-                  </Text>
-                  <Text fontSize="14px" fontWeight={400} color="gray.400">
-                    {rules} {/* Using rules as description */}
-                  </Text>
-                  <Text fontSize="20px" fontWeight={500} color="#F4AC17" mt={4}>
-                    ₹{pricePerPlayer} / Person
-                  </Text>
-                  <Text
-                    fontSize="15px"
-                    fontWeight={400}
-                    color="gray.400"
-                    mt={2}
-                  >
-                    {new Date(dateFrom).toLocaleString("en-IN", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    })}{" "}
-                    -{" "}
-                    {new Date(dateTo).toLocaleString("en-IN", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                      hour: "numeric",
-                      minute: "numeric",
-                      hour12: true,
-                    })}
-                  </Text>
-                  <Button
-                    size="md"
-                    color="#F4AC17"
-                    mt={4}
-                    rightIcon={<FaArrowRight />}
-                    variant="link"
-                  >
-                    Register
-                  </Button>
-                </GridItem>
-              </GridItem>
-            )
-          )}
-      </Grid>
+      <Flex justifyContent="flex-end" mx="25rem" mb={8}>
+        <Button
+          size="lg"
+          colorScheme="yellow"
+          color="white"
+          bgColor="#F4AC17"
+          width="200px"
+          fontSize="xl"
+          onClick={() => router.push("/dashboard/cart")}
+          position="relative"
+        >
+          <Icon as={FaShoppingCart} w={8} h={8} position="relative"></Icon>
+          <Text ml={4}>Cart</Text>
+        </Button>
+      </Flex>
 
-      <Spacer h="5rem" />
+      <Flex
+        direction={{ base: "column", md: "row" }}
+        alignItems="center"
+        justifyContent="center"
+        height="auto"
+        gap={8}
+        mt="4rem"
+        mb={4}
+      >
+        <Button
+          size="lg"
+          colorScheme="yellow"
+          color="white"
+          bgColor="#F4AC17"
+          width="350px"
+          height="250px"
+          fontSize="2xl"
+          flexDirection="column"
+          onClick={() => router.push("/dashboard/events")}
+        >
+          <Icon as={FaCalendarAlt} w={16} h={16} mb={4} />
+          Events
+        </Button>
+        <Button
+          size="lg"
+          colorScheme="gray"
+          width="350px"
+          height="250px"
+          fontSize="2xl"
+          flexDirection="column"
+          isDisabled={true}
+        >
+          <Icon as={FaHotel} w={16} h={16} mb={4} />
+          Accommodation
+        </Button>
+      </Flex>
+
+      <Spacer h="8rem" />
     </Layout>
   );
 }

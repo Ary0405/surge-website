@@ -69,7 +69,7 @@ model TeamMember {
     playerType PlayerType @default(PLAYER)
 
     teamId String
-    Team   Team   @relation(fields: [teamId], references: [id])
+    Team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
 }
@@ -83,23 +83,23 @@ model Team {
     eventId String
     Event   Event  @relation(fields: [eventId], references: [id])
 
-    TeamMembers    TeamMember[]
-    PaymentDetails PaymentDetails[]
+    TeamMembers      TeamMember[]
+    PaymentDetails   PaymentDetails? @relation(fields: [paymentDetailsId], references: [id], onDelete: Cascade)
+    paymentDetailsId String?
 }
 
 model PaymentDetails {
     id String @id @default(cuid())
 
-    paymentStatus PaymentStatus @default(NOT_PAID)
+    paymentStatus PaymentStatus @default(PENDING)
 
-    paymentProofUrl String @db.VarChar(100)
+    paymentProofUrl String? @db.VarChar(100)
     amount          Int
 
     changedStatus DateTime @default(now())
     createdAt     DateTime @default(now())
 
-    teamId String
-    Team   Team   @relation(fields: [teamId], references: [id])
+    Teams Team[]
 }
 
 model PlayerLog {
