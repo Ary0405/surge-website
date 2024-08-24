@@ -66,7 +66,7 @@ export const sportsEvents = [
     title: "Lawn Tennis",
     description:
       "On the lawn tennis court, every serve is a challenge and every rally a test of endurance, skill, and sheer willpower.",
-    tempImg: "/images/landing/sports/tennis.png",
+    tempImg: "/images/landing/sports/lawn_tennis.png",
   },
   {
     title: "Squash",

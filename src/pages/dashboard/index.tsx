@@ -1,51 +1,55 @@
-import { useState } from "react";
 import {
   Box,
-  Button,
   Flex,
   Grid,
   GridItem,
-  Heading,
   Text,
-  useColorMode,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Input,
-  useDisclosure,
-  Badge,
   Spacer,
+  Button,
+  Image,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { Global } from "@emotion/react";
-
-import { FaBasketballBall } from "react-icons/fa";
-import { MdSportsCricket } from "react-icons/md";
-import { PiSoccerBallDuotone } from "react-icons/pi";
-import { MdOutlineSportsTennis } from "react-icons/md";
-
+import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
-
 import { textBorder } from "~/components/landing/stats";
-
-import { sportsEvents } from "~/components/landing/sports";
-
-// const sportsEvents = [
-//   { name: "Football", icon: PiSoccerBallDuotone, status: "NOT BOOKED" },
-//   { name: "Cricket", icon: MdSportsCricket, status: "NOT BOOKED" },
-//   { name: "Basketball", icon: FaBasketballBall, status: "NOT BOOKED" },
-//   { name: "Tennis", icon: MdOutlineSportsTennis, status: "NOT BOOKED" },
-// ];
+import { api } from "~/utils/api";
+import { FaArrowRight } from "react-icons/fa";
 
 function Dashboard() {
   const { data: session } = useSession();
+  const router = useRouter();
+
+  // Fetch sports events using tRPC
+  const {
+    data: sportsEvents,
+    isLoading,
+    isError,
+  } = api.reg.getAvailableSports.useQuery();
+
+  if (isLoading) {
+    return (
+      <Layout title="Events">
+        <Text>Loading...</Text>
+      </Layout>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Layout title="Events">
+        <Text>Error loading events.</Text>
+      </Layout>
+    );
+  }
+
+  // Function to map the event name to its corresponding image file
+  const getSportImage = (slug: string) => {
+    return `/images/landing/sports/${slug.replace("-", "_")}.png`;
+  };
 
   return (
-    <Layout title="Login">
+    <Layout title="Events">
       <Global
         styles={{
           body: {
@@ -107,7 +111,7 @@ function Dashboard() {
         fontStyle="italic"
         color="#F4AC17"
         lineHeight="150px"
-        gap={4}
+        gap={2}
         left="50%"
         right="50%"
         ml="-50vw"
@@ -124,31 +128,85 @@ function Dashboard() {
         ))}
       </Flex>
 
-      <Grid templateColumns="1fr 1fr" mx="10rem" gap={10}>
-        {sportsEvents.map(({ title, description, tempImg }, i) => (
-          <GridItem
-            key={i}
-            bgColor="#171717"
-            h="15rem"
-            borderRadius="10rem"
-            as={Grid}
-            templateColumns="1fr 1fr"
-            templateRows="1fr"
-            p="30px"
-            cursor="pointer"
-            transition="all .1s ease-in"
-            _hover={{
-              transform: "translateY(-1px)",
-            }}
-          >
-            <GridItem></GridItem>
-            <GridItem>
-              <Text fontSize="25px" fontWeight={600}>
-                {title}
-              </Text>
-            </GridItem>
-          </GridItem>
-        ))}
+      <Grid templateColumns="1fr 1fr" mx="5rem" gap={10}>
+        {sportsEvents &&
+          sportsEvents.map(
+            ({ name, slug, dateFrom, dateTo, pricePerPlayer, rules }, i) => (
+              <GridItem
+                key={i}
+                bgColor="#171717"
+                borderRadius="10rem"
+                as={Grid}
+                templateColumns="2fr 3fr"
+                templateRows="1fr"
+                gap={8}
+                p="35px"
+                cursor="pointer"
+                transition="all .1s ease-in"
+                onClick={() => router.push(`/dashboard/events/${slug}`)}
+                _hover={{
+                  transform: "translateY(-1px)",
+                }}
+              >
+                <GridItem
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Image
+                    src={getSportImage(slug)}
+                    alt={name}
+                    borderRadius="full"
+                    boxSize="200px"
+                  />
+                </GridItem>
+                <GridItem>
+                  <Text fontSize="25px" fontWeight={600} color="white">
+                    {name}
+                  </Text>
+                  <Text fontSize="14px" fontWeight={400} color="gray.400">
+                    {rules} {/* Using rules as description */}
+                  </Text>
+                  <Text fontSize="20px" fontWeight={500} color="#F4AC17" mt={4}>
+                    ₹{pricePerPlayer} / Person
+                  </Text>
+                  <Text
+                    fontSize="15px"
+                    fontWeight={400}
+                    color="gray.400"
+                    mt={2}
+                  >
+                    {new Date(dateFrom).toLocaleString("en-IN", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}{" "}
+                    -{" "}
+                    {new Date(dateTo).toLocaleString("en-IN", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                  </Text>
+                  <Button
+                    size="md"
+                    color="#F4AC17"
+                    mt={4}
+                    rightIcon={<FaArrowRight />}
+                    variant="link"
+                  >
+                    Register
+                  </Button>
+                </GridItem>
+              </GridItem>
+            )
+          )}
       </Grid>
 
       <Spacer h="5rem" />

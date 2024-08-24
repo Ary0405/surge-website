@@ -1,8 +1,24 @@
-import { Box, Heading, Text, Flex, Button, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Text,
+  Flex,
+  Button,
+  Divider,
+  Stack,
+  Icon,
+  SimpleGrid,
+  Spacer,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
-
 import { api } from "~/utils/api";
+import {
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaUsers,
+  FaTrophy,
+} from "react-icons/fa";
 
 const EventPage = () => {
   const router = useRouter();
@@ -32,52 +48,112 @@ const EventPage = () => {
 
   return (
     <Layout>
-      <Box maxW="6xl" mx="auto" py={8}>
-        <Heading as="h1" size="2xl" mb={4}>
-          {data.name}
-        </Heading>
-        <Text mb={6}>{data.rules}</Text>
+      <Box
+        maxW="6xl"
+        mx="auto"
+        py={8}
+        px={6}
+        bg="gray.900"
+        borderRadius="30px"
+        border="1px solid #F4AC18"
+        boxShadow="lg"
+        mt={8}
+      >
+        <Flex justifyContent="space-between" alignItems="flex-start" mb={8}>
+          <Box>
+            <Heading as="h1" size="2xl" color="#F4AC18" mb={4}>
+              {data.name}
+            </Heading>
+            <Text fontSize="lg" mb={6} color="gray.300">
+              {data.rules}
+            </Text>
 
-        <Flex justifyContent="space-between" alignItems="center" mb={6}>
-          <Box>
-            <Text fontSize="xl">Location: {data.venue}</Text>
-            <Text fontSize="xl">Category: {data.category}</Text>
-            <Text fontSize="xl">
-              Date: {new Date(data.dateFrom).toLocaleDateString()} -{" "}
-              {new Date(data.dateTo).toLocaleDateString()}
-            </Text>
-            <Text fontSize="xl">Registration Cost: ₹{data.pricePerPlayer}</Text>
-            <Text fontSize="xl">
-              Team Size: {data.minPlayers} - {data.maxPlayers}
-            </Text>
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10} mb={8}>
+              <Flex align="center">
+                <Icon as={FaMapMarkerAlt} w={6} h={6} color="#F4AC18" mr={4} />
+                <Text fontSize="xl" color="gray.100">
+                  Location: {data.venue}
+                </Text>
+              </Flex>
+              <Flex align="center">
+                <Icon as={FaUsers} w={6} h={6} color="#F4AC18" mr={4} />
+                <Text fontSize="xl" color="gray.100">
+                  Category: {data.category}
+                </Text>
+              </Flex>
+              <Flex align="center">
+                <Icon as={FaCalendarAlt} w={6} h={6} color="#F4AC18" mr={4} />
+                <Text fontSize="xl" color="gray.100">
+                  Date: {new Date(data.dateFrom).toLocaleDateString()} -{" "}
+                  {new Date(data.dateTo).toLocaleDateString()}
+                </Text>
+              </Flex>
+              <Flex align="center">
+                <Icon as={FaUsers} w={6} h={6} color="#F4AC18" mr={4} />
+                <Text fontSize="xl" color="gray.100">
+                  Team Size: {data.minPlayers} - {data.maxPlayers}
+                </Text>
+              </Flex>
+            </SimpleGrid>
           </Box>
-          <Box>
+          <Box textAlign="right">
+            <Flex alignItems="center" gap={4} mb={2} mx="auto">
+              <Text fontSize="2xl" color="#F4AC18">
+                ₹{data.pricePerPlayer}
+              </Text>
+              <Text fontSize="sm" color="gray.100">
+                per player
+              </Text>
+            </Flex>
             <Button
               size="lg"
               colorScheme="yellow"
-              onClick={() => alert("Booking feature coming soon!")}
+              boxShadow="lg"
+              _hover={{
+                boxShadow: "xl",
+                transform: "translateY(-2px)",
+              }}
+              transition="all 0.3s ease"
+              color="#fff"
+              bgColor="#F4AC17"
             >
-              Register
+              Register Now
             </Button>
           </Box>
         </Flex>
 
-        <Divider />
+        <Divider borderColor="gray.700" mb={8} />
 
-        <Box mt={8}>
-          <Heading as="h2" size="lg" mb={4}>
+        <Box>
+          <Heading as="h2" size="lg" mb={4} color="#F4AC18">
             Prizes
           </Heading>
-          <Text>Winner Prize: ₹{data.winnerPrize}</Text>
-          {data.winningTeamPrize > 0 && (
-            <Text>Winning Team Prize: ₹{data.winningTeamPrize}</Text>
-          )}
-          <Text>Runner-Up Prize: ₹{data.runnerUpPrize}</Text>
-          {data.runnerUpTeamPrize > 0 && (
-            <Text>Runner-Up Team Prize: ₹{data.runnerUpTeamPrize}</Text>
-          )}
+          <Flex direction="column" gap={4} color="gray.100">
+            <Text fontSize="xl">
+              <Icon as={FaTrophy} w={6} h={6} color="#F4AC18" mr={4} />
+              Winner Prize: ₹{data.winnerPrize}
+            </Text>
+            {data.winningTeamPrize > 0 && (
+              <Text fontSize="xl">
+                <Icon as={FaTrophy} w={6} h={6} color="#F4AC18" mr={4} />
+                Winning Team Prize: ₹{data.winningTeamPrize}
+              </Text>
+            )}
+            <Text fontSize="xl">
+              <Icon as={FaTrophy} w={6} h={6} color="#F4AC18" mr={4} />
+              Runner-Up Prize: ₹{data.runnerUpPrize}
+            </Text>
+            {data.runnerUpTeamPrize > 0 && (
+              <Text fontSize="xl">
+                <Icon as={FaTrophy} w={6} h={6} color="#F4AC18" mr={4} />
+                Runner-Up Team Prize: ₹{data.runnerUpTeamPrize}
+              </Text>
+            )}
+          </Flex>
         </Box>
       </Box>
+
+      <Spacer h="10rem" />
     </Layout>
   );
 };
