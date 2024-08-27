@@ -81,7 +81,7 @@ export const regRouter = createTRPCRouter({
       });
 
       // Update all related teams to reference the created payment details
-      await ctx.db.team.updateMany({
+      const updatedTeams = await ctx.db.team.updateMany({
         where: {
           id: {
             in: teamIds,
@@ -89,6 +89,15 @@ export const regRouter = createTRPCRouter({
         },
         data: {
           paymentDetailsId: paymentDetails.id,
+        },
+      });
+
+      // After linking the payment to the teams, delete them from the cart
+      await ctx.db.team.deleteMany({
+        where: {
+          id: {
+            in: teamIds,
+          },
         },
       });
 
@@ -155,14 +164,141 @@ export const regRouter = createTRPCRouter({
     const teams = await ctx.db.team.findMany({
       where: {
         registeredById: userId,
+        paymentDetailsId: null, // Only fetch teams with no associated payment details
       },
       include: {
-        Event: true, // Include event details
-        PaymentDetails: true, // Include payment details
-        TeamMembers: true, // Include team members
+        Event: true,
+        TeamMembers: true,
       },
     });
 
     return teams;
+  }),
+
+  calculateTotalAmount: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+
+    const teams = await ctx.db.team.findMany({
+      where: {
+        registeredById: userId,
+        paymentDetailsId: null, // Only calculate for unpaid teams
+      },
+      include: {
+        Event: true, // Include event details
+        TeamMembers: true, // Include team members
+      },
+    });
+
+    const totalAmount = teams.reduce((total, team) => {
+      return total + team.Event.pricePerPlayer * team.TeamMembers.length;
+    }, 0);
+
+    return totalAmount;
+  }),
+
+  finalizePayment: protectedProcedure
+    .input(
+      z.object({
+        transactionId: z.string(),
+        teamIds: z.array(z.string()), // List of team IDs to be paid for
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { transactionId, teamIds } = input;
+      const userId = ctx.session.user.id;
+
+      // Fetch teams along with their event and team members details
+      const teams = await ctx.db.team.findMany({
+        where: {
+          id: { in: teamIds },
+          registeredById: userId,
+          paymentDetailsId: null, // Ensure no payment has been made yet
+        },
+        include: {
+          Event: true, // Include event details
+          TeamMembers: true, // Include team members
+        },
+      });
+
+      // Calculate the total amount
+      const totalAmount = teams.reduce((total, team) => {
+        return total + team.Event.pricePerPlayer * team.TeamMembers.length;
+      }, 0);
+
+      // Create a pending payment record
+      const payment = await ctx.db.paymentDetails.create({
+        data: {
+          paymentProofUrl: transactionId,
+          amount: totalAmount,
+          paymentStatus: "PENDING",
+        },
+      });
+
+      // Update the teams to link to the payment record
+      await ctx.db.team.updateMany({
+        where: {
+          id: { in: teamIds },
+        },
+        data: {
+          paymentDetailsId: payment.id,
+        },
+      });
+
+      return payment;
+    }),
+
+  deleteTeamFromCart: protectedProcedure
+    .input(
+      z.object({
+        teamId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { teamId } = input;
+      const userId = ctx.session.user.id;
+
+      const team = await ctx.db.team.findFirst({
+        where: {
+          id: teamId,
+          registeredById: userId,
+          paymentDetailsId: null, // Only delete if not yet paid
+        },
+      });
+
+      if (!team) {
+        throw new Error("Team not found or already paid for.");
+      }
+
+      // Delete associated team members
+      await ctx.db.teamMember.deleteMany({
+        where: { teamId: team.id },
+      });
+
+      // Delete the team
+      await ctx.db.team.delete({
+        where: { id: teamId },
+      });
+
+      return { success: true };
+    }),
+
+  getMyEvents: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+
+    const myEvents = await ctx.db.team.findMany({
+      where: {
+        registeredById: userId,
+        paymentDetailsId: {
+          not: null, // Ensure we only fetch teams that have been paid for
+        },
+      },
+      include: {
+        Event: true,
+        PaymentDetails: true,
+        TeamMembers: true, // Include team members in the response
+      },
+    });
+
+    return myEvents;
   }),
 });

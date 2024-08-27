@@ -66,7 +66,7 @@ const EventPage = () => {
         mx="auto"
         py={8}
         px={6}
-        bg="gray.900"
+        bg="#181818"
         borderRadius="30px"
         border="1px solid #F4AC18"
         boxShadow="lg"

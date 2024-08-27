@@ -1,6 +1,11 @@
 import { Box, Button, Flex, Spacer, Icon, Text, Badge } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FaCalendarAlt, FaHotel, FaShoppingCart } from "react-icons/fa";
+import {
+  FaCalendarAlt,
+  FaHotel,
+  FaListAlt,
+  FaShoppingCart,
+} from "react-icons/fa";
 import { Layout } from "~/components/layout";
 import { textBorder } from "~/components/landing/stats";
 import { Global } from "@emotion/react";
@@ -8,6 +13,9 @@ import { api } from "~/utils/api";
 
 function Dashboard() {
   const router = useRouter();
+  const { data: cartItems } = api.reg.getCart.useQuery();
+  const cartItemCount = cartItems?.length || 0;
+
   return (
     <Layout title="Dashboard">
       <Global
@@ -18,6 +26,7 @@ function Dashboard() {
         }}
       />
 
+      {/* Dashboard Text in Three Lines */}
       <Flex
         textTransform="uppercase"
         fontFamily="Migra"
@@ -89,7 +98,8 @@ function Dashboard() {
         ))}
       </Flex>
 
-      <Flex justifyContent="flex-end" mx="25rem" mb={8}>
+      {/* Cart Button */}
+      <Flex justifyContent="flex-end" mx="13rem" mb={8}>
         <Button
           size="lg"
           colorScheme="yellow"
@@ -100,11 +110,26 @@ function Dashboard() {
           onClick={() => router.push("/dashboard/cart")}
           position="relative"
         >
-          <Icon as={FaShoppingCart} w={8} h={8} position="relative"></Icon>
+          <Icon as={FaShoppingCart} w={8} h={8} position="relative" />
           <Text ml={4}>Cart</Text>
+          {cartItemCount > 0 && (
+            <Badge
+              colorScheme="red"
+              borderRadius="full"
+              position="absolute"
+              top="-5px"
+              right="-5px"
+              px={2}
+              py={1}
+              fontSize="xs"
+            >
+              {cartItemCount}
+            </Badge>
+          )}
         </Button>
       </Flex>
 
+      {/* Dashboard Options */}
       <Flex
         direction={{ base: "column", md: "row" }}
         alignItems="center"
@@ -114,6 +139,7 @@ function Dashboard() {
         mt="4rem"
         mb={4}
       >
+        {/* All Sports */}
         <Button
           size="lg"
           colorScheme="yellow"
@@ -123,11 +149,29 @@ function Dashboard() {
           height="250px"
           fontSize="2xl"
           flexDirection="column"
-          onClick={() => router.push("/dashboard/events")}
+          onClick={() => router.push("/dashboard/sports")}
         >
           <Icon as={FaCalendarAlt} w={16} h={16} mb={4} />
-          Events
+          All Sports
         </Button>
+
+        {/* My Events */}
+        <Button
+          size="lg"
+          colorScheme="yellow"
+          color="white"
+          bgColor="#F4AC17"
+          width="350px"
+          height="250px"
+          fontSize="2xl"
+          flexDirection="column"
+          onClick={() => router.push("/dashboard/my-events")}
+        >
+          <Icon as={FaListAlt} w={16} h={16} mb={4} />
+          My Events
+        </Button>
+
+        {/* Accommodation */}
         <Button
           size="lg"
           colorScheme="gray"
