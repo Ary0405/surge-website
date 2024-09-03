@@ -13,12 +13,34 @@ import {
   Badge,
   Spinner,
   Flex,
+  Button,
+  useToast,
 } from "@chakra-ui/react";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
+import { FaClipboard } from "react-icons/fa";
 
 const MyEventsPage = () => {
   const { data: myEvents, isLoading, isError } = api.reg.getMyEvents.useQuery();
+  const toast = useToast();
+
+  const handleCopyToClipboard = (verificationToken: string) => {
+    const domain =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://surgesnu.in";
+    const url = `${domain}/verify/${verificationToken}`;
+
+    navigator.clipboard.writeText(url).then(() => {
+      toast({
+        title: "Verification URL copied.",
+        description: "The verification URL has been copied to your clipboard.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    });
+  };
 
   if (isLoading) {
     return (
@@ -45,7 +67,7 @@ const MyEventsPage = () => {
   }
 
   return (
-    <Layout title="My Events">
+    <Layout title="My Events" showFooter={false}>
       <Box maxW="4xl" mx="auto" py={8} px={6}>
         <Heading as="h1" size="2xl" mb={8} color="#F4AC18">
           My Events
@@ -61,6 +83,18 @@ const MyEventsPage = () => {
                   <Box flex="1" textAlign="left" fontSize="xl" color="#F4AC18">
                     {team.Event.name}
                   </Box>
+                  <Button
+                    size="xs"
+                    colorScheme="teal"
+                    variant="ghost"
+                    onClick={() =>
+                      handleCopyToClipboard(team.verificationToken)
+                    }
+                    leftIcon={<FaClipboard />}
+                    ml={2}
+                  >
+                    Copy Verification URL
+                  </Button>
                   <Badge
                     colorScheme={
                       team.PaymentDetails?.paymentStatus === "PAID"

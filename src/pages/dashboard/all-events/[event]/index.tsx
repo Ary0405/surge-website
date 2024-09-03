@@ -23,8 +23,8 @@ import {
 
 const EventPage = () => {
   const router = useRouter();
-  const { sport } = router.query;
-  const eventName = Array.isArray(sport) ? sport[0] : sport || "";
+  const { event } = router.query;
+  const eventName = Array.isArray(event) ? event[0] : event || "";
 
   // Fetch event details using tRPC
   const { data, isLoading, isError } = api.reg.getEventDetails.useQuery({

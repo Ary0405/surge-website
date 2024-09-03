@@ -81,9 +81,9 @@ function EventsPage() {
       >
         {[...Array<number>(8)].map((_, index) => (
           <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Sports</Text>
+            <Text>Events</Text>
             <Text color="#121212" {...textBorder("#F4AC17")}>
-              Sports
+              Events
             </Text>
           </Box>
         ))}
@@ -105,9 +105,9 @@ function EventsPage() {
       >
         {[...Array<number>(8)].map((_, index) => (
           <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Sports</Text>
+            <Text>Events</Text>
             <Text color="#121212" {...textBorder("#F4AC17")}>
-              Sports
+              Events
             </Text>
           </Box>
         ))}
@@ -129,9 +129,9 @@ function EventsPage() {
       >
         {[...Array<number>(8)].map((_, index) => (
           <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Sports</Text>
+            <Text>Events</Text>
             <Text color="#121212" {...textBorder("#F4AC17")}>
-              Sports
+              Events
             </Text>
           </Box>
         ))}
@@ -152,7 +152,7 @@ function EventsPage() {
                 p="35px"
                 cursor="pointer"
                 transition="all .1s ease-in"
-                onClick={() => router.push(`/dashboard/sports/${slug}`)}
+                onClick={() => router.push(`/dashboard/all-events/${slug}`)}
                 _hover={{
                   transform: "translateY(-1px)",
                 }}

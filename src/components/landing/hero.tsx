@@ -65,7 +65,7 @@ function HeroSection({
           lineHeight={1.1}
         >
           <Box as="span" display={{ base: "block", md: "inline" }}>
-            We are the
+            The
           </Box>
           <Box as="span" display={{ base: "block", md: "inline" }}>
             {"\u00A0"}home of
@@ -166,13 +166,13 @@ function HeroSection({
           <Text
             fontFamily="Migra"
             fontWeight={800}
-            fontSize={["23px", "45px"]}
+            fontSize={["23px", "40px"]}
             fontStyle="italic"
             color="#F4AC17"
             textTransform="uppercase"
             textAlign="center"
           >
-            3&nbsp;4&nbsp;5&nbsp;November&apos;24
+            15&nbsp;16&nbsp;17&nbsp;November&apos;24
           </Text>
         </Box>
 

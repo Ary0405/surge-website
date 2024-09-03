@@ -23,8 +23,8 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 const EventRegistrationPage = () => {
   const router = useRouter();
   const toast = useToast();
-  const { sport } = router.query;
-  const eventName = Array.isArray(sport) ? sport[0] : sport || "";
+  const { event } = router.query;
+  const eventName = Array.isArray(event) ? event[0] : event || "";
 
   const { data, isLoading, isError } = api.reg.getEventDetails.useQuery({
     sportSlug: eventName ?? "",

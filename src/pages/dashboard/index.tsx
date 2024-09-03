@@ -1,10 +1,21 @@
-import { Box, Button, Flex, Spacer, Icon, Text, Badge } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Spacer,
+  Icon,
+  Text,
+  Badge,
+  VStack,
+  Spinner,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
   FaCalendarAlt,
   FaHotel,
   FaListAlt,
   FaShoppingCart,
+  FaUser,
 } from "react-icons/fa";
 import { Layout } from "~/components/layout";
 import { textBorder } from "~/components/landing/stats";
@@ -14,7 +25,24 @@ import { api } from "~/utils/api";
 function Dashboard() {
   const router = useRouter();
   const { data: cartItems } = api.reg.getCart.useQuery();
+  const { data: userProfile, isLoading } = api.reg.getUserProfile.useQuery();
   const cartItemCount = cartItems?.length || 0;
+
+  if (isLoading) {
+    return (
+      <Layout title="Dashboard">
+        <Box display="flex" justifyContent="center" alignItems="center" my={12}>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="#F4AC17"
+            size="xl"
+          />
+        </Box>
+      </Layout>
+    );
+  }
 
   return (
     <Layout title="Dashboard">
@@ -98,6 +126,46 @@ function Dashboard() {
         ))}
       </Flex>
 
+      {/* Profile Information Box */}
+      <Box
+        mx="13rem"
+        mb={16}
+        p={10}
+        borderWidth={1}
+        borderRadius="lg"
+        bg="#181818"
+        color="white"
+      >
+        <Flex alignItems="center" mb={8}>
+          <Icon as={FaUser} w={8} h={8} mr={4} />
+          <Text fontSize="lg" fontWeight="bold">
+            Personal Information
+          </Text>
+        </Flex>
+        <VStack spacing={4} align="start">
+          <Flex justifyContent="space-between" width="100%">
+            <Text fontWeight="bold">Name</Text>
+            <Text>{userProfile?.name}</Text>
+          </Flex>
+          <Flex justifyContent="space-between" width="100%">
+            <Text fontWeight="bold">Email</Text>
+            <Text>{userProfile?.email}</Text>
+          </Flex>
+          <Flex justifyContent="space-between" width="100%">
+            <Text fontWeight="bold">College Name</Text>
+            <Text>{userProfile?.collegeName}</Text>
+          </Flex>
+          <Flex justifyContent="space-between" width="100%">
+            <Text fontWeight="bold">Roll Number</Text>
+            <Text>{userProfile?.rollNumber}</Text>
+          </Flex>
+          <Flex justifyContent="space-between" width="100%">
+            <Text fontWeight="bold">Phone Number</Text>
+            <Text>{userProfile?.phone}</Text>
+          </Flex>
+        </VStack>
+      </Box>
+
       {/* Cart Button */}
       <Flex justifyContent="flex-end" mx="13rem" mb={8}>
         <Button
@@ -149,10 +217,10 @@ function Dashboard() {
           height="250px"
           fontSize="2xl"
           flexDirection="column"
-          onClick={() => router.push("/dashboard/sports")}
+          onClick={() => router.push("/dashboard/all-events")}
         >
           <Icon as={FaCalendarAlt} w={16} h={16} mb={4} />
-          All Sports
+          All Events
         </Button>
 
         {/* My Events */}

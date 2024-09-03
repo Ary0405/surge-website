@@ -89,13 +89,7 @@ function SponsorsSection() {
             justifyContent="center"
             alignItems="center"
           >
-            <Link
-              href={href}
-              isExternal
-              filter="grayscale(100%)"
-              transition="all .2s ease-in"
-              _hover={{ filter: "none" }}
-            >
+            <Link href={href} isExternal transition="all .2s ease-in">
               <Flex
                 w={{ base: "200px", md: "200px" }}
                 h={{ base: "100px", md: "100px" }}

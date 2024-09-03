@@ -5,6 +5,21 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
+import { v4 as uuidv4 } from "uuid";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { env } from "~/env";
+import { DocumentType } from "@prisma/client";
+
+const r2Client = new S3Client({
+  region: "auto",
+  endpoint: env.R2_ENDPOINT,
+  credentials: {
+    accessKeyId: env.R2_ACCESS_KEY_ID,
+    secretAccessKey: env.R2_SECRET_ACCESS_KEY,
+  },
+});
+
 export const regRouter = createTRPCRouter({
   getAvailableSports: publicProcedure.query(async ({ ctx }) => {
     return await ctx.db.event.findMany();
@@ -300,5 +315,199 @@ export const regRouter = createTRPCRouter({
     });
 
     return myEvents;
+  }),
+
+  getTeamByToken: publicProcedure
+    .input(z.object({ token: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { token } = input;
+
+      const team = await ctx.db.team.findFirst({
+        where: { verificationToken: token },
+        include: {
+          Event: {
+            include: {
+              requiredDocuments: true,
+            },
+          },
+          TeamMembers: {
+            include: {
+              Documents: {
+                select: {
+                  fileUrl: true,
+                  originalFileName: true,
+                  uploadStatus: true,
+                  documentType: true,
+                },
+              },
+            },
+          },
+          registeredBy: true,
+        },
+      });
+
+      if (!team) {
+        throw new Error("Invalid verification token or team not found.");
+      }
+
+      return {
+        eventName: team.Event.name,
+        collegeName: team.registeredBy.collegeName,
+        members: team.TeamMembers.map((member) => ({
+          id: member.id,
+          name: member.name,
+          email: member.email,
+          phone: member.phone,
+          rollNumber: member.rollNumber,
+          playerType: member.playerType as string,
+          uploadStatus: member.Documents.some(
+            (doc) => doc.uploadStatus === "UPLOADED"
+          )
+            ? "UPLOADED"
+            : "NOT_UPLOADED",
+          documents: team.Event.requiredDocuments.map((requiredDoc) => {
+            const uploadedDoc = member.Documents.find(
+              (doc) => doc.documentType === requiredDoc.documentType
+            );
+            return {
+              documentType: requiredDoc.documentType,
+              description: requiredDoc.description,
+              fileUrl: uploadedDoc?.fileUrl || null,
+              originalFileName: uploadedDoc?.originalFileName || null,
+              uploadStatus: uploadedDoc?.uploadStatus || "NOT_UPLOADED",
+            };
+          }),
+        })),
+      };
+    }),
+
+  uploadDocument: protectedProcedure
+    .input(
+      z.object({
+        memberId: z.string(),
+        fileName: z.string(),
+        fileType: z.string(),
+        documentType: z.nativeEnum(DocumentType), // Include documentType here
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { memberId, fileName, fileType, documentType } = input;
+
+      const truncatedFileName =
+        fileName.length > 20 ? `${fileName.slice(0, 17)}...` : fileName;
+      const key = `documents/${uuidv4()}-${fileName}`;
+
+      // Prepare the S3 upload command
+      const command = new PutObjectCommand({
+        Bucket: env.R2_BUCKET_NAME,
+        Key: key,
+        ContentType: fileType,
+      });
+
+      // Generate a signed URL for upload
+      const signedUrl = await getSignedUrl(r2Client, command, {
+        expiresIn: 3600, // 1 hour
+      });
+
+      // Store document metadata in the database
+      const document = await ctx.db.document.create({
+        data: {
+          fileUrl: `https://${env.R2_BUCKET_NAME}.r2.cloudflarestorage.com/${key}`,
+          uploadStatus: "PENDING",
+          teamMemberId: memberId,
+          originalFileName: truncatedFileName,
+          documentType: documentType, // Store the document type
+        },
+      });
+
+      return {
+        signedUrl,
+        document,
+      };
+    }),
+
+  updateDocumentStatus: protectedProcedure
+    .input(
+      z.object({
+        documentId: z.string(),
+        status: z.enum(["UPLOADED", "REJECTED"]),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { documentId, status } = input;
+
+      const document = await ctx.db.document.update({
+        where: { id: documentId },
+        data: {
+          uploadStatus: status,
+          uploadedAt: status === "UPLOADED" ? new Date() : undefined,
+        },
+      });
+
+      return document;
+    }),
+
+  getTeamMemberById: publicProcedure
+    .input(z.object({ teamMemberId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const { teamMemberId } = input;
+
+      const teamMember = await ctx.db.teamMember.findUnique({
+        where: { id: teamMemberId },
+        include: {
+          Documents: true,
+          Team: {
+            include: {
+              Event: {
+                include: {
+                  requiredDocuments: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!teamMember) {
+        throw new Error("Team member not found.");
+      }
+
+      return {
+        name: teamMember.name,
+        documents: teamMember.Team.Event.requiredDocuments.map(
+          (requiredDoc) => {
+            const uploadedDoc = teamMember.Documents.find(
+              (doc) => doc.documentType === requiredDoc.documentType
+            );
+            return {
+              documentType: requiredDoc.documentType,
+              description: requiredDoc.description,
+              fileUrl: uploadedDoc?.fileUrl || null,
+              originalFileName: uploadedDoc?.originalFileName || null,
+              uploadStatus: uploadedDoc?.uploadStatus || "NOT_UPLOADED",
+            };
+          }
+        ),
+      };
+    }),
+  getUserProfile: protectedProcedure.query(async ({ ctx }) => {
+    const user = await ctx.db.user.findUnique({
+      where: {
+        id: ctx.session.user.id,
+      },
+      select: {
+        name: true,
+        email: true,
+        collegeName: true,
+        rollNumber: true,
+        phone: true,
+      },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    return user;
   }),
 });

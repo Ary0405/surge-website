@@ -31,13 +31,29 @@ import { useRouter } from "next/router";
 const CartPage = () => {
   const router = useRouter();
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isPaymentOpen,
+    onOpen: onPaymentOpen,
+    onClose: onPaymentClose,
+  } = useDisclosure();
+  const {
+    isOpen: isTermsOpen,
+    onOpen: onTermsOpen,
+    onClose: onTermsClose,
+  } = useDisclosure();
+  const {
+    isOpen: isNoteOpen,
+    onOpen: onNoteOpen,
+    onClose: onNoteClose,
+  } = useDisclosure();
+
   const {
     data: cartItems,
     isLoading,
     isError,
     refetch,
   } = api.reg.getCart.useQuery();
+
   const [transactionId, setTransactionId] = useState("");
   const finalizePaymentMutation = api.reg.finalizePayment.useMutation();
 
@@ -58,7 +74,7 @@ const CartPage = () => {
   }
 
   const handlePayment = () => {
-    onOpen();
+    onTermsOpen(); // Open the Terms and Conditions modal first
   };
 
   const handleFinishPayment = async () => {
@@ -75,9 +91,9 @@ const CartPage = () => {
         duration: 3000,
         isClosable: true,
       });
-      onClose();
+      onPaymentClose();
       refetch(); // Refetch the cart items to reflect the changes
-      router.push("/dashboard");
+      onNoteOpen(); // Open the Important Note modal after payment
     } catch (error) {
       toast({
         title: "Error submitting payment.",
@@ -89,12 +105,17 @@ const CartPage = () => {
     }
   };
 
+  const handleNoteAcknowledge = () => {
+    onNoteClose(); // Close the Important Note modal
+    router.push("/dashboard"); // Redirect to the dashboard
+  };
+
   const totalAmount = cartItems.reduce((total, team) => {
     return total + team.Event.pricePerPlayer * team.TeamMembers.length;
   }, 0);
 
   return (
-    <Layout title="Cart">
+    <Layout title="Cart" showFooter={false}>
       <Box maxW="4xl" mx="auto" py={8} px={6}>
         <Heading as="h1" size="2xl" mb={8} color="#F4AC18">
           Your Cart
@@ -164,10 +185,133 @@ const CartPage = () => {
           </Button>
         </Flex>
 
-        {/* Payment Modal */}
-        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        {/* Terms and Conditions Modal */}
+        <Modal isOpen={isTermsOpen} onClose={onTermsClose} isCentered size="xl">
           <ModalOverlay backdropFilter="blur(10px)" />
-          <ModalContent bg="#1a1a1a" borderRadius="10px" maxW="500px">
+          <ModalContent
+            bg="#1a1a1a"
+            borderRadius="10px"
+            maxW={{ base: "90%", md: "800px" }}
+            maxH="80vh"
+            overflowY="auto"
+          >
+            <ModalHeader color="#F4AC18" textAlign="center">
+              Terms and Conditions
+            </ModalHeader>
+            <ModalCloseButton color="#F4AC18" />
+            <ModalBody>
+              <Text fontSize="sm" color="gray.300" textAlign="left" mb={4}>
+                <strong>ID & Document Verification:</strong> All participants
+                must provide valid Photo ID Proof (Aadhar/Passport/PAN Card), a
+                University ID card, two passport-sized photos, and a University
+                document proof (Bonafide Certificate/Fee Receipt) at
+                registration. This is mandatory for age and university
+                affiliation verification.
+                <br />
+                <br />
+                <strong>Team Representation:</strong> Each team must represent a
+                single college. All team members must be currently enrolled
+                students of that college. Esports are an exception.
+                <br />
+                <br />
+                <strong>Promotional Materials:</strong> Participants may be
+                required to wear event-related paraphernalia
+                (stickers/headbands/wristbands) for promotional purposes.
+                Players may be recorded for promotional purposes. By
+                participating in Surge, registrants consent to being recorded
+                for social media promotion content. Videos recorded during the
+                event are the intellectual property of Surge and may not be used
+                for personal promotion.
+                <br />
+                <br />
+                <strong>Referee Decisions & Misconduct:</strong> Referees'
+                decisions are final and non-contestable. Misconduct reported
+                during any event may result in the team being removed from the
+                tournament at the discretion of the Organizing Committee.
+                <br />
+                <br />
+                <strong>Behavioral Standards:</strong> Any misconduct on Shiv
+                Nadar IoE grounds will be penalized as determined by the
+                Organizing Committee. Damage to institutional property will be
+                charged to the responsible player.
+                <br />
+                <br />
+                <strong>Substance Policy:</strong> The possession or consumption
+                of smoking, alcoholic, or tobacco products on campus is strictly
+                prohibited. Violation will result in the confiscation of banned
+                substances and a penalty of ₹300 per player, applicable to the
+                entire team.
+                <br />
+                <br />
+                <strong>Registration & Reporting:</strong> The registration fee
+                is non-refundable, non-transferable, and non-negotiable. Players
+                must report to the registration desk at least two hours before
+                their first match and arrive at the court/field 20 minutes
+                before the match start time. A delay of more than 15 minutes
+                will result in a walkover in favor of the opposing team.
+                <br />
+                <br />
+                <strong>Prize Money:</strong> Prize money will be distributed
+                based on the number of participants. This amount is final and
+                not subject to negotiation.
+                <br />
+                <br />
+                <strong>Rule Compliance:</strong> Failure to comply with any
+                rule will result in the team's disqualification from Surge 2023.
+                All participants must adhere to the guidelines set forth by the
+                Shiv Nadar IoE administration.
+                <br />
+                <br />
+                <strong>Changes:</strong> Rules and schedules are subject to
+                change. The final decision rests with the Surge Organizing
+                Committee.
+                <br />
+                <br />
+                <strong>Refund Policy:</strong> All registration fees are
+                non-refundable and non-negotiable. By registering, participants
+                agree that Surge is not liable for any refund disputes
+                post-payment. All decisions regarding fees and refunds are
+                final.
+              </Text>
+            </ModalBody>
+            <ModalFooter justifyContent="center">
+              <Button
+                size="lg"
+                bg="#F4AC18"
+                color="white"
+                boxShadow="lg"
+                onClick={() => {
+                  onTermsClose();
+                  onPaymentOpen();
+                }}
+                _hover={{
+                  bg: "#D49516",
+                  boxShadow: "xl",
+                  transform: "translateY(-2px)",
+                }}
+                transition="all 0.3s ease"
+              >
+                I Agree
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        {/* Payment Modal */}
+        <Modal
+          isOpen={isPaymentOpen}
+          onClose={onPaymentClose}
+          isCentered
+          size="xl"
+        >
+          <ModalOverlay backdropFilter="blur(10px)" />
+          <ModalContent
+            bg="#1a1a1a"
+            borderRadius="10px"
+            maxW={{ base: "90%", md: "800px" }}
+            maxH="80vh"
+            overflowY="auto"
+          >
             <ModalHeader color="#F4AC18" textAlign="center">
               Finish Payment
             </ModalHeader>
@@ -185,6 +329,9 @@ const CartPage = () => {
                   bg="gray.800"
                   mb={4}
                   borderRadius="10px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
                 >
                   <Text
                     color="white"
@@ -231,6 +378,60 @@ const CartPage = () => {
                 transition="all 0.3s ease"
               >
                 Finish Payment
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        {/* Important Note Modal */}
+        <Modal isOpen={isNoteOpen} onClose={onNoteClose} isCentered size="xl">
+          <ModalOverlay backdropFilter="blur(10px)" />
+          <ModalContent
+            bg="#1a1a1a"
+            borderRadius="10px"
+            maxW={{ base: "90%", md: "800px" }}
+            maxH="80vh"
+            overflowY="auto"
+          >
+            <ModalHeader color="#F4AC18" textAlign="center">
+              Important Note
+            </ModalHeader>
+            <ModalCloseButton color="#F4AC18" />
+            <ModalBody>
+              <Text fontSize="sm" color="gray.300" textAlign="left" mb={4}>
+                It is mandatory to complete the verification process on the
+                portal to get registered for Surge. Each player of a team/event
+                must individually complete the verification process through the
+                portal link shared by the first registrant.
+                <br />
+                <br />
+                All players are required to upload a valid government ID Proof
+                (DigiLocker), Passport-sized photographs, and a University
+                document Proof (Bonafide Certificate/Fee receipt) on the
+                verification portal.
+                <br />
+                <br />
+                All participants are required to carry a hardcopy of all
+                uploaded documents, including a signed affidavit from the
+                University Sports Departments. This is to confirm your age and
+                affiliation with a registered university.
+              </Text>
+            </ModalBody>
+            <ModalFooter justifyContent="center">
+              <Button
+                size="lg"
+                bg="#F4AC18"
+                color="white"
+                boxShadow="lg"
+                onClick={handleNoteAcknowledge}
+                _hover={{
+                  bg: "#D49516",
+                  boxShadow: "xl",
+                  transform: "translateY(-2px)",
+                }}
+                transition="all 0.3s ease"
+              >
+                Got It
               </Button>
             </ModalFooter>
           </ModalContent>

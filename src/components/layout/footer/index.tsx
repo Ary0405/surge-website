@@ -88,6 +88,15 @@ function Footer() {
         <Text fontSize="xs" textAlign="left">
           Shiv Nadar University, Greater Noida
         </Text>
+        <Text
+          as={Link}
+          href="mailto:surge@snu.edu.in"
+          isExternal
+          fontSize="xs"
+          textAlign="left"
+        >
+          surge@snu.edu.in
+        </Text>
       </div>
     </Box>
   );

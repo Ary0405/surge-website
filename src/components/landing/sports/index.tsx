@@ -1,17 +1,21 @@
 import {
+  Box,
   Flex,
+  Text,
   Grid,
   GridItem,
-  Text,
-  Button,
-  Box,
   useMediaQuery,
 } from "@chakra-ui/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useRef } from "react";
 
 import MobileStackedSportEvent from "./mobile-stacked-sport-event";
+
+import { textBorder } from "../stats";
+
+const MotionGridItem = motion(GridItem);
+const MotionFlex = motion(Flex);
 
 export const sportsEvents = [
   {
@@ -87,77 +91,23 @@ export const sportsEvents = [
     tempImg: "/images/landing/sports/valorant.png",
   },
   {
-    title: "FIFA (E-Sport)",
+    title: "Futsal",
     description:
-      "FIFA brings the beautiful game to the digital arena, where every virtual kick, pass, and goal mirrors the intensity of real-world football passion.",
-    tempImg: "/images/landing/sports/fifa.png",
+      "In Futsal, agility and teamwork are your keys to victory—where fast-paced play and quick decisions on the court define the game, making every match a thrilling battle for supremacy.",
+    tempImg: "/images/landing/sports/futsal.png",
   },
 ];
 
-const MotionImage = motion(Image);
-
-interface SportSectionProps {
-  title: string;
-  description: string;
-  onEnterViewport: () => void;
-}
-
-function SportSection({
-  title,
-  description,
-  onEnterViewport,
-}: SportSectionProps) {
+function SportsSection() {
+  const [isMobile] = useMediaQuery("(max-width: 768px)");
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  const visibility = useTransform(scrollYProgress, [0.3, 1], [0, 1]);
-
-  useEffect(() => {
-    const unsubscribe = visibility.onChange((v) => {
-      if (v > 0) {
-        onEnterViewport();
-      }
-    });
-    return () => unsubscribe();
-  }, [visibility, onEnterViewport]);
-
-  return (
-    <Box ref={ref} mb={16}>
-      <Text
-        mt="5rem"
-        fontFamily="Alfa Slab One"
-        fontWeight={600}
-        textTransform="uppercase"
-        fontSize={50}
-      >
-        {title}
-      </Text>
-      <Text mt="1rem" fontSize={16}>
-        {description}
-      </Text>
-      <Button
-        mt="3rem"
-        p={6}
-        fontSize={16}
-        colorScheme="yellow"
-        color="#fff"
-        bgColor="#F4AC17"
-        _hover={{
-          bgColor: "#815B0B",
-        }}
-      >
-        Bookings opening soon
-      </Button>
-    </Box>
-  );
-}
-
-function SportsSection() {
-  const [isMobile] = useMediaQuery("(max-width: 768px)");
-  const [activeIndex, setActiveIndex] = useState(0);
+  const translateLeft = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const translateRight = useTransform(scrollYProgress, [0, 1], [100, 400]);
 
   if (isMobile) {
     return (
@@ -170,45 +120,119 @@ function SportsSection() {
   }
 
   return (
-    <Flex mt="4rem" flexDir="column" alignItems="center" mx="auto" gap={16}>
-      <Grid
-        maxW="75%"
-        templateColumns="1fr 1fr"
-        templateRows="auto 1fr"
-        gap={8}
+    <>
+      <Flex
+        gap={0}
+        fontSize={{ base: "40px", md: "60px" }}
+        whiteSpace="nowrap"
+        textTransform="uppercase"
+        fontFamily="Migra"
+        fontWeight={800}
+        fontStyle="italic"
+        color="#F4AC17"
+        flexDir="row"
+        justifyContent="flex-start"
+        w="100vw"
+        position="relative"
+        pb="8rem"
       >
-        <GridItem>
-          {sportsEvents.map(({ title, description }, i) => (
-            <SportSection
-              key={i}
-              title={title}
-              description={description}
-              onEnterViewport={() => setActiveIndex(i)}
-            />
-          ))}
-        </GridItem>
-        <GridItem
-          position="sticky"
-          top="20%"
-          as={Flex}
-          justifyContent="center"
-          alignItems="center"
-          h="600px"
+        <MotionFlex
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 250, ease: "linear", repeat: Infinity }}
+          display="flex"
+          flexShrink={0}
+          gap={4}
+          position="absolute"
         >
-          <MotionImage
-            key={activeIndex} // Ensure the image transitions smoothly
-            width={450}
-            height={450}
-            alt={sportsEvents[activeIndex]?.title ?? ""}
-            src={sportsEvents[activeIndex]?.tempImg ?? ""}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.5 }}
-          />
-        </GridItem>
-      </Grid>
-    </Flex>
+          {[...Array<number>(100)].map((_, index) => (
+            <Box key={index} display="flex" flexDir="row" gap={4}>
+              <Text>Events</Text>
+              <Text color="#121212" {...textBorder("#F4AC17")}>
+                Events
+              </Text>
+            </Box>
+          ))}
+        </MotionFlex>
+      </Flex>
+      <Flex mt="4rem" flexDir="column" alignItems="center" mx="auto" gap={16}>
+        <Grid
+          maxW="90%"
+          templateColumns="repeat(7, 1fr)"
+          templateRows="repeat(2, 1fr)"
+          gap={8}
+          ref={ref}
+          transform="scale(1.3)"
+        >
+          {sportsEvents.slice(0, 7).map((sport, i) => (
+            <MotionGridItem
+              key={i}
+              style={{
+                x: translateLeft,
+              }}
+              transition={{ duration: 0.5 }}
+            >
+              <Box position="relative" overflow="hidden" borderRadius="md">
+                <Image
+                  src={sport.tempImg}
+                  alt={sport.title}
+                  width={400}
+                  height={400}
+                  objectFit="cover"
+                />
+                <Box
+                  position="absolute"
+                  bottom={0}
+                  left={0}
+                  width="100%"
+                  bg="rgba(0, 0, 0, 0.5)"
+                  color="white"
+                  textAlign="center"
+                  p={2}
+                >
+                  <Text fontSize="lg" fontWeight="bold">
+                    {sport.title}
+                  </Text>
+                </Box>
+              </Box>
+            </MotionGridItem>
+          ))}
+
+          {sportsEvents.slice(7, 13).map((sport, i) => (
+            <MotionGridItem
+              key={i + 7}
+              style={{
+                x: translateRight,
+              }}
+              transition={{ duration: 0.5 }}
+            >
+              <Box position="relative" overflow="hidden" borderRadius="md">
+                <Image
+                  src={sport.tempImg}
+                  alt={sport.title}
+                  width={400}
+                  height={400}
+                  objectFit="cover"
+                />
+                <Box
+                  position="absolute"
+                  bottom={0}
+                  left={0}
+                  width="100%"
+                  bg="rgba(0, 0, 0, 0.5)"
+                  color="white"
+                  textAlign="center"
+                  p={2}
+                >
+                  <Text fontSize="lg" fontWeight="bold">
+                    {sport.title}
+                  </Text>
+                </Box>
+              </Box>
+            </MotionGridItem>
+          ))}
+        </Grid>
+      </Flex>
+    </>
   );
 }
 

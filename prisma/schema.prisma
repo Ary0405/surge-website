@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-    provider = "mysql"
+    provider = "postgres"
     url      = env("DATABASE_URL")
 }
 
@@ -34,18 +34,14 @@ model VerificationToken {
 model Event {
     id String @id @default(cuid())
 
-    name     String     @unique @db.VarChar(100)
-    slug     String     @unique
-    category Categories @default(MALE)
-
-    dateTo   String
-    dateFrom String
-
-    venue    String
-    location Locations @default(INDOOR)
-
-    rules String? @db.Text
-
+    name              String     @unique @db.VarChar(100)
+    slug              String     @unique
+    category          Categories @default(MALE)
+    dateTo            String
+    dateFrom          String
+    venue             String
+    location          Locations  @default(INDOOR)
+    rules             String?    @db.Text
     winnerPrize       Int
     winningTeamPrize  Int
     runnerUpTeamPrize Int
@@ -54,7 +50,16 @@ model Event {
     maxPlayers        Int
     pricePerPlayer    Int
 
-    Team Team[]
+    Team              Team[]
+    requiredDocuments RequiredDocument[]
+}
+
+model RequiredDocument {
+    id String @id @default(cuid())
+
+    documentType DocumentType
+    description  String       @db.Text
+    events       Event[]
 }
 
 model TeamMember {
@@ -71,6 +76,8 @@ model TeamMember {
     teamId String
     Team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
+    Documents Document[]
+
     createdAt DateTime @default(now())
 }
 
@@ -81,7 +88,9 @@ model Team {
     registeredBy   User   @relation(fields: [registeredById], references: [id])
 
     eventId String
-    Event   Event  @relation(fields: [eventId], references: [id])
+    Event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+    verificationToken String @unique @default(cuid())
 
     TeamMembers      TeamMember[]
     PaymentDetails   PaymentDetails? @relation(fields: [paymentDetailsId], references: [id], onDelete: Cascade)
@@ -125,6 +134,19 @@ model GateLog {
     timestamp DateTime @default(now())
 }
 
+model Document {
+    id String @id @default(cuid())
+
+    fileUrl          String       @db.VarChar(255)
+    originalFileName String       @db.VarChar(255)
+    uploadStatus     UploadStatus @default(PENDING)
+    uploadedAt       DateTime     @default(now())
+    documentType     DocumentType
+
+    teamMemberId String
+    TeamMember   TeamMember @relation(fields: [teamMemberId], references: [id], onDelete: Cascade)
+}
+
 enum PaymentStatus {
     PAID
     NOT_PAID
@@ -159,4 +181,18 @@ enum Locations {
     INDOOR
     OUTDOOR
     VIRTUAL
+}
+
+enum UploadStatus {
+    PENDING
+    UPLOADED
+    REJECTED
+}
+
+enum DocumentType {
+    PHOTO
+    AADHAR_CARD
+    MARKSHEET
+    FEE_PROOF
+    COLLEGE_ID
 }
