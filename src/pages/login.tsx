@@ -35,9 +35,9 @@ export default function Login() {
       });
 
       if (signInResponse?.ok) {
-        router.push("/dashboard");
+        void router.push("/dashboard");
       } else {
-        setError(signInResponse?.error || "Login failed.");
+        setError(signInResponse?.error ?? "Login failed.");
       }
     } catch (error) {
       setError("Something went wrong.");
@@ -177,7 +177,7 @@ export default function Login() {
           </VStack>
         </form>
         <Text mt={4} textAlign="center">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Button
             variant="link"
             color="#F3AD18"

@@ -110,8 +110,8 @@ function Navbar() {
             >
               <Avatar
                 size="sm"
-                name={session.user?.name || "User"}
-                src={session.user?.image || ""}
+                name={session.user?.name ?? "User"}
+                src={session.user?.image ?? ""}
               />
             </MenuButton>
             <MenuList minW="150px" transform="translateX(-75%)">

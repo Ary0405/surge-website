@@ -31,7 +31,7 @@ const MyEventsPage = () => {
         : "https://surgesnu.in";
     const url = `${domain}/verify/${verificationToken}`;
 
-    navigator.clipboard.writeText(url).then(() => {
+    void navigator.clipboard.writeText(url).then(() => {
       toast({
         title: "Verification URL copied.",
         description: "The verification URL has been copied to your clipboard.",
@@ -74,7 +74,9 @@ const MyEventsPage = () => {
         </Heading>
 
         {myEvents.length === 0 ? (
-          <Text fontSize="lg">You haven't registered for any events yet.</Text>
+          <Text fontSize="lg">
+            You haven&apos;t registered for any events yet.
+          </Text>
         ) : (
           <Accordion allowToggle>
             {myEvents.map((team) => (

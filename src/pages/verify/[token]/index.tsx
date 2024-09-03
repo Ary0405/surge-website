@@ -118,7 +118,7 @@ const VerifyPage = () => {
                 </Badge>
 
                 <Link
-                  href={`/verify/${token}/${member.id}`}
+                  href={`/verify/${token as string}/${member.id}`}
                   color="yellow.400"
                   mt={4}
                 >

@@ -9,26 +9,23 @@ import {
   Input,
   Text,
   VStack,
-  FormErrorMessage,
   Spacer,
-  Spinner,
 } from "@chakra-ui/react";
 import { Global } from "@emotion/react";
 import { signIn } from "next-auth/react";
 import { Layout } from "~/components/layout";
-
 import { textBorder } from "~/components/landing/stats";
 
 export default function Register() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [collegeName, setCollegeName] = useState("");
-  const [rollNumber, setRollNumber] = useState("");
-  const [phone, setPhone] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [collegeName, setCollegeName] = useState<string>("");
+  const [rollNumber, setRollNumber] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,12 +57,12 @@ export default function Register() {
         });
 
         if (signInResponse?.ok) {
-          router.push("/dashboard"); // Redirect to dashboard
+          void router.push("/dashboard"); // Redirect to dashboard
         } else {
           setError("Sign-in after registration failed.");
         }
       } else {
-        const errorData = await response.json();
+        const errorData = (await response.json()) as { message: string };
         setError(errorData.message || "Registration failed.");
       }
     } catch (error) {
@@ -173,7 +170,7 @@ export default function Register() {
                 {error}
               </Box>
             )}
-            <FormControl id="name" isRequired isInvalid={!!error}>
+            <FormControl id="name" isRequired>
               <FormLabel>Name</FormLabel>
               <Input
                 type="text"
@@ -186,7 +183,7 @@ export default function Register() {
               />
             </FormControl>
 
-            <FormControl id="email" isRequired isInvalid={!!error}>
+            <FormControl id="email" isRequired>
               <FormLabel>Email</FormLabel>
               <Input
                 type="email"
@@ -199,7 +196,7 @@ export default function Register() {
               />
             </FormControl>
 
-            <FormControl id="password" isRequired isInvalid={!!error}>
+            <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"
@@ -212,7 +209,7 @@ export default function Register() {
               />
             </FormControl>
 
-            <FormControl id="collegeName" isRequired isInvalid={!!error}>
+            <FormControl id="collegeName" isRequired>
               <FormLabel>College Name</FormLabel>
               <Input
                 type="text"
@@ -225,7 +222,7 @@ export default function Register() {
               />
             </FormControl>
 
-            <FormControl id="rollNumber" isRequired isInvalid={!!error}>
+            <FormControl id="rollNumber" isRequired>
               <FormLabel>Roll Number</FormLabel>
               <Input
                 type="text"
@@ -238,7 +235,7 @@ export default function Register() {
               />
             </FormControl>
 
-            <FormControl id="phone" isRequired isInvalid={!!error}>
+            <FormControl id="phone" isRequired>
               <FormLabel>Phone Number</FormLabel>
               <Input
                 type="tel"

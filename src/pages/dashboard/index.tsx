@@ -26,7 +26,7 @@ function Dashboard() {
   const router = useRouter();
   const { data: cartItems } = api.reg.getCart.useQuery();
   const { data: userProfile, isLoading } = api.reg.getUserProfile.useQuery();
-  const cartItemCount = cartItems?.length || 0;
+  const cartItemCount = cartItems?.length ?? 0;
 
   if (isLoading) {
     return (

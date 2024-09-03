@@ -372,9 +372,9 @@ export const regRouter = createTRPCRouter({
             return {
               documentType: requiredDoc.documentType,
               description: requiredDoc.description,
-              fileUrl: uploadedDoc?.fileUrl || null,
-              originalFileName: uploadedDoc?.originalFileName || null,
-              uploadStatus: uploadedDoc?.uploadStatus || "NOT_UPLOADED",
+              fileUrl: uploadedDoc?.fileUrl ?? null,
+              originalFileName: uploadedDoc?.originalFileName ?? null,
+              uploadStatus: uploadedDoc?.uploadStatus ?? "NOT_UPLOADED",
             };
           }),
         })),
@@ -482,9 +482,9 @@ export const regRouter = createTRPCRouter({
             return {
               documentType: requiredDoc.documentType,
               description: requiredDoc.description,
-              fileUrl: uploadedDoc?.fileUrl || null,
-              originalFileName: uploadedDoc?.originalFileName || null,
-              uploadStatus: uploadedDoc?.uploadStatus || "NOT_UPLOADED",
+              fileUrl: uploadedDoc?.fileUrl ?? null,
+              originalFileName: uploadedDoc?.originalFileName ?? null,
+              uploadStatus: uploadedDoc?.uploadStatus ?? "NOT_UPLOADED",
             };
           }
         ),

@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import { hash } from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
 
@@ -12,7 +12,15 @@ export default async function handler(
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const { email, password, name, collegeName, rollNumber, phone } = req.body;
+  const { email, password, name, collegeName, rollNumber, phone } =
+    req.body as {
+      email: string;
+      password: string;
+      name: string;
+      collegeName: string;
+      rollNumber: string;
+      phone: string;
+    };
 
   if (!email || !password || !name || !collegeName || !rollNumber || !phone) {
     return res.status(400).json({ message: "All fields are required" });
@@ -32,7 +40,7 @@ export default async function handler(
     const hashedPassword = await hash(password, 12);
 
     // Create the new user in the database with emailVerified set to null
-    const newUser = await prisma.user.create({
+    await prisma.user.create({
       data: {
         email,
         password: hashedPassword,
@@ -45,13 +53,11 @@ export default async function handler(
     });
 
     // Inform the user that they need to check their email for verification
-    return res
-      .status(201)
-      .json({
-        message:
-          "User created successfully. Please check your email for verification.",
-      });
-  } catch (error) {
+    return res.status(201).json({
+      message:
+        "User created successfully. Please check your email for verification.",
+    });
+  } catch (error: unknown) {
     console.error("Error registering user:", error);
     return res.status(500).json({ message: "Internal server error" });
   }

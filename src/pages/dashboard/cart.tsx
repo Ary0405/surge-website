@@ -92,7 +92,7 @@ const CartPage = () => {
         isClosable: true,
       });
       onPaymentClose();
-      refetch(); // Refetch the cart items to reflect the changes
+      void refetch(); // Refetch the cart items to reflect the changes
       onNoteOpen(); // Open the Important Note modal after payment
     } catch (error) {
       toast({
@@ -107,7 +107,7 @@ const CartPage = () => {
 
   const handleNoteAcknowledge = () => {
     onNoteClose(); // Close the Important Note modal
-    router.push("/dashboard"); // Redirect to the dashboard
+    void router.push("/dashboard"); // Redirect to the dashboard
   };
 
   const totalAmount = cartItems.reduce((total, team) => {
@@ -224,7 +224,7 @@ const CartPage = () => {
                 for personal promotion.
                 <br />
                 <br />
-                <strong>Referee Decisions & Misconduct:</strong> Referees'
+                <strong>Referee Decisions & Misconduct:</strong> Referees&apos;
                 decisions are final and non-contestable. Misconduct reported
                 during any event may result in the team being removed from the
                 tournament at the discretion of the Organizing Committee.
@@ -257,9 +257,9 @@ const CartPage = () => {
                 <br />
                 <br />
                 <strong>Rule Compliance:</strong> Failure to comply with any
-                rule will result in the team's disqualification from Surge 2023.
-                All participants must adhere to the guidelines set forth by the
-                Shiv Nadar IoE administration.
+                rule will result in the team&apos;s disqualification from Surge
+                2023. All participants must adhere to the guidelines set forth
+                by the Shiv Nadar IoE administration.
                 <br />
                 <br />
                 <strong>Changes:</strong> Rules and schedules are subject to

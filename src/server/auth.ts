@@ -87,7 +87,7 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        if (!user || !user.password) {
+        if (!user?.password) {
           throw new Error("No user found with the given email");
         }
 

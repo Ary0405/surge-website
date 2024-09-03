@@ -247,7 +247,7 @@ const TeamMemberVerificationPage = () => {
           mt={8}
           colorScheme="yellow"
           size="lg"
-          onClick={() => router.push(`/verify/${token}`)}
+          onClick={() => router.push(`/verify/${token as string}`)}
         >
           Save and Go Back
         </Button>

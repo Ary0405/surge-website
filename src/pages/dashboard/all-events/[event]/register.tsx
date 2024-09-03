@@ -24,7 +24,7 @@ const EventRegistrationPage = () => {
   const router = useRouter();
   const toast = useToast();
   const { event } = router.query;
-  const eventName = Array.isArray(event) ? event[0] : event || "";
+  const eventName = Array.isArray(event) ? event[0] : event ?? "";
 
   const { data, isLoading, isError } = api.reg.getEventDetails.useQuery({
     sportSlug: eventName ?? "",
@@ -116,7 +116,7 @@ const EventRegistrationPage = () => {
         duration: 3000,
         isClosable: true,
       });
-      router.push("/dashboard"); // Redirect to dashboard or another page after successful registration
+      void router.push("/dashboard"); // Redirect to dashboard or another page after successful registration
     } catch (error) {
       toast({
         title: "Error registering team.",

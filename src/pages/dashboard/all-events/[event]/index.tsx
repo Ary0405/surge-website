@@ -24,7 +24,7 @@ import {
 const EventPage = () => {
   const router = useRouter();
   const { event } = router.query;
-  const eventName = Array.isArray(event) ? event[0] : event || "";
+  const eventName = Array.isArray(event) ? event[0] : event ?? "";
 
   // Fetch event details using tRPC
   const { data, isLoading, isError } = api.reg.getEventDetails.useQuery({
@@ -56,7 +56,7 @@ const EventPage = () => {
   }
 
   const handleRegisterClick = () => {
-    router.push(`${router.asPath}/register`);
+    void router.push(`${router.asPath}/register`);
   };
 
   return (
@@ -147,22 +147,10 @@ const EventPage = () => {
               <Icon as={FaTrophy} w={6} h={6} color="#F4AC18" mr={4} />
               Winner Prize: ₹{data.winnerPrize}
             </Text>
-            {data.winningTeamPrize > 0 && (
-              <Text fontSize="xl">
-                <Icon as={FaTrophy} w={6} h={6} color="#F4AC18" mr={4} />
-                Winning Team Prize: ₹{data.winningTeamPrize}
-              </Text>
-            )}
             <Text fontSize="xl">
               <Icon as={FaTrophy} w={6} h={6} color="#F4AC18" mr={4} />
               Runner-Up Prize: ₹{data.runnerUpPrize}
             </Text>
-            {data.runnerUpTeamPrize > 0 && (
-              <Text fontSize="xl">
-                <Icon as={FaTrophy} w={6} h={6} color="#F4AC18" mr={4} />
-                Runner-Up Team Prize: ₹{data.runnerUpTeamPrize}
-              </Text>
-            )}
           </Flex>
         </Box>
       </Box>
