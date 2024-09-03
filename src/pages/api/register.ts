@@ -31,7 +31,7 @@ export default async function handler(
     // Hash the password
     const hashedPassword = await hash(password, 12);
 
-    // Create the new user in the database
+    // Create the new user in the database with emailVerified set to null
     const newUser = await prisma.user.create({
       data: {
         email,
@@ -40,10 +40,17 @@ export default async function handler(
         collegeName,
         rollNumber,
         phone,
+        emailVerified: null, // Initially, the email is not verified
       },
     });
 
-    return res.status(201).json({ message: "User created successfully" });
+    // Inform the user that they need to check their email for verification
+    return res
+      .status(201)
+      .json({
+        message:
+          "User created successfully. Please check your email for verification.",
+      });
   } catch (error) {
     console.error("Error registering user:", error);
     return res.status(500).json({ message: "Internal server error" });

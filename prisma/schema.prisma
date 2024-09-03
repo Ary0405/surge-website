@@ -8,143 +8,122 @@ datasource db {
 }
 
 model User {
-    id String @id @default(uuid())
-
-    email    String @unique @db.VarChar(100)
-    password String @db.VarChar(255)
-
-    name        String @db.VarChar(100)
-    collegeName String @db.VarChar(100)
-    rollNumber  String @db.VarChar(100)
-    phone       String @db.VarChar(100)
-
+    id            String    @id @default(uuid())
+    email         String    @unique @db.VarChar(100)
+    password      String    @db.VarChar(255)
+    name          String    @db.VarChar(100)
+    collegeName   String    @db.VarChar(100)
+    rollNumber    String    @db.VarChar(100)
+    phone         String    @db.VarChar(100)
     emailVerified DateTime?
     image         String?
     Team          Team[]
+
+    // New relation to VerificationToken
+    verificationTokens VerificationToken[] @relation("UserVerificationTokens")
 }
 
 model VerificationToken {
-    identifier String
+    id         String   @id @default(cuid())
+    identifier String   @unique
     token      String   @unique
     expires    DateTime
+    userId     String?
+    User       User?    @relation("UserVerificationTokens", fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([identifier, token])
 }
 
 model Event {
-    id String @id @default(cuid())
-
-    name              String     @unique @db.VarChar(100)
-    slug              String     @unique
-    category          Categories @default(MALE)
-    dateTo            String
-    dateFrom          String
-    venue             String
-    location          Locations  @default(INDOOR)
-    rules             String?    @db.Text
-    winnerPrize       Int
-    winningTeamPrize  Int
-    runnerUpTeamPrize Int
-    runnerUpPrize     Int
-    minPlayers        Int
-    maxPlayers        Int
-    pricePerPlayer    Int
+    id             String     @id @default(cuid())
+    name           String     @unique @db.VarChar(100)
+    slug           String     @unique
+    category       Categories @default(MALE)
+    dateTo         String
+    dateFrom       String
+    venue          String
+    location       Locations  @default(INDOOR)
+    rules          String?    @db.Text
+    winnerPrize    Int
+    runnerUpPrize  Int
+    minPlayers     Int
+    maxPlayers     Int
+    pricePerPlayer Int
 
     Team              Team[]
     requiredDocuments RequiredDocument[]
 }
 
 model RequiredDocument {
-    id String @id @default(cuid())
-
+    id           String       @id @default(cuid())
     documentType DocumentType
     description  String       @db.Text
     events       Event[]
 }
 
 model TeamMember {
-    id String @id @default(cuid())
-
-    name       String @db.VarChar(100)
-    email      String @db.VarChar(100)
-    phone      String @db.VarChar(100)
-    rollNumber String @db.VarChar(100)
+    id         String     @id @default(cuid())
+    name       String     @db.VarChar(100)
+    email      String     @db.VarChar(100)
+    phone      String     @db.VarChar(100)
+    rollNumber String     @db.VarChar(100)
     eventId    String
-
     playerType PlayerType @default(PLAYER)
-
-    teamId String
-    Team   Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
-
-    Documents Document[]
-
-    createdAt DateTime @default(now())
+    teamId     String
+    Team       Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    Documents  Document[]
+    createdAt  DateTime   @default(now())
 }
 
 model Team {
-    id String @id @default(cuid())
-
-    registeredById String
-    registeredBy   User   @relation(fields: [registeredById], references: [id])
-
-    eventId String
-    Event   Event  @relation(fields: [eventId], references: [id], onDelete: Cascade)
-
-    verificationToken String @unique @default(cuid())
-
-    TeamMembers      TeamMember[]
-    PaymentDetails   PaymentDetails? @relation(fields: [paymentDetailsId], references: [id], onDelete: Cascade)
-    paymentDetailsId String?
+    id                String          @id @default(cuid())
+    registeredById    String
+    registeredBy      User            @relation(fields: [registeredById], references: [id])
+    eventId           String
+    Event             Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    verificationToken String          @unique @default(cuid())
+    TeamMembers       TeamMember[]
+    PaymentDetails    PaymentDetails? @relation(fields: [paymentDetailsId], references: [id], onDelete: Cascade)
+    paymentDetailsId  String?
 }
 
 model PaymentDetails {
-    id String @id @default(cuid())
-
-    paymentStatus PaymentStatus @default(PENDING)
-
-    paymentProofUrl String? @db.VarChar(100)
+    id              String        @id @default(cuid())
+    paymentStatus   PaymentStatus @default(PENDING)
+    paymentProofUrl String?       @db.VarChar(100)
     amount          Int
-
-    changedStatus DateTime @default(now())
-    createdAt     DateTime @default(now())
-
-    Teams Team[]
+    changedStatus   DateTime      @default(now())
+    createdAt       DateTime      @default(now())
+    Teams           Team[]
 }
 
 model PlayerLog {
-    id Int @id @default(autoincrement())
-
+    id           Int         @id @default(autoincrement())
     userId       String
     teamId       String
     teamMemberId Int
-
-    PlayerState PlayerState @default(OUT_CAMPUS)
-
-    timestamp DateTime @default(now())
+    PlayerState  PlayerState @default(OUT_CAMPUS)
+    timestamp    DateTime    @default(now())
 }
 
 model GateLog {
-    id Int @id @default(autoincrement())
-
-    name     String      @default("")
-    phone    String      @default("")
-    college  String      @default("")
-    location PlayerState @default(IN_CAMPUS)
-
-    timestamp DateTime @default(now())
+    id        Int         @id @default(autoincrement())
+    name      String      @default("")
+    phone     String      @default("")
+    college   String      @default("")
+    location  PlayerState @default(IN_CAMPUS)
+    timestamp DateTime    @default(now())
 }
 
 model Document {
-    id String @id @default(cuid())
-
+    id               String       @id @default(cuid())
     fileUrl          String       @db.VarChar(255)
     originalFileName String       @db.VarChar(255)
     uploadStatus     UploadStatus @default(PENDING)
     uploadedAt       DateTime     @default(now())
     documentType     DocumentType
-
-    teamMemberId String
-    TeamMember   TeamMember @relation(fields: [teamMemberId], references: [id], onDelete: Cascade)
+    teamMemberId     String
+    TeamMember       TeamMember   @relation(fields: [teamMemberId], references: [id], onDelete: Cascade)
 }
 
 enum PaymentStatus {

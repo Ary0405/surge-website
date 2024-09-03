@@ -1,26 +1,18 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import { type Adapter } from "next-auth/adapters";
+import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
 import { PrismaClient } from "@prisma/client";
-
 import { env } from "~/env";
-import { db } from "~/server/db";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
@@ -31,7 +23,8 @@ declare module "next-auth" {
       collegeName?: string | null;
       rollNumber?: string | null;
       phone?: string | null;
-    };
+      emailVerified?: Date | null;
+    } & DefaultSession["user"];
   }
 
   interface User {
@@ -41,6 +34,7 @@ declare module "next-auth" {
     collegeName?: string | null;
     rollNumber?: string | null;
     phone?: string | null;
+    emailVerified?: Date | null;
   }
 
   interface JWT {
@@ -50,16 +44,24 @@ declare module "next-auth" {
     collegeName?: string | null;
     rollNumber?: string | null;
     phone?: string | null;
+    emailVerified?: Date | null;
   }
 }
 
-/**
- * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
- *
- * @see https://next-auth.js.org/configuration/options
- */
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
+    EmailProvider({
+      server: {
+        host: env.EMAIL_SERVER_HOST,
+        port: parseInt(env.EMAIL_SERVER_PORT, 10),
+        auth: {
+          user: env.EMAIL_SERVER_USER,
+          pass: env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: env.EMAIL_FROM,
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -71,7 +73,6 @@ export const authOptions: NextAuthOptions = {
           throw new Error("No credentials provided");
         }
 
-        // Find user by email and include the additional fields
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
           select: {
@@ -79,6 +80,7 @@ export const authOptions: NextAuthOptions = {
             name: true,
             email: true,
             password: true,
+            emailVerified: true,
             collegeName: true,
             rollNumber: true,
             phone: true,
@@ -89,7 +91,6 @@ export const authOptions: NextAuthOptions = {
           throw new Error("No user found with the given email");
         }
 
-        // Verify password
         const isValid = await bcrypt.compare(
           credentials.password,
           user.password
@@ -98,7 +99,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid password");
         }
 
-        // Return the user object, omitting the password field
+        // Allow signing in even if the email is not verified
         return {
           id: user.id,
           name: user.name,
@@ -106,6 +107,7 @@ export const authOptions: NextAuthOptions = {
           collegeName: user.collegeName,
           rollNumber: user.rollNumber,
           phone: user.phone,
+          emailVerified: user.emailVerified,
         };
       },
     }),
@@ -117,11 +119,12 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.name = user.name as string | null;
-        token.email = user.email as string | null;
-        token.collegeName = user.collegeName as string | null;
-        token.rollNumber = user.rollNumber as string | null;
-        token.phone = user.phone as string | null;
+        token.name = user.name;
+        token.email = user.email;
+        token.collegeName = user.collegeName;
+        token.rollNumber = user.rollNumber;
+        token.phone = user.phone;
+        token.emailVerified = user.emailVerified;
       }
       return token;
     },
@@ -134,6 +137,7 @@ export const authOptions: NextAuthOptions = {
         collegeName: token.collegeName as string | null,
         rollNumber: token.rollNumber as string | null,
         phone: token.phone as string | null,
+        emailVerified: token.emailVerified as Date | null,
       };
       return session;
     },
