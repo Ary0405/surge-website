@@ -133,8 +133,11 @@ function SportsSection() {
         flexDir="row"
         justifyContent="flex-start"
         w="100vw"
+        overflowX="hidden" // Fix to prevent horizontal overflow
         position="relative"
         pb="8rem"
+        left="50%" // Center the text within the viewport
+        ml="-50vw" // Ensure the text starts from the left edge of the viewport
       >
         <MotionFlex
           animate={{ x: ["0%", "-50%"] }}

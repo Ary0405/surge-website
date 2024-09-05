@@ -50,6 +50,8 @@ model Event {
     maxPlayers     Int
     pricePerPlayer Int
 
+    eventImg String?
+
     Team              Team[]
     requiredDocuments RequiredDocument[]
 }

@@ -139,7 +139,10 @@ function EventsPage() {
 
       <Grid templateColumns="1fr 1fr" mx="5rem" gap={10}>
         {sportsEvents?.map(
-          ({ name, slug, dateFrom, dateTo, pricePerPlayer, rules }, i) => (
+          (
+            { name, eventImg, slug, dateFrom, dateTo, pricePerPlayer, rules },
+            i
+          ) => (
             <GridItem
               key={i}
               bgColor="#171717"
@@ -162,7 +165,7 @@ function EventsPage() {
                 justifyContent="center"
               >
                 <Image
-                  src={getSportImage(slug)}
+                  src={eventImg ?? ""}
                   alt={name}
                   borderRadius="full"
                   boxSize="200px"
