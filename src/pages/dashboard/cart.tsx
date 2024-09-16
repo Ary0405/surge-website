@@ -23,6 +23,7 @@ import {
   useDisclosure,
   ModalFooter,
   useToast,
+  Image,
 } from "@chakra-ui/react";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
@@ -201,6 +202,10 @@ const CartPage = () => {
             <ModalCloseButton color="#F4AC18" />
             <ModalBody>
               <Text fontSize="sm" color="gray.300" textAlign="left" mb={4}>
+                <strong>Referee Decisions & Misconduct:</strong> Referees&apos;
+                decisions are final and non-contestable. The University has a zero-tolerance policy towards harassment, and any such cases will lead to disqualification of the contingent.
+                <br />
+                <br />
                 <strong>ID & Document Verification:</strong> All participants
                 must provide valid Photo ID Proof (Aadhar/Passport/PAN Card), a
                 University ID card, two passport-sized photos, and a University
@@ -222,12 +227,6 @@ const CartPage = () => {
                 for social media promotion content. Videos recorded during the
                 event are the intellectual property of Surge and may not be used
                 for personal promotion.
-                <br />
-                <br />
-                <strong>Referee Decisions & Misconduct:</strong> Referees&apos;
-                decisions are final and non-contestable. Misconduct reported
-                during any event may result in the team being removed from the
-                tournament at the discretion of the Organizing Committee.
                 <br />
                 <br />
                 <strong>Behavioral Standards:</strong> Any misconduct on Shiv
@@ -333,14 +332,12 @@ const CartPage = () => {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Text
-                    color="white"
-                    textAlign="center"
-                    lineHeight="200px"
-                    fontSize="lg"
-                  >
-                    QR Code
-                  </Text>
+                  <Image
+                    src="/images/qr.jpg"
+                    alt="QR Code"
+                    width="200px"
+                    height="200px"
+                  />
                 </Box>
                 <Text fontSize="3xl" fontWeight="bold" color="white" mb={4}>
                   Amount: Rs. {totalAmount}
