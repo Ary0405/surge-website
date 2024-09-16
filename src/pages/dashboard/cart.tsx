@@ -24,6 +24,7 @@ import {
   ModalFooter,
   useToast,
   Image,
+  Checkbox,
 } from "@chakra-ui/react";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
@@ -57,6 +58,7 @@ const CartPage = () => {
 
   const [transactionId, setTransactionId] = useState("");
   const finalizePaymentMutation = api.reg.finalizePayment.useMutation();
+  const [checked, setChecked] = useState(false);
 
   if (isLoading) {
     return (
@@ -273,12 +275,19 @@ const CartPage = () => {
                 final.
               </Text>
             </ModalBody>
-            <ModalFooter justifyContent="center">
+            <ModalFooter justifyContent="space-evenly">
+              <Checkbox
+                colorScheme="yellow"
+                isChecked={checked}
+                onChange={(e) => setChecked(e.target.checked)}
+                color="white"
+              > I agree to the terms and conditions</Checkbox>
               <Button
                 size="lg"
                 bg="#F4AC18"
                 color="white"
                 boxShadow="lg"
+                isDisabled={!checked}
                 onClick={() => {
                   onTermsClose();
                   onPaymentOpen();
