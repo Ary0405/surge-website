@@ -36,11 +36,11 @@ const TeamMemberVerificationPage = () => {
     name: string;
     documents: {
       documentType:
-        | "PHOTO"
-        | "AADHAR_CARD"
-        | "MARKSHEET"
-        | "FEE_PROOF"
-        | "COLLEGE_ID";
+      | "PHOTO"
+      | "AADHAR_CARD"
+      | "MARKSHEET"
+      | "FEE_PROOF"
+      | "COLLEGE_ID";
       description: string;
       fileUrl: string | null;
       originalFileName: string | null;
@@ -92,6 +92,9 @@ const TeamMemberVerificationPage = () => {
       const file = input.files?.[0];
       if (file) {
         try {
+          // Replace spaces in the filename with an empty string
+          const sanitizedFileName = file.name.replace(/\s+/g, "");
+
           // Perform the mutation for uploading the document
           const { signedUrl, document } = await new Promise<{
             signedUrl: string;
@@ -104,7 +107,7 @@ const TeamMemberVerificationPage = () => {
             uploadDocumentMutation.mutate(
               {
                 memberId: teamMemberId as string,
-                fileName: file.name,
+                fileName: sanitizedFileName,
                 fileType: file.type,
                 documentType, // Added documentType here
               },
@@ -156,14 +159,15 @@ const TeamMemberVerificationPage = () => {
             documents: prevTeamMember!.documents.map((doc) =>
               doc.documentType === documentType
                 ? {
-                    ...doc,
-                    fileUrl: document.fileUrl,
-                    uploadStatus: "UPLOADED",
-                  }
+                  ...doc,
+                  fileUrl: document.fileUrl,
+                  uploadStatus: "UPLOADED",
+                }
                 : doc
             ),
           }));
         } catch (error) {
+          console.error(error);
           toast({
             title: "Upload Failed",
             description: "There was an error uploading your document.",
@@ -175,8 +179,8 @@ const TeamMemberVerificationPage = () => {
       }
     };
     input.click();
-  };
-
+  }
+  
   if (isLoading) {
     return (
       <Layout title="Verification Portal">

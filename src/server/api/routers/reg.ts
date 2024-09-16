@@ -412,7 +412,7 @@ export const regRouter = createTRPCRouter({
       // Store document metadata in the database
       const document = await ctx.db.document.create({
         data: {
-          fileUrl: `https://${env.R2_BUCKET_NAME}.r2.cloudflarestorage.com/${key}`,
+          fileUrl: `${env.R2_PUBLIC_BUCKET}/${key}`,
           uploadStatus: "PENDING",
           teamMemberId: memberId,
           originalFileName: truncatedFileName,
