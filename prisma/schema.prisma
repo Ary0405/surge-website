@@ -75,6 +75,7 @@ model TeamMember {
     Team       Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
     Documents  Document[]
     createdAt  DateTime   @default(now())
+    isVerified PlayerVerificationStatus @default(NOT_VERIFIED)
 }
 
 model Team {
@@ -133,6 +134,12 @@ enum PaymentStatus {
     NOT_PAID
     MANUAL
     PENDING
+}
+
+enum PlayerVerificationStatus {
+    VERIFIED
+    NOT_VERIFIED
+    REJECTED
 }
 
 enum PlayerState {
