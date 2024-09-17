@@ -81,6 +81,18 @@ const CartPage = () => {
   };
 
   const handleFinishPayment = async () => {
+
+    if (!transactionId) {
+      toast({
+        title: "Transaction ID is required.",
+        description: "Please enter the transaction ID.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
     try {
       const teamIds = cartItems.map((team) => team.id);
       await finalizePaymentMutation.mutateAsync({
