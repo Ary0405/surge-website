@@ -80,7 +80,6 @@ const CartPage = () => {
   }
 
   const handlePayment = () => {
-
     if (selectedTeams.length === 0) {
       toast({
         title: "No team selected.",
@@ -91,7 +90,7 @@ const CartPage = () => {
       });
       return;
     }
-    
+
     onTermsOpen(); // Open the Terms and Conditions modal first
   };
 
@@ -118,7 +117,6 @@ const CartPage = () => {
   };
 
   const handleFinishPayment = async () => {
-
     if (!transactionId) {
       toast({
         title: "Transaction ID is required.",
@@ -162,25 +160,25 @@ const CartPage = () => {
     void router.push("/dashboard"); // Redirect to the dashboard
   };
 
-
   const totalAmount = cartItems.reduce((total, team) => {
     for (const selectedTeam of selectedTeams) {
       if (team.id === selectedTeam) {
+        if (team.Event.name === "Valorant") {
+          return total + 599;
+        }
         return total + team.Event.pricePerPlayer * team.TeamMembers.length;
       }
     }
     return total;
   }, 0);
 
-
   const handleSelectTeam = (teamId: string) => {
     if (selectedTeams.includes(teamId)) {
       setSelectedTeams(selectedTeams.filter((id) => id !== teamId));
-    }
-    else {
+    } else {
       setSelectedTeams([...selectedTeams, teamId]);
     }
-  }
+  };
 
   return (
     <Layout title="Cart" showFooter={false}>
@@ -195,22 +193,26 @@ const CartPage = () => {
           <Accordion allowToggle>
             {cartItems.map((team) => (
               <div key={team.id}>
-                <Button colorScheme="red" size="sm" onClick={() => handleRemoveFromCart(team.id)}>
-                  Remove
-                </Button>
-                <Checkbox
-                  colorScheme="yellow"
-                  color="white"
-                  size="lg"
-                  mt={4}
-                  isChecked={selectedTeams.includes(team.id)}
-                  onChange={() => handleSelectTeam(team.id)}
-                >
-                  Select Team
-                </Checkbox>
                 <AccordionItem key={team.id}>
                   <AccordionButton>
-                    <Box flex="1" textAlign="left" fontSize="xl" color="#F4AC18">
+                    <Box
+                      flex="1"
+                      textAlign="left"
+                      fontSize="xl"
+                      color="#F4AC18"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <Checkbox
+                        colorScheme="yellow"
+                        color="white"
+                        border={"0.2px white"}
+                        size="lg"
+                        isChecked={selectedTeams.includes(team.id)}
+                        onChange={() => handleSelectTeam(team.id)}
+                        borderRadius={"10px"}
+                        marginRight={2}
+                      />
                       {team.Event.name}
                     </Box>
                     <AccordionIcon />
@@ -231,6 +233,13 @@ const CartPage = () => {
                           </Text>
                           <Text fontSize="md">Phone: {member.phone}</Text>
                           <Divider mt={4} />
+                          <Button
+                            colorScheme="red"
+                            size="sm"
+                            onClick={() => handleRemoveFromCart(team.id)}
+                          >
+                            Remove
+                          </Button>
                         </Box>
                       ))}
                     </VStack>
@@ -288,7 +297,9 @@ const CartPage = () => {
             <ModalBody>
               <Text fontSize="sm" color="gray.300" textAlign="left" mb={4}>
                 <strong>Referee Decisions & Misconduct:</strong> Referees&apos;
-                decisions are final and non-contestable. The University has a zero-tolerance policy towards harassment, and any such cases will lead to disqualification of the contingent.
+                decisions are final and non-contestable. The University has a
+                zero-tolerance policy towards harassment, and any such cases
+                will lead to disqualification of the contingent.
                 <br />
                 <br />
                 <strong>ID & Document Verification:</strong> All participants
@@ -364,7 +375,10 @@ const CartPage = () => {
                 isChecked={checked}
                 onChange={(e) => setChecked(e.target.checked)}
                 color="white"
-              > I agree to the terms and conditions</Checkbox>
+              >
+                {" "}
+                I agree to the terms and conditions
+              </Checkbox>
               <Button
                 size="lg"
                 bg="#F4AC18"
