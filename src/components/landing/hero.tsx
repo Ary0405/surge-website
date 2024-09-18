@@ -128,8 +128,11 @@ function HeroSection({
           _hover={{
             bgColor: "#815B0B",
           }}
+          onClick={() => {
+            window.location.href = "/dashboard/all-events";
+          }}
         >
-          Bookings opening soon
+          Register Now
         </Button>
 
         <Box

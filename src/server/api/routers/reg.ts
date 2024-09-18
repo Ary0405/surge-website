@@ -190,6 +190,24 @@ export const regRouter = createTRPCRouter({
     return teams;
   }),
 
+  removeFromCart: protectedProcedure.input(z.object({ teamId: z.string() })).mutation(async ({ ctx, input }) => {
+    const userId = ctx.session.user.id;
+    const { teamId } = input;
+
+    // delete from team 
+    await ctx.db.team.delete({
+      where: {
+        id: teamId,
+        registeredById: userId,
+        paymentDetailsId: null,
+      },
+    });
+
+    return { success: true };
+
+  }),
+
+
   calculateTotalAmount: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.session.user.id;
 

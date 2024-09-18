@@ -59,6 +59,9 @@ const CartPage = () => {
   const [transactionId, setTransactionId] = useState("");
   const finalizePaymentMutation = api.reg.finalizePayment.useMutation();
   const [checked, setChecked] = useState(false);
+  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
+
+  const deleteFromCartMutation = api.reg.removeFromCart.useMutation();
 
   if (isLoading) {
     return (
@@ -77,11 +80,43 @@ const CartPage = () => {
   }
 
   const handlePayment = () => {
+    if (selectedTeams.length === 0) {
+      toast({
+        title: "No team selected.",
+        description: "Please select at least one team to proceed.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
     onTermsOpen(); // Open the Terms and Conditions modal first
   };
 
-  const handleFinishPayment = async () => {
+  const handleRemoveFromCart = async (teamId: string) => {
+    try {
+      await deleteFromCartMutation.mutateAsync({ teamId });
+      toast({
+        title: "Item removed from cart.",
+        description: "The item has been removed from your cart.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      void refetch(); // Refetch the cart items to reflect the changes
+    } catch (error) {
+      toast({
+        title: "Error removing item from cart.",
+        description: (error as Error).message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  };
 
+  const handleFinishPayment = async () => {
     if (!transactionId) {
       toast({
         title: "Transaction ID is required.",
@@ -94,7 +129,7 @@ const CartPage = () => {
     }
 
     try {
-      const teamIds = cartItems.map((team) => team.id);
+      const teamIds = selectedTeams;
       await finalizePaymentMutation.mutateAsync({
         transactionId,
         teamIds,
@@ -126,8 +161,24 @@ const CartPage = () => {
   };
 
   const totalAmount = cartItems.reduce((total, team) => {
-    return total + team.Event.pricePerPlayer * team.TeamMembers.length;
+    for (const selectedTeam of selectedTeams) {
+      if (team.id === selectedTeam) {
+        if (team.Event.name === "Valorant") {
+          return total + 599;
+        }
+        return total + team.Event.pricePerPlayer * team.TeamMembers.length;
+      }
+    }
+    return total;
   }, 0);
+
+  const handleSelectTeam = (teamId: string) => {
+    if (selectedTeams.includes(teamId)) {
+      setSelectedTeams(selectedTeams.filter((id) => id !== teamId));
+    } else {
+      setSelectedTeams([...selectedTeams, teamId]);
+    }
+  };
 
   return (
     <Layout title="Cart" showFooter={false}>
@@ -141,35 +192,64 @@ const CartPage = () => {
         ) : (
           <Accordion allowToggle>
             {cartItems.map((team) => (
-              <AccordionItem key={team.id}>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left" fontSize="xl" color="#F4AC18">
-                    {team.Event.name}
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-                <AccordionPanel pb={4}>
-                  <VStack align="start" spacing={4}>
-                    <Heading as="h3" size="md" color="#F4AC18">
-                      Team Members
-                    </Heading>
-                    {team.TeamMembers.map((member, index) => (
-                      <Box key={member.id}>
-                        <Text fontSize="md">
-                          <strong>Player {index + 1}:</strong> {member.name}
-                        </Text>
-                        <Text fontSize="md">Email: {member.email}</Text>
-                        <Text fontSize="md">
-                          Roll Number: {member.rollNumber}
-                        </Text>
-                        <Text fontSize="md">Phone: {member.phone}</Text>
-                        <Divider mt={4} />
-                      </Box>
-                    ))}
-                  </VStack>
-                </AccordionPanel>
-              </AccordionItem>
+              <div key={team.id}>
+                <AccordionItem key={team.id}>
+                  <AccordionButton>
+                    <Box
+                      flex="1"
+                      textAlign="left"
+                      fontSize="xl"
+                      color="#F4AC18"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <Checkbox
+                        colorScheme="yellow"
+                        color="white"
+                        border={"0.2px white"}
+                        size="lg"
+                        isChecked={selectedTeams.includes(team.id)}
+                        onChange={() => handleSelectTeam(team.id)}
+                        borderRadius={"10px"}
+                        marginRight={2}
+                      />
+                      {team.Event.name}
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    <VStack align="start" spacing={4}>
+                      <Heading as="h3" size="md" color="#F4AC18">
+                        Team Members
+                      </Heading>
+                      {team.TeamMembers.map((member, index) => (
+                        <Box key={member.id}>
+                          <Text fontSize="md">
+                            <strong>Player {index + 1}:</strong> {member.name}
+                          </Text>
+                          <Text fontSize="md">Email: {member.email}</Text>
+                          <Text fontSize="md">
+                            Roll Number: {member.rollNumber}
+                          </Text>
+                          <Text fontSize="md">Phone: {member.phone}</Text>
+                          <Divider mt={4} />
+                          <Button
+                            colorScheme="red"
+                            size="sm"
+                            onClick={() => handleRemoveFromCart(team.id)}
+                          >
+                            Remove
+                          </Button>
+                        </Box>
+                      ))}
+                    </VStack>
+                  </AccordionPanel>
+                </AccordionItem>
+              </div>
             ))}
+            <br />
+            <br />
+            Total Amount: Rs. {totalAmount}
           </Accordion>
         )}
 
@@ -217,7 +297,9 @@ const CartPage = () => {
             <ModalBody>
               <Text fontSize="sm" color="gray.300" textAlign="left" mb={4}>
                 <strong>Referee Decisions & Misconduct:</strong> Referees&apos;
-                decisions are final and non-contestable. The University has a zero-tolerance policy towards harassment, and any such cases will lead to disqualification of the contingent.
+                decisions are final and non-contestable. The University has a
+                zero-tolerance policy towards harassment, and any such cases
+                will lead to disqualification of the contingent.
                 <br />
                 <br />
                 <strong>ID & Document Verification:</strong> All participants
@@ -293,7 +375,10 @@ const CartPage = () => {
                 isChecked={checked}
                 onChange={(e) => setChecked(e.target.checked)}
                 color="white"
-              > I agree to the terms and conditions</Checkbox>
+              >
+                {" "}
+                I agree to the terms and conditions
+              </Checkbox>
               <Button
                 size="lg"
                 bg="#F4AC18"
