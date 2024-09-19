@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import { validateEmail, validatePhone } from "~/utils/validators";
 
 const EventRegistrationPage = () => {
   const router = useRouter();
@@ -91,8 +92,42 @@ const EventRegistrationPage = () => {
     );
   };
 
+  const validateEmails = () => {
+    return players.every(
+      (player) => validateEmail(player.email)
+    );
+  }
+
+  const validatePhones = () => {
+    return players.every(
+      (player) => validatePhone(player.phone)
+    );
+  }
+
   const handleSubmit = async () => {
     if (!data) return;
+
+    if (!validateEmails()) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter valid email addresses for all players.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    if (!validatePhones()) {
+      toast({
+        title: "Invalid Phone Number",
+        description: "Please enter valid phone numbers for all players.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
 
     if (!areAllFieldsFilled()) {
       toast({
@@ -175,9 +210,8 @@ const EventRegistrationPage = () => {
           {players.map((player, index) => (
             <Box key={index}>
               <Flex justifyContent="space-between" alignItems="center" mb={4}>
-                <Heading as="h3" size="md" color="#F4AC18">{`Player ${
-                  index + 1
-                }`}</Heading>
+                <Heading as="h3" size="md" color="#F4AC18">{`Player ${index + 1
+                  }`}</Heading>
                 {showRemoveButton && (
                   <IconButton
                     aria-label="Remove player"
@@ -207,9 +241,10 @@ const EventRegistrationPage = () => {
                   <Input
                     placeholder="you@youruniversity.edu.in"
                     value={player.email}
-                    onChange={(e) =>
+                    type="email"
+                    onChange={(e) => {
                       handleInputChange(index, "email", e.target.value)
-                    }
+                    }}
                   />
                 </FormControl>
                 <FormControl isRequired>

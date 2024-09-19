@@ -9,7 +9,6 @@ import {
   Image,
   Spinner,
 } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
 import { Global } from "@emotion/react";
 import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
@@ -18,7 +17,7 @@ import { api } from "~/utils/api";
 import { FaArrowRight } from "react-icons/fa";
 
 function EventsPage() {
-  const { data: session } = useSession();
+  
   const router = useRouter();
 
   // Fetch sports events using tRPC
@@ -53,9 +52,9 @@ function EventsPage() {
   }
 
   // Function to map the event name to its corresponding image file
-  const getSportImage = (slug: string) => {
-    return `/images/landing/sports/${slug.replace("-", "_")}.png`;
-  };
+  // const getSportImage = (slug: string) => {
+  //   return `/images/landing/sports/${slug.replace("-", "_")}.png`;
+  // };
 
   return (
     <Layout title="Events">
