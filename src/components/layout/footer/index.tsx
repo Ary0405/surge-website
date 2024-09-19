@@ -9,11 +9,7 @@ import {
 } from "react-icons/fa";
 
 export const socialLinks = [
-  {
-    title: "Facebook",
-    href: "#",
-    Icon: FaFacebookF,
-  },
+ 
   {
     title: "LinkedIn",
     href: "#",
