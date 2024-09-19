@@ -121,7 +121,7 @@ function SportsSection() {
 
   return (
     <>
-      <Flex
+      {/* <Flex
         gap={0}
         fontSize={{ base: "40px", md: "60px" }}
         whiteSpace="nowrap"
@@ -156,7 +156,7 @@ function SportsSection() {
             </Box>
           ))}
         </MotionFlex>
-      </Flex>
+      </Flex> */}
       <Flex mt="4rem" flexDir="column" alignItems="center" mx="auto" gap={16}>
         <Grid
           maxW="90%"

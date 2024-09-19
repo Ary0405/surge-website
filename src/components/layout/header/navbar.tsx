@@ -31,6 +31,10 @@ export const navItems = [
     title: "Contact",
     href: "/contact",
   },
+  {
+    title: "All Events",
+    href: "/dashboard/all-events",
+  },
 ];
 
 interface NavbarItemProps {

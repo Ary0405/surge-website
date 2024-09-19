@@ -58,7 +58,7 @@ function SponsorsSection() {
       >
         <MotionFlex
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 250, ease: "linear", repeat: Infinity }}
+          transition={{ duration: 150, ease: "linear", repeat: Infinity }}
           display="flex"
           flexShrink={0}
           gap={4}
