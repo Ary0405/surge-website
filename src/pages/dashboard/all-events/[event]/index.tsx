@@ -60,7 +60,8 @@ const EventPage = () => {
 
   return (
     <Layout>
-      <Box
+      <Spacer h="7rem" />
+      {/* <Box
         maxW="6xl"
         mx="auto"
         py={8}
@@ -152,7 +153,111 @@ const EventPage = () => {
             </Text>
           </Flex>
         </Box>
-      </Box>
+      </Box> */}
+
+      <SimpleGrid templateColumns={{ base: '1fr', md: '70% 30%' }}
+        maxW="6xl"
+        mx="auto"
+        borderRadius="30px"
+        border="1px solid #F4AC18"
+        boxShadow="lg"
+        mt={8}
+      >
+        <Box>
+          {/* First Box */}
+          <Flex justifyContent="space-between" alignItems="flex-start" mb={8} py={8} px={8}
+          >
+            <Box>
+              <Text as="h1" fontSize="2xl" color="#F4AC18" mb={4} fontStyle="italic" fontWeight="bold">
+                Rules and Guidelines
+              </Text>
+              <Text fontSize="xl" mb={6} color="gray.300">
+                {data.rules}
+              </Text>
+            </Box>
+          </Flex>
+        </Box>
+
+        <Box borderLeft="1px solid #F4AC18" py={6} px={6} bg="#181818" borderTopRightRadius="30px" borderBottomRightRadius="30px">
+          <Flex direction="column" gap={4} color="gray.100" alignItems="center" mt={3}>
+
+            <Flex direction="row" mb={3}>
+              <Box w="0" border="6px solid #C52C10" h="auto" borderRadius="50px"
+              >
+              </Box>
+              <Flex direction="column" ml={6}>
+                <Text as="h1" fontSize="xl" mb={4} fontWeight="bold" color="gray.100">
+                  RUNS FROM
+                </Text>
+                <Text fontSize="xl" color="gray.100" mb={6}>
+                  {
+                    new Date(data.dateFrom).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }
+                  {" - "}
+                  {
+                    new Date(data.dateFrom).getMonth() === new Date(data.dateTo).getMonth()
+                      ? new Date(data.dateTo).toLocaleDateString("en-US", { day: "numeric" })
+                      : new Date(data.dateTo).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })
+                  }
+                  {", "}
+                  {
+                    new Date(data.dateTo).getFullYear()
+                  }
+                </Text>
+                <Text as="h1" fontSize="xl" mb={4} fontWeight="bold">
+                  HAPPENING
+                </Text>
+                <Text fontSize="xl" color="gray.100" mb={4}>
+                  Indoor Sports Complex
+                </Text>
+              </Flex>
+            </Flex>
+
+
+            <Box w="90%" h="0" borderBottom="1px solid" borderColor="gray.100"
+            >
+            </Box>
+
+            <Box>
+            <Flex direction="row" mb={3}>
+              <Flex direction="column" ml={6}>
+                <Text as="h1" fontSize="lg" mb={1} fontWeight="bold" color="gray.100">
+                  Price
+                </Text>
+                <Text fontSize="xl" color="gray.100" mb={4}>
+                  
+                </Text>
+              </Flex>
+            </Flex>
+              <Flex direction="column" alignItems="center" justifyContent="center" >
+
+                <Flex direction="row">
+                  
+                    <Flex direction="column" alignItems="flex-start" justifyContent="flex-start" w="100%">
+                      <Text fontSize="lg" color="gray.100" mb={1} fontWeight="bold">
+                        Price
+                      </Text>
+                    </Flex>
+
+                    <Flex></Flex>
+                  
+                </Flex>
+                <Box>
+                  lorem ipsum
+                </Box>
+              </Flex>
+            </Box>
+
+          </Flex>
+        </Box>
+      </SimpleGrid>
+
 
       <Spacer h="10rem" />
     </Layout>
