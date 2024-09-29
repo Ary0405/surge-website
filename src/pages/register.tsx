@@ -268,7 +268,7 @@ export default function Register() {
           <Button
             variant="link"
             color="#F3AD18"
-            onClick={() => router.push("/signin")}
+            onClick={() => router.push("/login")}
             isDisabled={isLoading}
           >
             Sign in
