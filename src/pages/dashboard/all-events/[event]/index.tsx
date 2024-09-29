@@ -114,7 +114,7 @@ const EventPage = () => {
                 ₹{data.pricePerPlayer}
               </Text>
               <Text fontSize="sm" color="gray.100">
-                per player
+                {data.name === "Valorant" ? "per team" : "per player"}
               </Text>
             </Flex>
             <Button

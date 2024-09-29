@@ -178,7 +178,7 @@ function EventsPage() {
                   {rules} {/* Using rules as description */}
                 </Text>
                 <Text fontSize="20px" fontWeight={500} color="#F4AC17" mt={4}>
-                  ₹{pricePerPlayer} / Person
+                  ₹{pricePerPlayer} / {name === 'Valorant' ? "Team" : "Person"}
                 </Text>
                 <Text fontSize="15px" fontWeight={400} color="gray.400" mt={2}>
                   {new Date(dateFrom).toLocaleDateString("en-IN", {
