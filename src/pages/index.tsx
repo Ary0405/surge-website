@@ -54,7 +54,7 @@ function HomePage() {
   }, [heroHeight]);
 
   return (
-    <Box>
+    <Box overflowX="hidden">
       <Layout title="Home">
         <Box position="sticky" top={`${heroHeight}vh`}>
           <HeroSection

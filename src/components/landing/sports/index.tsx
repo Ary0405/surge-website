@@ -157,7 +157,7 @@ function SportsSection() {
           ))}
         </MotionFlex>
       </Flex> */}
-      <Flex mt="4rem" flexDir="column" alignItems="center" mx="auto" gap={16}>
+      <Flex mt="4rem" flexDir="column" alignItems="center" mx="auto" gap={16} >
         <Grid
           maxW="90%"
           templateColumns="repeat(7, 1fr)"
@@ -165,6 +165,7 @@ function SportsSection() {
           gap={8}
           ref={ref}
           transform="scale(1.3)"
+          
         >
           {sportsEvents.slice(0, 7).map((sport, i) => (
             <MotionGridItem
