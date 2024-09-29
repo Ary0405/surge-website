@@ -232,16 +232,16 @@ const CartPage = () => {
                             Roll Number: {member.rollNumber}
                           </Text>
                           <Text fontSize="md">Phone: {member.phone}</Text>
-                          <Divider mt={4} />
-                          <Button
-                            colorScheme="red"
-                            size="sm"
-                            onClick={() => handleRemoveFromCart(team.id)}
-                          >
-                            Remove
-                          </Button>
                         </Box>
                       ))}
+                      <Divider mt={4} />
+                      <Button
+                        colorScheme="red"
+                        size="sm"
+                        onClick={() => handleRemoveFromCart(team.id)}
+                      >
+                        Remove
+                      </Button>
                     </VStack>
                   </AccordionPanel>
                 </AccordionItem>
