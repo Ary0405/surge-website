@@ -1,10 +1,8 @@
 import {
   Box,
-  Heading,
   Text,
   Flex,
   Button,
-  Divider,
   Icon,
   SimpleGrid,
   Spacer,
@@ -14,19 +12,9 @@ import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
 import {
-  FaCalendarAlt,
-  FaMapMarkerAlt,
-  FaUsers,
-  FaTrophy,
-} from "react-icons/fa";
-import {
-  FiUser,
-  FiLogOut,
-  FiList,
   FiShoppingCart,
-  FiCalendar,
 } from "react-icons/fi";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const EventPage = () => {
   const router = useRouter();
@@ -69,7 +57,7 @@ const EventPage = () => {
 
   return (
     <Layout>
-      <Spacer h="7rem" />
+      {/* <Spacer h="2rem" /> */}
       {/* <Box
         maxW="6xl"
         mx="auto"
@@ -164,17 +152,16 @@ const EventPage = () => {
         </Box>
       </Box> */}
 
-      <SimpleGrid templateColumns={{ base: '1fr', md: '70% 30%' }}
+      <SimpleGrid templateColumns={{ base: '1fr', md: '67% 33%' }}
         maxW="6xl"
         mx="auto"
         borderRadius="30px"
         border="1px solid #F4AC15"
         boxShadow="lg"
         mt={8}
-        w="75%"
+        w="90%"
       >
         <Box>
-          {/* First Box */}
           <Flex justifyContent="space-between" alignItems="flex-start" mb={8} py={8} px={8}
           >
             <Box>
@@ -197,9 +184,9 @@ const EventPage = () => {
           borderBottomRightRadius="30px"
           borderBottomLeftRadius={{ base: '30px', md: "0px" }}
         >
-          <Flex direction="column" gap={4} color="gray.100" mt={3}>
+          <Flex direction="column" gap={4} color="gray.100" mt={2}>
 
-            <Flex direction="row" mb={3}>
+            <Flex direction="row" mb={1}>
               <Box w="0" border="6px solid #C52C10" h="auto" borderRadius="50px"
               >
               </Box>
@@ -207,7 +194,7 @@ const EventPage = () => {
                 <Text as="h1" fontSize="xl" mb={4} fontWeight="bold" color="gray.100">
                   RUNS FROM
                 </Text>
-                <Text fontSize="xl" color="gray.100" mb={6}>
+                <Text fontSize="l" color="gray.100" mb={6}>
                   {
                     new Date(data.dateFrom).toLocaleDateString("en-US", {
                       month: "short",
@@ -231,55 +218,52 @@ const EventPage = () => {
                 <Text as="h1" fontSize="xl" mb={4} fontWeight="bold">
                   HAPPENING
                 </Text>
-                <Text fontSize="xl" color="gray.100" mb={4}>
+                <Text fontSize="l" color="gray.100" mb={4}>
                   Indoor Sports Complex
                 </Text>
               </Flex>
             </Flex>
-
-
             <Box w="95%" h="0" borderBottom="1px solid" borderColor="gray.100"
               alignSelf="center"
             >
             </Box>
 
             <Box w="100%">
-              <Flex direction="row" mb={0} mt={4} w="100%" >
+              <Flex direction="row" mb={0} mt={3} w="100%" >
                 <Flex direction="column" pl="36px" w="100%" >
                   <Flex direction="row" w="100%">
-                    
+
                     <Flex direction="column" w="50%">
                       <Text as="h1" fontSize="lg" fontWeight="bold" color="gray.100">
                         Price
                       </Text>
-                      <Text fontSize="2xl" color="gray.100" mb={4} fontWeight="extrabold">
+                      <Text fontSize="xl" color="gray.100" mb={4} fontWeight="extrabold">
                         ₹{data.pricePerPlayer}
                       </Text>
                     </Flex>
                     {session &&
-                    <Flex direction="column" w="50%">
-                      <Button
-                        onClick={() => router.push("/dashboard/cart")}
-                        leftIcon={<Icon as={FiShoppingCart} />}
-                        colorScheme="yellow"
-                      >
-                        Cart
-                      </Button>
-                    </Flex>
+                      <Flex direction="column" w="50%">
+                        <Button
+                          onClick={() => router.push("/dashboard/cart")}
+                          leftIcon={<Icon as={FiShoppingCart} />}
+                          colorScheme="yellow"
+                        >
+                          Cart
+                        </Button>
+                      </Flex>
                     }
                   </Flex>
 
-                  <Text fontSize="xl" color="gray.100">
-                    Team Size: {data.minPlayers} - {data.maxPlayers}
+                  <Text fontSize="l" color="gray.100">
+                    Team Size: <b>{data.minPlayers}</b> - <b>{data.maxPlayers}</b>
                   </Text>
-                  <Text fontSize="xl" color="gray.100">
-                    Category: {data.category}
+                  <Text fontSize="l" color="gray.100">
+                    Category: <b>{data.category}</b>
                   </Text>
                   <Button
                     size="lg"
-
                     boxShadow="lg"
-                    mt={6}
+                    mt={5}
                     mb={4}
                     _hover={{
                       boxShadow: "xl",
@@ -314,13 +298,10 @@ const EventPage = () => {
                 </Box>
               </Flex> */}
             </Box>
-
           </Flex>
         </Box>
       </SimpleGrid>
-
-
-      <Spacer h="10rem" />
+      <Spacer h="7rem" />
     </Layout>
   );
 };

@@ -263,21 +263,25 @@ const CartPage = () => {
           >
             Back to Dashboard
           </Button>
-          <Button
-            size="lg"
-            bg="#F4AC18"
-            color="white"
-            boxShadow="lg"
-            onClick={handlePayment}
-            _hover={{
-              bg: "#D49516",
-              boxShadow: "xl",
-              transform: "translateY(-2px)",
-            }}
-            transition="all 0.3s ease"
-          >
-            Proceed to Payment
-          </Button>
+          {cartItems.length !== 0 ?
+            (
+              <Button
+                size="lg"
+                bg="#F4AC18"
+                color="white"
+                boxShadow="lg"
+                onClick={handlePayment}
+                _hover={{
+                  bg: "#D49516",
+                  boxShadow: "xl",
+                  transform: "translateY(-2px)",
+                }}
+                transition="all 0.3s ease"
+              >
+                Proceed to Payment
+              </Button>
+            ) : null
+          }
         </Flex>
 
         {/* Terms and Conditions Modal */}
