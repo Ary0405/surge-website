@@ -67,6 +67,7 @@ function StatsSection() {
         justifyContent="space-evenly"
         alignItems="center"
         className="max-w-screen-2xl"
+        overflowX="hidden"
       >
         {[
           { title: "Teams", count: "109+" },
@@ -87,6 +88,7 @@ function StatsSection() {
             fontStyle="italic"
             color="#ffffff"
             flexWrap="wrap"
+            
           >
             <Text fontStyle="normal" fontFamily="Poppins">
               {count}

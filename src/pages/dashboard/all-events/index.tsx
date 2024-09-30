@@ -17,7 +17,7 @@ import { api } from "~/utils/api";
 import { FaArrowRight } from "react-icons/fa";
 
 function EventsPage() {
-  
+
   const router = useRouter();
 
   // Fetch sports events using tRPC
@@ -136,7 +136,7 @@ function EventsPage() {
         ))}
       </Flex>
 
-      <Grid templateColumns="1fr 1fr" mx="5rem" gap={10}>
+      <Grid templateColumns="1fr 1fr" mx="3rem" gap={10}>
         {sportsEvents?.map(
           (
             { name, eventImg, slug, dateFrom, dateTo, pricePerPlayer, rules },
@@ -150,7 +150,7 @@ function EventsPage() {
               templateColumns="2fr 3fr"
               templateRows="1fr"
               gap={8}
-              p="35px"
+              p="30px"
               cursor="pointer"
               transition="all .1s ease-in"
               onClick={() => router.push(`/dashboard/all-events/${slug}`)}
