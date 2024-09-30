@@ -38,6 +38,7 @@ function HeroSection({
         flexDir="column"
         alignItems="center"
         background="url('/images/landing/hero/translucent_sportsperson_bg.png')"
+        backgroundColor={"linear-gradient(45deg, #830212 0%, #000000 100%)"}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
         backgroundPosition="center"
@@ -94,10 +95,11 @@ function HeroSection({
           textAlign="center"
           maxW="80%"
         >
-          Whole-heartedly focused on the growing sports ambition on campus,
-          everyone from athletes to fans will be a part of this 3-day fiesta of
-          fulfilled dreams in the form of tournaments, one-on-one battles, and
-          exertion both physical and mental, as records are formed and broken.
+          Where unwavering passion meets rising sports ambitions, Surge&apos;s
+          3-day extravaganza invites everyone—athletes and fans alike—into a
+          celebration of realized dreams. From intense tournaments to thrilling
+          one-on-one battles, the event promises a blend of physical and mental
+          challenges where records will be set, shattered, and surpassed.
         </Text>
 
         <Button

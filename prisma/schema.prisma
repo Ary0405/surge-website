@@ -49,6 +49,7 @@ model Event {
     minPlayers     Int
     maxPlayers     Int
     pricePerPlayer Int
+    about          String?
 
     eventImg String?
 
@@ -64,17 +65,17 @@ model RequiredDocument {
 }
 
 model TeamMember {
-    id         String     @id @default(cuid())
-    name       String     @db.VarChar(100)
-    email      String     @db.VarChar(100)
-    phone      String     @db.VarChar(100)
-    rollNumber String     @db.VarChar(100)
+    id         String                   @id @default(cuid())
+    name       String                   @db.VarChar(100)
+    email      String                   @db.VarChar(100)
+    phone      String                   @db.VarChar(100)
+    rollNumber String                   @db.VarChar(100)
     eventId    String
-    playerType PlayerType @default(PLAYER)
+    playerType PlayerType               @default(PLAYER)
     teamId     String
-    Team       Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+    Team       Team                     @relation(fields: [teamId], references: [id], onDelete: Cascade)
     Documents  Document[]
-    createdAt  DateTime   @default(now())
+    createdAt  DateTime                 @default(now())
     isVerified PlayerVerificationStatus @default(NOT_VERIFIED)
 }
 

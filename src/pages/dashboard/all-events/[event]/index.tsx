@@ -192,7 +192,7 @@ const EventPage = () => {
               </Box>
               <Flex direction="column" ml={6}>
                 <Text as="h1" fontSize="xl" mb={4} fontWeight="bold" color="gray.100">
-                  RUNS FROM
+                  DATE
                 </Text>
                 <Text fontSize="l" color="gray.100" mb={6}>
                   {
@@ -216,7 +216,7 @@ const EventPage = () => {
                   }
                 </Text>
                 <Text as="h1" fontSize="xl" mb={4} fontWeight="bold">
-                  HAPPENING
+                  Location
                 </Text>
                 <Text fontSize="l" color="gray.100" mb={4}>
                   Indoor Sports Complex

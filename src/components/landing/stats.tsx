@@ -50,9 +50,9 @@ function StatsSection() {
         >
           {[...Array<number>(100)].map((_, index) => (
             <>
-              <Text>Scene in the game</Text>
+              <Text>Compete Conquer Celebrate</Text>
               <Text color="#121212" {...textBorder("#F4AC17")}>
-                Scene in the game
+                Compete Conquer Celebrate
               </Text>
             </>
           ))}
@@ -71,8 +71,8 @@ function StatsSection() {
       >
         {[
           { title: "Teams", count: "109+" },
-          { title: "Events", count: "17" },
-          { title: "Players", count: "1500+" },
+          { title: "Events", count: "25+" },
+          { title: "Players", count: "2500+" },
           { title: "Footfall", count: "15k+" },
           { title: "Sweat", count: "∞" },
         ].map(({ title, count }, i) => (

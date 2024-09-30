@@ -35,6 +35,14 @@ export const navItems = [
     title: "All Events",
     href: "/dashboard/all-events",
   },
+  {
+    title: "Rule Book",
+    href: "https://docs.google.com/document/d/1EhKOktx51yRpVABZCCIf8BIiZR-GEgwt1bRIvwpYj9g/edit?usp=sharing",
+  },
+  {
+    title: "Brouchure",
+    href: "https://drive.google.com/file/d/16w3IjLCW8JjY1Eu9HZ5KKoS7a6EA_TMt/view?usp=sharing",
+  },
 ];
 
 interface NavbarItemProps {
@@ -50,7 +58,12 @@ function NavbarItem({ title, href, dropdownItems }: NavbarItemProps) {
   const router = useRouter();
 
   return (
-    <Link href={href}>
+    <Link
+      href={href}
+      target={
+        title === "Rule Book" || title === "Brouchure" ? "_blank" : undefined
+      }
+    >
       <Flex
         alignItems="center"
         transition="all .1s ease-in"
@@ -73,7 +86,7 @@ function Navbar() {
   const router = useRouter();
 
   return (
-    <Flex as="nav" justifyContent="space-between" alignItems="center" p={4}>
+    <Flex  as="nav" justifyContent="space-between" alignItems="center" p={4}>
       <Flex gap={12}>
         {" "}
         {/* Increased gap between navbar items and buttons */}
