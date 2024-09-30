@@ -51,11 +51,6 @@ function EventsPage() {
     );
   }
 
-  // Function to map the event name to its corresponding image file
-  // const getSportImage = (slug: string) => {
-  //   return `/images/landing/sports/${slug.replace("-", "_")}.png`;
-  // };
-
   return (
     <Layout title="Events">
       <Global
@@ -136,75 +131,90 @@ function EventsPage() {
         ))}
       </Flex>
 
-      <Grid templateColumns="1fr 1fr" mx="3rem" gap={10}>
-        {sportsEvents?.map(
-          (
-            { name, eventImg, slug, dateFrom, dateTo, pricePerPlayer, rules, about },
-            i
-          ) => (
+      <Grid
+        templateColumns={{ base: "1fr", md: "1fr 1fr" }}
+        mx="3rem"
+        gap={10}
+      >
+        {sportsEvents?.map(({
+          name,
+          eventImg,
+          slug,
+          dateFrom,
+          dateTo,
+          pricePerPlayer,
+          rules,
+          about
+        }, i
+        ) => (
+          <GridItem
+            key={i}
+            bgColor="#171717"
+            borderRadius="10rem"
+            as={Grid}
+            templateColumns={{ base: "1fr", md: "2fr 3fr" }}
+            templateRows="1fr"
+            gap={8}
+            p="30px"
+            cursor="pointer"
+            transition="all .1s ease-in"
+            onClick={() => router.push(`/dashboard/all-events/${slug}`)}
+            _hover={{
+              transform: "translateY(-1px)",
+            }}
+          >
             <GridItem
-              key={i}
-              bgColor="#171717"
-              borderRadius="10rem"
-              as={Grid}
-              templateColumns="2fr 3fr"
-              templateRows="1fr"
-              gap={8}
-              p="30px"
-              cursor="pointer"
-              transition="all .1s ease-in"
-              onClick={() => router.push(`/dashboard/all-events/${slug}`)}
-              _hover={{
-                transform: "translateY(-1px)",
-              }}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
             >
-              <GridItem
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              >
-                <Image
-                  src={eventImg ?? ""}
-                  alt={name}
-                  borderRadius="full"
-                  boxSize="200px"
-                />
-              </GridItem>
-              <GridItem>
-                <Text fontSize="25px" fontWeight={600} color="white">
-                  {name}
-                </Text>
-                <Text fontSize="14px" fontWeight={400} color="gray.400">
-                  {about}
-                </Text>
-                <Text fontSize="20px" fontWeight={500} color="#F4AC17" mt={4}>
-                  ₹{pricePerPlayer} / {name === 'Valorant' ? "Team" : "Person"}
-                </Text>
-                <Text fontSize="15px" fontWeight={400} color="gray.400" mt={2}>
-                  {new Date(dateFrom).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}{" "}
-                  -{" "}
-                  {new Date(dateTo).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </Text>
-                <Button
-                  size="md"
-                  color="#F4AC17"
-                  mt={4}
-                  rightIcon={<FaArrowRight />}
-                  variant="link"
-                >
-                  Register
-                </Button>
-              </GridItem>
+              <Image
+                src={eventImg ?? ""}
+                alt={name}
+                borderRadius="full"
+                boxSize="200px"
+              />
             </GridItem>
-          )
+            <GridItem
+              display="flex"
+              flexDir="column"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Text fontSize="25px" fontWeight={600} color="white">
+                {name}
+              </Text>
+              <Text fontSize="14px" fontWeight={400} color="gray.400">
+                {about}
+              </Text>
+              <Text fontSize="20px" fontWeight={500} color="#F4AC17" mt={4}>
+                ₹{pricePerPlayer} / {name === 'Valorant' ? "Team" : "Person"}
+              </Text>
+              <Text fontSize="15px" fontWeight={400} color="gray.400" mt={2}>
+                {new Date(dateFrom).toLocaleDateString("en-IN", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}{" "}
+                -{" "}
+                {new Date(dateTo).toLocaleDateString("en-IN", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </Text>
+              <Button
+                size="md"
+                color="#F4AC17"
+                mt={4}
+                rightIcon={<FaArrowRight />}
+                variant="link"
+              >
+                Register
+              </Button>
+            </GridItem>
+          </GridItem>
+        )
         )}
       </Grid>
 
