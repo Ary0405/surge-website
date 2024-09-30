@@ -40,8 +40,8 @@ export const navItems = [
     href: "https://docs.google.com/document/d/1EhKOktx51yRpVABZCCIf8BIiZR-GEgwt1bRIvwpYj9g/edit?usp=sharing",
   },
   {
-    title: "Brouchure",
-    href: "https://drive.google.com/file/d/16w3IjLCW8JjY1Eu9HZ5KKoS7a6EA_TMt/view?usp=sharing",
+    title: "Brochure",
+    href: "https://drive.google.com/file/d/1eQwSsDOpv9duHohofzeNL_LvuyF0Lzao/view?usp=sharing",
   },
 ];
 
