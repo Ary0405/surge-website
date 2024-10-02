@@ -6,7 +6,7 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 
-const socialLinks = [
+export const socialLinks = [
   {
     title: "LinkedIn",
     href: "https://www.linkedin.com/company/surge-snioe/",
