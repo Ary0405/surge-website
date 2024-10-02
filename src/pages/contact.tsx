@@ -1,35 +1,7 @@
 import { Box, Text, Grid, Link } from "@chakra-ui/react";
 import { Layout } from "~/components/layout";
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaYoutube,
-} from "react-icons/fa";
 import { useState } from "react";
 
-const socialLinks = [
-  {
-    title: "Facebook",
-    href: "#",
-    Icon: FaFacebookF,
-  },
-  {
-    title: "LinkedIn",
-    href: "#",
-    Icon: FaLinkedinIn,
-  },
-  {
-    title: "Instagram",
-    href: "#",
-    Icon: FaInstagram,
-  },
-  {
-    title: "YouTube",
-    href: "#",
-    Icon: FaYoutube,
-  },
-];
 
 interface Person {
   name: string;

@@ -1,28 +1,25 @@
 import Image from "next/image";
 import { Box, Text, Link, Flex, Grid, Spacer } from "@chakra-ui/react";
-import { navItems } from "../header/navbar";
 import {
-  FaFacebookF,
   FaInstagram,
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
 
-export const socialLinks = [
- 
+const socialLinks = [
   {
     title: "LinkedIn",
-    href: "#",
+    href: "https://www.linkedin.com/company/surge-snioe/",
     Icon: FaLinkedinIn,
   },
   {
     title: "Instagram",
-    href: "#",
+    href: "https://www.instagram.com/surge.snu?igsh=eDRtZ3Y3cGhmbnd0",
     Icon: FaInstagram,
   },
   {
-    title: "Youtube",
-    href: "#",
+    title: "YouTube",
+    href: "https://youtube.com/@surge-shivnadaruniversity7421?feature=shared",
     Icon: FaYoutube,
   },
 ];
@@ -58,7 +55,7 @@ function Footer() {
             gap={4}
             mt={[4, 0]}
           >
-            {socialLinks.map(({ title, href, Icon }, i) => (
+            {socialLinks.map(({ href, Icon }, i) => (
               <Box
                 as={Link}
                 key={i}
