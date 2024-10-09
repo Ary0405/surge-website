@@ -211,15 +211,19 @@ const EventRegistrationPage = () => {
   return (
     <Layout title={`Register for ${data.name}`}>
       <Box
-        maxW="2xl"
-        mx="auto"
-        py={8}
-        px={6}
-        bg="#181818"
-        borderRadius="30px"
-        border="1px solid #F4AC18"
-        boxShadow="lg"
-        mt={8}
+       maxW="2xl"
+       mx="auto"
+       py={8}
+       px={6}
+       bg="#181818"
+       borderRadius="30px"
+       border="1px solid #F4AC18"
+       boxShadow="lg"
+       mt={8}
+       // Add fixed height and overflow
+       maxH="80vh" // Adjust the height to your preference
+       overflowY="auto" // This makes the content inside scrollable
+   
       >
         <Heading as="h1" size="2xl" color="#F4AC18" mb={8}>
           Register for {data.name}
