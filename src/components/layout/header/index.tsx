@@ -22,15 +22,17 @@ function Header() {
   if (!isClient) return null;
 
   return (
-    <MotionBox
+    <Box
       as="header"
       position="relative"
       zIndex={2}
-      initial={{ opacity: 0, y: -50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
       px="4"
       h="10vh"
+      style={
+        window.location.href === "http://localhost:3000/" || window.location.href === "https://surgesnu.in/"
+          ? { background: "linear-gradient(90deg, #830212 0%, #000000 130%)" }
+          : {}
+      }
     >
       <div className="container flex items-center justify-between py-6 mx-auto">
         <MotionLink
@@ -62,7 +64,7 @@ function Header() {
           </MotionBox>
         )}
       </div>
-    </MotionBox>
+    </Box>
   );
 }
 

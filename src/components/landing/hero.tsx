@@ -38,7 +38,7 @@ function HeroSection({
         flexDir="column"
         alignItems="center"
         background="url('/images/landing/hero/translucent_sportsperson_bg.png')"
-        backgroundColor={"linear-gradient(45deg, #830212 0%, #000000 100%)"}
+        // backgroundColor={"linear-gradient(45deg, #830212 0%, #000000 100%)"}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
         backgroundPosition="center"

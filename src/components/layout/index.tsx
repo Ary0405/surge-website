@@ -34,7 +34,7 @@ export function Layout({
         <div className=" z-50">
           <Header />
         </div>
-        <main className={`w-full pt-10 mx-0 ${customStyles}`}>{children}</main>
+        <main className={`w-full mx-0 ${customStyles}`}>{children}</main>
       </div>
       {showFooter ? <Footer /> : null}
     </Providers>
