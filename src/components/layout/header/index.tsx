@@ -29,8 +29,12 @@ function Header() {
       px="4"
       h="10vh"
       style={
-        window.location.href === "http://localhost:3000/" || window.location.href === "https://surgesnu.in/" || window.location.href === "https://www.surgesnu.in"
-          ? { background: "linear-gradient(90deg, #830212 0%, #000000 130%)" }
+        window.location.href === "http://localhost:3000/" ||
+          window.location.href === "https://www.surgesnu.in" ||
+          window.location.href === "https://www.surgesnu.in/"
+          ? {
+            background: "linear-gradient(90deg, #830212 0%, #000000 130%)"
+          }
           : {}
       }
     >
