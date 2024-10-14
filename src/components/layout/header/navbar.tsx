@@ -112,7 +112,7 @@ function Navbar() {
             </Link>
             <Link href="/register">
               <Button bg="#F4AC18" color="white" size="sm">
-                Register
+                Sign Up
               </Button>
             </Link>
           </>

@@ -56,7 +56,13 @@ function HomePage() {
   return (
     <Box overflowX="hidden">
       <Layout title="Home">
-        <Box position="sticky" top={`${heroHeight}vh`}>
+        <Box
+          style={{
+            background: "linear-gradient(170deg, #830212 0%, #000000 30%)",
+          }}
+          position="sticky"
+          top={`${heroHeight}vh`}
+        >
           <HeroSection
             scrollYProgress1={scrollYProgress1}
             setHeight={setHeroHeight}

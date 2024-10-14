@@ -25,7 +25,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
         href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap"
         rel="stylesheet"
       />
-      <div className={GeistSans.className}>
+      <div
+        style={{
+          background: "linear-gradient(170deg, #830212 0%, #000000 40vh)",
+        }}
+        className={GeistSans.className}
+      >
         <Component {...pageProps} />
       </div>
     </SessionProvider>

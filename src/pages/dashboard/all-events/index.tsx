@@ -155,7 +155,7 @@ function EventsPage() {
             templateColumns={{ base: "1fr", md: "2fr 3fr" }}
             templateRows="1fr"
             gap={8}
-            p="30px"
+            p="25px"
             cursor="pointer"
             transition="all .1s ease-in"
             onClick={() => router.push(`/dashboard/all-events/${slug}`)}
@@ -178,13 +178,13 @@ function EventsPage() {
             <GridItem
               display="flex"
               flexDir="column"
-              alignItems="center"
+              alignItems="flex-start"
               justifyContent="center"
             >
               <Text fontSize="25px" fontWeight={600} color="white">
                 {name}
               </Text>
-              <Text fontSize="14px" fontWeight={400} color="gray.400">
+              <Text width={"20rem"} fontSize="14px" fontWeight={400} color="gray.400">
                 {about}
               </Text>
               <Text fontSize="20px" fontWeight={500} color="#F4AC17" mt={4}>
