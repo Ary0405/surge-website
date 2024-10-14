@@ -19,7 +19,7 @@ import {
 import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
-import { FaPlus, FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus, FaShoppingCart } from "react-icons/fa";
 import { validateEmail, validatePhone } from "~/utils/validators";
 
 const EventRegistrationPage = () => {
@@ -210,154 +210,203 @@ const EventRegistrationPage = () => {
 
   return (
     <Layout title={`Register for ${data.name}`}>
-      <Box
-       maxW="2xl"
-       mx="auto"
-       py={8}
-       px={6}
-       bg="#181818"
-       borderRadius="30px"
-       border="1px solid #F4AC18"
-       boxShadow="lg"
-       mt={8}
-       // Add fixed height and overflow
-       maxH="80vh" // Adjust the height to your preference
-       overflowY="auto" // This makes the content inside scrollable
-   
+      <Flex
+        maxW="5xl"
+        mx="auto"
+        py={8}
+        px={6}
+        bg="#181818"
+        borderRadius="30px"
+        border="1px solid #F4AC18"
+        boxShadow="lg"
+        mt={8}
+        mb={8}
+        maxH="80vh"
       >
-        <Heading as="h1" size="2xl" color="#F4AC18" mb={8}>
-          Register for {data.name}
-        </Heading>
+        {/* Left Scrollable Form Section */}
+        <Box flex="3" overflowY="auto" pr={6}>
+          <Heading as="h1" size="2xl" color="#F4AC18" mb={8}>
+            Register for {data.name}
+          </Heading>
 
-        <Stack spacing={6}>
-          {players.map((player, index) => (
-            <Box key={index}>
-              <Flex justifyContent="space-between" alignItems="center" mb={4}>
-                <Heading as="h3" size="md" color="#F4AC18">{`Player ${index + 1
-                  }`}</Heading>
-                {showRemoveButton && (
-                  <IconButton
-                    aria-label="Remove player"
-                    icon={<FaMinus />}
-                    colorScheme="red"
-                    onClick={() => removePlayer(index)}
-                  />
-                )}
-              </Flex>
-              <Stack spacing={4}>
-                <FormControl isRequired>
-                  <FormLabel color="gray.400" fontSize="sm">
-                    Name
-                  </FormLabel>
-                  <Input
-                    placeholder="John Doe"
-                    value={player.name}
-                    onChange={(e) =>
-                      handleInputChange(index, "name", e.target.value)
-                    }
-                  />
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel color="gray.400" fontSize="sm">
-                    Email
-                  </FormLabel>
-                  <Input
-                    placeholder="you@youruniversity.edu.in"
-                    value={player.email}
-                    type="email"
-                    onChange={(e) => {
-                      handleInputChange(index, "email", e.target.value)
-                    }}
-                  />
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel color="gray.400" fontSize="sm">
-                    Roll Number
-                  </FormLabel>
-                  <Input
-                    placeholder="2210110001"
-                    value={player.rollNumber}
-                    onChange={(e) =>
-                      handleInputChange(index, "rollNumber", e.target.value)
-                    }
-                  />
-                </FormControl>
-                <FormControl isRequired>
-                  <FormLabel color="gray.400" fontSize="sm">
-                    Phone
-                  </FormLabel>
-                  <Input
-                    placeholder="+91 9898989898"
-                    value={player.phone}
-                    onChange={(e) =>
-                      handleInputChange(index, "phone", e.target.value)
-                    }
-                  />
-                </FormControl>
-                {data.name === 'Chess' && (
+          <Stack spacing={6}>
+            {players.map((player, index) => (
+              <Box key={index}>
+                <Flex justifyContent="space-between" alignItems="center" mb={4}>
+                  <Heading as="h3" size="md" color="#F4AC18">{`Player ${index + 1}`}</Heading>
+                  {showRemoveButton && (
+                    <IconButton
+                      aria-label="Remove player"
+                      icon={<FaMinus />}
+                      colorScheme="red"
+                      onClick={() => removePlayer(index)}
+                    />
+                  )}
+                </Flex>
+                <Stack spacing={4}>
                   <FormControl isRequired>
-                    <FormLabel color="gray.400" fontSize="sm">
-                      Gender
-                    </FormLabel>
-                    <Select
-                      placeholder="Select Gender"
-                      value={player.gender}
-                      onChange={(e) =>
-                        handleInputChange(index, "gender", e.target.value)
-                      }
-                    >
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </Select>
+                    <FormLabel color="gray.400" fontSize="sm">Name</FormLabel>
+                    <Input
+                      placeholder="John Doe"
+                      value={player.name}
+                      onChange={(e) => handleInputChange(index, "name", e.target.value)}
+                    />
                   </FormControl>
-                )}
-              </Stack>
-              {index < players.length - 1 && <Divider mt={8} />}
-            </Box>
-          ))}
+                  <FormControl isRequired>
+                    <FormLabel color="gray.400" fontSize="sm">Email</FormLabel>
+                    <Input
+                      placeholder="you@youruniversity.edu.in"
+                      value={player.email}
+                      type="email"
+                      onChange={(e) => handleInputChange(index, "email", e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl isRequired>
+                    <FormLabel color="gray.400" fontSize="sm">Roll Number</FormLabel>
+                    <Input
+                      placeholder="2210110001"
+                      value={player.rollNumber}
+                      onChange={(e) => handleInputChange(index, "rollNumber", e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl isRequired>
+                    <FormLabel color="gray.400" fontSize="sm">Phone</FormLabel>
+                    <Input
+                      placeholder="+91 9898989898"
+                      value={player.phone}
+                      onChange={(e) => handleInputChange(index, "phone", e.target.value)}
+                    />
+                  </FormControl>
+                  {data.name === 'Chess' && (
+                    <FormControl isRequired>
+                      <FormLabel color="gray.400" fontSize="sm">Gender</FormLabel>
+                      <Select
+                        placeholder="Select Gender"
+                        value={player.gender}
+                        onChange={(e) => handleInputChange(index, "gender", e.target.value)}
+                      >
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                      </Select>
+                    </FormControl>
+                  )}
+                </Stack>
+                {index < players.length - 1 && <Divider mt={8} />}
+              </Box>
+            ))}
 
-          {players.length < (data?.maxPlayers ?? players.length) && (
+            {players.length < (data?.maxPlayers ?? players.length) && (
+              <Button
+                leftIcon={<FaPlus />}
+                bg="#F4AC18"
+                color="white"
+                onClick={addPlayer}
+                width="full"
+                _hover={{ bg: "#D49516" }}
+              >
+                Add Player
+              </Button>
+            )}
+          </Stack>
+        </Box>
+
+        {/* Right Fixed Section */}
+        <Box
+          flex="1"
+          borderLeft="1px solid #F4AC18"
+          pl={6}
+          position="relative"
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-between"
+        >
+          {/* Event Date and Location */}
+          <Box mb={8}>
+            <Text fontSize="sm" color="gray.400" mb={1}>
+              RUNS FROM
+            </Text>
+            <Text fontSize="l" color="gray.100" mb={6}>
+                  {new Date(data.dateFrom).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
+                  {" - "}
+                  {new Date(data.dateFrom).getMonth() ===
+                  new Date(data.dateTo).getMonth()
+                    ? new Date(data.dateTo).toLocaleDateString("en-US", {
+                        day: "numeric",
+                      })
+                    : new Date(data.dateTo).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })}
+                  {", "}
+                  {new Date(data.dateTo).getFullYear()}
+                </Text>
+
+            <Text fontSize="sm" color="gray.400" mb={1}>
+              HAPPENING
+            </Text>
+            <Text fontSize="l" color="gray.100" mb={4}>
+                  {data.name === "Valorant"
+                    ? "Online"
+                    : "Indoor Sports Complex"}
+            </Text>
+          </Box>
+
+          {/* Price and Cart Icon */}
+          <Box mb={8}>
+            <Flex justifyContent="space-between" alignItems="center">
+              <Box>
+                <Text fontSize="sm" color="gray.400">
+                  Price
+                </Text>
+                <Text fontSize="2xl" fontWeight="bold" color="white">
+                  ₹{data.pricePerPlayer}
+                </Text>
+              </Box>
+
+              <Box color="#F4AC18">
+                <FaShoppingCart size="1.5em" />
+              </Box>
+            </Flex>
+
+            {/* Description */}
+            <Text fontSize="l" color="gray.100" mt={4}>
+                    Team Size: <b>{data.minPlayers}</b> -{" "}
+                    <b>{data.maxPlayers}</b>
+                  </Text>
+                  <Text fontSize="l" color="gray.100">
+                    Category: <b>{data.category}</b>
+                  </Text>
+          </Box>
+
+          {/* Add to Cart Button */}
+          <Box mb={8}>
             <Button
-              leftIcon={<FaPlus />}
+              size="lg"
               bg="#F4AC18"
               color="white"
-              onClick={addPlayer}
               width="full"
               _hover={{ bg: "#D49516" }}
+              onClick={handleSubmit}
             >
-              Add Player
+              {createTeamMutation.status === "pending" ? "Registering..." : "Add to Cart"}
             </Button>
-          )}
-        </Stack>
+          </Box>
 
-        <Spacer h="4rem" />
-
-        <Flex justifyContent="space-between" mt={8}>
-          <Button size="lg" colorScheme="gray" onClick={() => router.back()}>
-            Cancel
-          </Button>
-          <Button
-            size="lg"
-            bg="#F4AC18"
-            color="white"
-            onClick={handleSubmit}
-            boxShadow="lg"
-            _hover={{
-              bg: "#D49516",
-              boxShadow: "xl",
-              transform: "translateY(-2px)",
-            }}
-            transition="all 0.3s ease"
-          >
-            {createTeamMutation.status === "pending"
-              ? "Registering..."
-              : "Add to Cart"}
-          </Button>
-        </Flex>
-      </Box>
-
-      <Spacer h="10rem" />
+          {/* Registration Closing Timer */}
+          <Box textAlign="center">
+            <Text fontSize="sm" color="gray.400" mb={1}>
+              REGISTRATION CLOSING IN
+            </Text>
+            <Text fontSize="2xl" fontWeight="bold" color="#F4AC18">
+              0d:0h:0m
+            </Text>
+          </Box>
+        </Box>
+      </Flex>
     </Layout>
   );
 };
