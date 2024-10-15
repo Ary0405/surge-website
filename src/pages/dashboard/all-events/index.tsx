@@ -173,6 +173,7 @@ function EventsPage() {
                 alt={name}
                 borderRadius="full"
                 boxSize="200px"
+                objectFit="cover"
               />
             </GridItem>
             <GridItem

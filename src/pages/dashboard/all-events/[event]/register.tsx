@@ -13,7 +13,6 @@ import {
   FormControl,
   FormLabel,
   Spinner,
-  Select,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
@@ -39,7 +38,6 @@ const EventRegistrationPage = () => {
       email: "",
       rollNumber: "",
       phone: "",
-      gender: "",
     }))
   );
 
@@ -78,7 +76,6 @@ const EventRegistrationPage = () => {
           email: "",
           rollNumber: "",
           phone: "",
-          gender: "",
         }))
       );
     }
@@ -88,7 +85,7 @@ const EventRegistrationPage = () => {
     if (players.length < (data?.maxPlayers ?? players.length)) {
       setPlayers([
         ...players,
-        { name: "", email: "", rollNumber: "", phone: "", gender: "" },
+        { name: "", email: "", rollNumber: "", phone: "" },
       ]);
     }
   };
@@ -133,10 +130,10 @@ const EventRegistrationPage = () => {
     );
   }
 
-  const validateChessTeam = () => {
-    // At least one female player
-    return players.some((player) => player.gender === "female");
-  };
+  // const validateChessTeam = () => {
+  //   // At least one female player
+  //   return players.some((player) => player.gender === "female");
+  // };
 
   const handleSubmit = async () => {
     if (!data) return;
@@ -174,16 +171,16 @@ const EventRegistrationPage = () => {
       return;
     }
 
-    if (data.name === 'Chess' && !validateChessTeam()) {
-      toast({
-        title: "Invalid Team",
-        description: "Please ensure that there is at least one female player in the team.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
+    // if (data.name === 'Chess' && !validateChessTeam()) {
+    //   toast({
+    //     title: "Invalid Team",
+    //     description: "Please ensure that there is at least one female player in the team.",
+    //     status: "error",
+    //     duration: 3000,
+    //     isClosable: true,
+    //   });
+    //   return;
+    // }
 
     try {
       await createTeamMutation.mutateAsync({
@@ -303,7 +300,7 @@ const EventRegistrationPage = () => {
                       onChange={(e) => handleInputChange(index, "phone", e.target.value)}
                     />
                   </FormControl>
-                  {data.name === 'Chess' && (
+                  {/* {data.name === 'Chess' && (
                     <FormControl isRequired>
                       <FormLabel color="gray.400" fontSize="sm">Gender</FormLabel>
                       <Select
@@ -316,7 +313,7 @@ const EventRegistrationPage = () => {
                         <option value="other">Other</option>
                       </Select>
                     </FormControl>
-                  )}
+                  )} */}
                 </Stack>
                 {index < players.length - 1 && <Divider mt={8} />}
               </Box>
