@@ -13,7 +13,6 @@ import {
   FormControl,
   FormLabel,
   Spinner,
-  Select,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { Layout } from "~/components/layout";
@@ -172,16 +171,16 @@ const EventRegistrationPage = () => {
       return;
     }
 
-    if (data.name === 'Chess' && !validateChessTeam()) {
-      toast({
-        title: "Invalid Team",
-        description: "Please ensure that there is at least one female player in the team.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
+    // if (data.name === 'Chess' && !validateChessTeam()) {
+    //   toast({
+    //     title: "Invalid Team",
+    //     description: "Please ensure that there is at least one female player in the team.",
+    //     status: "error",
+    //     duration: 3000,
+    //     isClosable: true,
+    //   });
+    //   return;
+    // }
 
     try {
       await createTeamMutation.mutateAsync({
