@@ -22,79 +22,85 @@ export const sportsEvents = [
     title: "Football",
     description:
       "Where every pass counts and every goal ignites the crowd—football is more than a game; it's a battle of strategy and stamina on the ultimate field of dreams.",
-    tempImg: "/images/landing/sports/football.png",
+    tempImg: "/images/landing/sports/foom.jpg",
   },
   {
     title: "Badminton",
     description:
       "In a game where agility meets precision, badminton is a lightning-fast duel where every shuttlecock can change the course of victory.",
-    tempImg: "/images/landing/sports/badminton.png",
+    tempImg: "/images/landing/sports/badman.jpg",
   },
   {
     title: "Athletics",
     description:
       "The pursuit of excellence begins on the track—athletics is the purest form of human speed, strength, and endurance, pushing the limits of what’s possible.",
-    tempImg: "/images/landing/sports/athletics.png",
+    tempImg: "/images/landing/sports/4400w.jpg",
   },
   {
     title: "Basketball",
     description:
       "Where the court is a canvas and each player paints with speed, skill, and slam dunks—basketball is the ultimate showcase of team dynamics and individual brilliance.",
-    tempImg: "/images/landing/sports/basketball.png",
+    tempImg: "/images/landing/sports/basm.jpeg",
   },
   {
     title: "Powerlifting",
     description:
       "In the world of powerlifting, it’s all about raw strength and mental toughness—where the barbell is a test of will, and every lift is a statement of power.",
-    tempImg: "/images/landing/sports/powerlifting.png",
+    tempImg: "/images/landing/sports/manpow.webp",
   },
   {
     title: "Cricket",
     description:
       "Cricket is a game of centuries and split-second decisions, where strategy and skill blend to create moments of brilliance on the pitch.",
-    tempImg: "/images/landing/sports/cricket.png",
+    tempImg: "/images/landing/sports/cricMen.webp",
   },
   {
     title: "Volleyball",
     description:
       "Volleyball is a game of height, hustle, and heart, where the net separates but the spirit unites in every spike, set, and block.",
-    tempImg: "/images/landing/sports/volleyball.png",
+    tempImg: "/images/landing/sports/vomen.jpg",
   },
   {
     title: "Table Tennis",
     description:
       "The thrill of table tennis lies in its lightning-fast exchanges and razor-sharp reflexes—a game where every spin and smash can turn the tide.",
-    tempImg: "/images/landing/sports/table_tennis.png",
+    tempImg: "/images/landing/sports/ttm.webp",
   },
   {
     title: "Lawn Tennis",
     description:
       "On the lawn tennis court, every serve is a challenge and every rally a test of endurance, skill, and sheer willpower.",
-    tempImg: "/images/landing/sports/lawn_tennis.png",
+    tempImg: "/images/landing/sports/woten.webp",
   },
   {
     title: "Squash",
     description:
       "Squash is the ultimate test of speed and stamina, where every wall is an opportunity, and every shot is a test of reflexes and strategy.",
-    tempImg: "/images/landing/sports/squash.png",
+    tempImg: "/images/landing/sports/sqm.jpg",
   },
   {
     title: "Chess",
     description:
       "Chess is the battlefield of the mind, where every move is calculated, every piece a soldier, and the ultimate prize is a checkmate.",
-    tempImg: "/images/landing/sports/chess.png",
+    tempImg: "/images/landing/sports/chess.avif",
   },
   {
     title: "Valorant (E-Sport)",
     description:
       "In Valorant, precision and strategy are your weapons—where every round is a fight for dominance in a world where only the sharpest minds and quickest reflexes survive.",
-    tempImg: "/images/landing/sports/valorant.png",
+    tempImg: "/images/landing/sports/valorant.jpg",
   },
   {
     title: "Futsal",
     description:
       "In Futsal, agility and teamwork are your keys to victory—where fast-paced play and quick decisions on the court define the game, making every match a thrilling battle for supremacy.",
-    tempImg: "/images/landing/sports/futsal.png",
+    tempImg: "/images/landing/sports/futsal.jpeg",
+  },
+  {
+    title: "Football",
+    description:
+      "Where every pass counts and every goal ignites the crowd—football is more than a game; it's a battle of strategy and stamina on the ultimate field of dreams.",
+    tempImg: "/images/landing/sports/foom.jpg",
   },
 ];
 
@@ -107,7 +113,7 @@ function SportsSection() {
   });
 
   const translateLeft = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const translateRight = useTransform(scrollYProgress, [0, 1], [100, 400]);
+  const translateRight = useTransform(scrollYProgress, [0, 1], [-100, 200]);
 
   if (isMobile) {
     return (
@@ -165,7 +171,6 @@ function SportsSection() {
           gap={8}
           ref={ref}
           transform="scale(1.3)"
-          
         >
           {sportsEvents.slice(0, 7).map((sport, i) => (
             <MotionGridItem
@@ -201,7 +206,7 @@ function SportsSection() {
             </MotionGridItem>
           ))}
 
-          {sportsEvents.slice(7, 13).map((sport, i) => (
+          {sportsEvents.slice(7, 14).map((sport, i) => (
             <MotionGridItem
               key={i + 7}
               style={{
