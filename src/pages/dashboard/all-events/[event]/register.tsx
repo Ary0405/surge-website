@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import {
   Box,
   Button,
@@ -7,7 +7,6 @@ import {
   Input,
   Text,
   Stack,
-  Spacer,
   IconButton,
   Divider,
   useToast,
@@ -43,6 +42,33 @@ const EventRegistrationPage = () => {
       gender: "",
     }))
   );
+
+  const [closingTime, setClosingTime] = useState("");
+
+  const closingDate = useMemo(() => new Date("2024-11-14T23:59:59"), []);
+
+  const calculateTimeLeft = useCallback(() => {
+    const now = new Date();
+    const diff = closingDate.getTime() - now.getTime();
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (diff <= 0) {
+      return "0d:0h:0m";
+    }
+
+    return `${days}d:${hours}h:${minutes}m`;
+  }, [closingDate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setClosingTime(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [calculateTimeLeft]);
 
   useEffect(() => {
     if (data?.minPlayers) {
@@ -327,31 +353,31 @@ const EventRegistrationPage = () => {
               RUNS FROM
             </Text>
             <Text fontSize="l" color="gray.100" mb={6}>
-                  {new Date(data.dateFrom).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                  {" - "}
-                  {new Date(data.dateFrom).getMonth() ===
-                  new Date(data.dateTo).getMonth()
-                    ? new Date(data.dateTo).toLocaleDateString("en-US", {
-                        day: "numeric",
-                      })
-                    : new Date(data.dateTo).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                      })}
-                  {", "}
-                  {new Date(data.dateTo).getFullYear()}
-                </Text>
+              {new Date(data.dateFrom).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+              })}
+              {" - "}
+              {new Date(data.dateFrom).getMonth() ===
+                new Date(data.dateTo).getMonth()
+                ? new Date(data.dateTo).toLocaleDateString("en-US", {
+                  day: "numeric",
+                })
+                : new Date(data.dateTo).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                })}
+              {", "}
+              {new Date(data.dateTo).getFullYear()}
+            </Text>
 
             <Text fontSize="sm" color="gray.400" mb={1}>
               HAPPENING
             </Text>
             <Text fontSize="l" color="gray.100" mb={4}>
-                  {data.name === "Valorant"
-                    ? "Online"
-                    : "Indoor Sports Complex"}
+              {data.name === "Valorant"
+                ? "Online"
+                : "Indoor Sports Complex"}
             </Text>
           </Box>
 
@@ -374,12 +400,12 @@ const EventRegistrationPage = () => {
 
             {/* Description */}
             <Text fontSize="l" color="gray.100" mt={4}>
-                    Team Size: <b>{data.minPlayers}</b> -{" "}
-                    <b>{data.maxPlayers}</b>
-                  </Text>
-                  <Text fontSize="l" color="gray.100">
-                    Category: <b>{data.category}</b>
-                  </Text>
+              Team Size: <b>{data.minPlayers}</b> -{" "}
+              <b>{data.maxPlayers}</b>
+            </Text>
+            <Text fontSize="l" color="gray.100">
+              Category: <b>{data.category}</b>
+            </Text>
           </Box>
 
           {/* Add to Cart Button */}
@@ -402,7 +428,7 @@ const EventRegistrationPage = () => {
               REGISTRATION CLOSING IN
             </Text>
             <Text fontSize="2xl" fontWeight="bold" color="#F4AC18">
-              0d:0h:0m
+              {closingTime}
             </Text>
           </Box>
         </Box>
