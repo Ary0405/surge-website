@@ -39,7 +39,6 @@ const EventRegistrationPage = () => {
       email: "",
       rollNumber: "",
       phone: "",
-      gender: "",
     }))
   );
 
@@ -78,7 +77,6 @@ const EventRegistrationPage = () => {
           email: "",
           rollNumber: "",
           phone: "",
-          gender: "",
         }))
       );
     }
@@ -88,7 +86,7 @@ const EventRegistrationPage = () => {
     if (players.length < (data?.maxPlayers ?? players.length)) {
       setPlayers([
         ...players,
-        { name: "", email: "", rollNumber: "", phone: "", gender: "" },
+        { name: "", email: "", rollNumber: "", phone: "" },
       ]);
     }
   };
@@ -133,10 +131,10 @@ const EventRegistrationPage = () => {
     );
   }
 
-  const validateChessTeam = () => {
-    // At least one female player
-    return players.some((player) => player.gender === "female");
-  };
+  // const validateChessTeam = () => {
+  //   // At least one female player
+  //   return players.some((player) => player.gender === "female");
+  // };
 
   const handleSubmit = async () => {
     if (!data) return;
