@@ -303,7 +303,7 @@ const EventRegistrationPage = () => {
                       onChange={(e) => handleInputChange(index, "phone", e.target.value)}
                     />
                   </FormControl>
-                  {data.name === 'Chess' && (
+                  {/* {data.name === 'Chess' && (
                     <FormControl isRequired>
                       <FormLabel color="gray.400" fontSize="sm">Gender</FormLabel>
                       <Select
@@ -316,7 +316,7 @@ const EventRegistrationPage = () => {
                         <option value="other">Other</option>
                       </Select>
                     </FormControl>
-                  )}
+                  )} */}
                 </Stack>
                 {index < players.length - 1 && <Divider mt={8} />}
               </Box>
