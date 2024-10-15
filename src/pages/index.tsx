@@ -70,7 +70,7 @@ function HomePage() {
           />
         </Box>
 
-        <Box ref={container1}>
+        <Box background="radial-gradient(circle at center, #830212 0, black 80%)" ref={container1}>
           <AftermovieSection />
         </Box>
 
