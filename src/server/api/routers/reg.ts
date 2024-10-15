@@ -519,6 +519,7 @@ export const regRouter = createTRPCRouter({
         collegeName: true,
         rollNumber: true,
         phone: true,
+        accomActive: true,
       },
     });
 
