@@ -1,188 +1,217 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgres"
-    url      = env("DATABASE_URL")
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id            String    @id @default(uuid())
-    email         String    @unique @db.VarChar(100)
-    password      String    @db.VarChar(255)
-    name          String    @db.VarChar(100)
-    collegeName   String    @db.VarChar(100)
-    rollNumber    String    @db.VarChar(100)
-    phone         String    @db.VarChar(100)
-    emailVerified DateTime?
-    image         String?
-    Team          Team[]
-    accomActive   Boolean   @default(false)
+  id            String    @id @default(uuid())
+  email         String    @unique @db.VarChar(100)
+  password      String    @db.VarChar(255)
+  name          String    @db.VarChar(100)
+  collegeName   String    @db.VarChar(100)
+  rollNumber    String    @db.VarChar(100)
+  phone         String    @db.VarChar(100)
+  emailVerified DateTime?
+  image         String?
+  Team          Team[]
+  accomActive   Boolean   @default(false)
 
-    // New relation to VerificationToken
-    verificationTokens VerificationToken[] @relation("UserVerificationTokens")
+  // New relation to VerificationToken
+  verificationTokens VerificationToken[] @relation("UserVerificationTokens")
 }
 
 model VerificationToken {
-    id         String   @id @default(cuid())
-    identifier String   @unique
-    token      String   @unique
-    expires    DateTime
-    userId     String?
-    User       User?    @relation("UserVerificationTokens", fields: [userId], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  identifier String   @unique
+  token      String   @unique
+  expires    DateTime
+  userId     String?
+  User       User?    @relation("UserVerificationTokens", fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
 }
 
 model Event {
-    id             String     @id @default(cuid())
-    name           String     @unique @db.VarChar(100)
-    slug           String     @unique
-    category       Categories @default(MALE)
-    dateTo         String
-    dateFrom       String
-    venue          String
-    location       Locations  @default(INDOOR)
-    rules          String?    @db.Text
-    winnerPrize    Int
-    runnerUpPrize  Int
-    minPlayers     Int
-    maxPlayers     Int
-    pricePerPlayer Int
-    about          String?
+  id             String     @id @default(cuid())
+  name           String     @unique @db.VarChar(100)
+  slug           String     @unique
+  category       Categories @default(MALE)
+  dateTo         String
+  dateFrom       String
+  venue          String
+  location       Locations  @default(INDOOR)
+  rules          String?    @db.Text
+  winnerPrize    Int
+  runnerUpPrize  Int
+  minPlayers     Int
+  maxPlayers     Int
+  pricePerPlayer Int
+  about          String?
 
-    eventImg String?
+  eventImg String?
 
-    Team              Team[]
-    requiredDocuments RequiredDocument[]
+  Team              Team[]
+  requiredDocuments RequiredDocument[]
 }
 
 model RequiredDocument {
-    id           String       @id @default(cuid())
-    documentType DocumentType
-    description  String       @db.Text
-    events       Event[]
+  id           String       @id @default(cuid())
+  documentType DocumentType
+  description  String       @db.Text
+  events       Event[]
 }
 
 model TeamMember {
-    id         String                   @id @default(cuid())
-    name       String                   @db.VarChar(100)
-    email      String                   @db.VarChar(100)
-    phone      String                   @db.VarChar(100)
-    rollNumber String                   @db.VarChar(100)
-    eventId    String
-    playerType PlayerType               @default(PLAYER)
-    teamId     String
-    Team       Team                     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-    Documents  Document[]
-    createdAt  DateTime                 @default(now())
-    isVerified PlayerVerificationStatus @default(NOT_VERIFIED)
+  id         String                   @id @default(cuid())
+  name       String                   @db.VarChar(100)
+  email      String                   @db.VarChar(100)
+  phone      String                   @db.VarChar(100)
+  rollNumber String                   @db.VarChar(100)
+  eventId    String
+  playerType PlayerType               @default(PLAYER)
+  teamId     String
+  Team       Team                     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  Documents  Document[]
+  createdAt  DateTime                 @default(now())
+  isVerified PlayerVerificationStatus @default(NOT_VERIFIED)
 }
 
 model Team {
-    id                String          @id @default(cuid())
-    registeredById    String
-    registeredBy      User            @relation(fields: [registeredById], references: [id])
-    eventId           String
-    Event             Event           @relation(fields: [eventId], references: [id], onDelete: Cascade)
-    verificationToken String          @unique @default(cuid())
-    TeamMembers       TeamMember[]
-    PaymentDetails    PaymentDetails? @relation(fields: [paymentDetailsId], references: [id], onDelete: Cascade)
-    paymentDetailsId  String?
+  id                     String                @id @default(cuid())
+  registeredById         String
+  registeredBy           User                  @relation(fields: [registeredById], references: [id])
+  eventId                String
+  Event                  Event                 @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  verificationToken      String                @unique @default(cuid())
+  TeamMembers            TeamMember[]
+  PaymentDetails         PaymentDetails?       @relation(fields: [paymentDetailsId], references: [id], onDelete: Cascade)
+  paymentDetailsId       String?
+  AccommodationPayment   AccommodationPayment? @relation(fields: [accommodationPaymentId], references: [id], onDelete: Cascade)
+  accommodationPaymentId String?
+  AccommodationDetails   AccommodationDetails?  @relation(fields: [accommodationDetailsId], references: [id], onDelete: Cascade)
+  accommodationDetailsId String?
+}
+
+model AccommodationDetails {
+  id                     String                @id @default(cuid())
+  teamId                 String
+  createdAt              DateTime              @default(now())
+  Teams                  Team[]
+  startDate              DateTime
+  endDate                DateTime
+  maleCount              Int
+  femaleCount            Int
+  isAlloted              Boolean               @default(false)
+  AccommodationPayment   AccommodationPayment? @relation(fields: [accommodationPaymentId], references: [id])
+  accommodationPaymentId String?
+}
+
+model AccommodationPayment {
+  id                   String                 @id @default(cuid())
+  amount               Int
+  paymentProofUrl      String?                @db.VarChar(100)
+  changedStatus        DateTime               @default(now())
+  createdAt            DateTime               @default(now())
+  paymentStatus        PaymentStatus          @default(PENDING)
+  Teams                Team[]
+  AccommodationDetails AccommodationDetails[]
 }
 
 model PaymentDetails {
-    id              String        @id @default(cuid())
-    paymentStatus   PaymentStatus @default(PENDING)
-    paymentProofUrl String?       @db.VarChar(100)
-    amount          Int
-    changedStatus   DateTime      @default(now())
-    createdAt       DateTime      @default(now())
-    Teams           Team[]
+  id              String        @id @default(cuid())
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentProofUrl String?       @db.VarChar(100)
+  amount          Int
+  changedStatus   DateTime      @default(now())
+  createdAt       DateTime      @default(now())
+  Teams           Team[]
 }
 
 model PlayerLog {
-    id           Int         @id @default(autoincrement())
-    userId       String
-    teamId       String
-    teamMemberId Int
-    PlayerState  PlayerState @default(OUT_CAMPUS)
-    timestamp    DateTime    @default(now())
+  id           Int         @id @default(autoincrement())
+  userId       String
+  teamId       String
+  teamMemberId Int
+  PlayerState  PlayerState @default(OUT_CAMPUS)
+  timestamp    DateTime    @default(now())
 }
 
 model GateLog {
-    id        Int         @id @default(autoincrement())
-    name      String      @default("")
-    phone     String      @default("")
-    college   String      @default("")
-    location  PlayerState @default(IN_CAMPUS)
-    timestamp DateTime    @default(now())
+  id        Int         @id @default(autoincrement())
+  name      String      @default("")
+  phone     String      @default("")
+  college   String      @default("")
+  location  PlayerState @default(IN_CAMPUS)
+  timestamp DateTime    @default(now())
 }
 
 model Document {
-    id               String       @id @default(cuid())
-    fileUrl          String       @db.VarChar(255)
-    originalFileName String       @db.VarChar(255)
-    uploadStatus     UploadStatus @default(PENDING)
-    uploadedAt       DateTime     @default(now())
-    documentType     DocumentType
-    teamMemberId     String
-    TeamMember       TeamMember   @relation(fields: [teamMemberId], references: [id], onDelete: Cascade)
+  id               String       @id @default(cuid())
+  fileUrl          String       @db.VarChar(255)
+  originalFileName String       @db.VarChar(255)
+  uploadStatus     UploadStatus @default(PENDING)
+  uploadedAt       DateTime     @default(now())
+  documentType     DocumentType
+  teamMemberId     String
+  TeamMember       TeamMember   @relation(fields: [teamMemberId], references: [id], onDelete: Cascade)
 }
 
 enum PaymentStatus {
-    PAID
-    NOT_PAID
-    MANUAL
-    PENDING
+  PAID
+  NOT_PAID
+  MANUAL
+  PENDING
 }
 
 enum PlayerVerificationStatus {
-    VERIFIED
-    NOT_VERIFIED
-    REJECTED
+  VERIFIED
+  NOT_VERIFIED
+  REJECTED
 }
 
 enum PlayerState {
-    IN_CAMPUS
-    OUT_CAMPUS
+  IN_CAMPUS
+  OUT_CAMPUS
 }
 
 enum PlayerType {
-    CAPTAIN
-    PLAYER
-    ADDITIONAL
+  CAPTAIN
+  PLAYER
+  ADDITIONAL
 }
 
 enum Role {
-    USER
-    ADMIN
-    ADMIN_SUPER
+  USER
+  ADMIN
+  ADMIN_SUPER
 }
 
 enum Categories {
-    MALE
-    FEMALE
-    MIXED
+  MALE
+  FEMALE
+  MIXED
 }
 
 enum Locations {
-    INDOOR
-    OUTDOOR
-    VIRTUAL
+  INDOOR
+  OUTDOOR
+  VIRTUAL
 }
 
 enum UploadStatus {
-    PENDING
-    UPLOADED
-    REJECTED
+  PENDING
+  UPLOADED
+  REJECTED
 }
 
 enum DocumentType {
-    PHOTO
-    AADHAR_CARD
-    MARKSHEET
-    FEE_PROOF
-    COLLEGE_ID
+  PHOTO
+  AADHAR_CARD
+  MARKSHEET
+  FEE_PROOF
+  COLLEGE_ID
 }
