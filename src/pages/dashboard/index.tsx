@@ -1,4 +1,7 @@
 import {
+  Divider,
+  Heading,
+  Accordion,
   Box,
   Button,
   Flex,
@@ -8,14 +11,30 @@ import {
   Badge,
   VStack,
   Spinner,
+  StackDivider,
+  useToast,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
+  TableContainer,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Td
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
   FaCalendarAlt,
+  FaClipboard,
   FaHotel,
   FaListAlt,
   FaShoppingCart,
-  FaUser,
+  FaUserCircle,
+  FaTrophy,
+  FaCheckCircle,
+  FaExclamationTriangle
 } from "react-icons/fa";
 import { Layout } from "~/components/layout";
 import { textBorder } from "~/components/landing/stats";
@@ -28,9 +47,30 @@ function Dashboard() {
   const { data: userProfile, isLoading } = api.reg.getUserProfile.useQuery();
   const cartItemCount = cartItems?.length ?? 0;
 
+  const { data: myEvents, isError } = api.reg.getMyEvents.useQuery();
+  const toast = useToast();
+
+  const handleCopyToClipboard = (verificationToken: string) => {
+    const domain =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://surgesnu.in";
+    const url = `${domain}/verify/${verificationToken}`;
+
+    void navigator.clipboard.writeText(url).then(() => {
+      toast({
+        title: "Verification URL copied.",
+        description: "The verification URL has been copied to your clipboard.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    });
+  };
   if (isLoading) {
     return (
       <Layout title="Dashboard">
+        {void ((isError || !myEvents) && <Text>Unable to load your events.</Text>)}
         <Box display="flex" justifyContent="center" alignItems="center" my={12}>
           <Spinner
             thickness="4px"
@@ -130,42 +170,154 @@ function Dashboard() {
       <Box
         mx="13rem"
         mb={16}
-        p={10}
         borderWidth={1}
         borderRadius="lg"
         bg="#181818"
         color="white"
+        borderColor='#868686'
       >
-        <Flex alignItems="center" mb={8}>
-          <Icon as={FaUser} w={8} h={8} mr={4} />
-          <Text fontSize="lg" fontWeight="bold">
-            Personal Information
-          </Text>
-        </Flex>
-        <VStack spacing={4} align="start">
-          <Flex justifyContent="space-between" width="100%">
-            <Text fontWeight="bold">Name</Text>
+        <VStack borderColor='#868686' divider={<StackDivider borderColor='#868686' />} spacing={4} align="">
+          <Flex alignItems="center" pr={5} pl={5} pt={5} >
+            <Icon as={FaUserCircle} w={6} h={6} mr={4} color={"#F3AB17"} />
+            <Text fontWeight="bold">
+              Personal Information
+            </Text>
+          </Flex>
+          <Flex justifyContent="space-between" width="100%" pr={5} pl={5}>
+            <Text fontWeight="bold" color={"#bababa"}>Name</Text>
             <Text>{userProfile?.name}</Text>
           </Flex>
-          <Flex justifyContent="space-between" width="100%">
-            <Text fontWeight="bold">Email</Text>
+          <Flex justifyContent="space-between" width="100%" pr={5} pl={5}>
+            <Text fontWeight="bold" color={"#bababa"}>Email</Text>
             <Text>{userProfile?.email}</Text>
           </Flex>
-          <Flex justifyContent="space-between" width="100%">
-            <Text fontWeight="bold">College Name</Text>
+          <Flex justifyContent="space-between" width="100%" pr={5} pl={5}>
+            <Text fontWeight="bold" color={"#bababa"}>College Name</Text>
             <Text>{userProfile?.collegeName}</Text>
           </Flex>
-          <Flex justifyContent="space-between" width="100%">
-            <Text fontWeight="bold">Roll Number</Text>
+          <Flex justifyContent="space-between" width="100%" pr={5} pl={5}>
+            <Text fontWeight="bold" color={"#bababa"}>Roll Number</Text>
             <Text>{userProfile?.rollNumber}</Text>
           </Flex>
-          <Flex justifyContent="space-between" width="100%">
-            <Text fontWeight="bold">Phone Number</Text>
+          <Flex justifyContent="space-between" width="100%" pr={5} pl={5} pb={4}>
+            <Text fontWeight="bold" color={"#bababa"}>Phone Number</Text>
             <Text>{userProfile?.phone}</Text>
           </Flex>
         </VStack>
       </Box>
 
+      <Box
+        mx="13rem"
+        mb={16}
+        borderWidth={1}
+        borderRadius="lg"
+        bg="#181818"
+        color="white"
+        borderColor='#868686'
+      >
+        <Flex alignItems="center" p={5} pb={4}>
+          <Icon as={FaTrophy} w={6} h={6} mr={4} color={"#F3AB17"} />
+          <Text fontWeight="bold">
+            My Events
+          </Text>
+        </Flex>
+        <Divider borderColor='#868686' />
+        {myEvents.length === 0 ? (
+          <Text fontSize="lg">
+            You haven&apos;t registered for any events yet.
+          </Text>
+        ) : (
+          <Accordion allowToggle>
+            <TableContainer pt={1}>
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Event Name</Th>
+                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Status</Th>
+                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Verification</Th>
+                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Share link</Th>
+                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Player Details</Th>
+                  </Tr>
+                </Thead>
+                {myEvents.map((team) => (
+                  <AccordionItem key={team.id}>
+                    <Tr>
+                      <Td>
+                        <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
+                          {team.Event.name}
+                        </Box>
+                      </Td>
+                      <Td>
+                        <Badge colorScheme="green" px={2} py={1} borderRadius="full">
+                          <Icon as={FaCheckCircle} mr={1} />
+                          Paid
+                        </Badge>
+                      </Td>
+                      <Td>
+                        <Badge px={2} py={1} borderRadius="full"
+                          colorScheme={
+                            team.PaymentDetails?.paymentStatus === "PAID"
+                              ? "green"
+                              : "yellow"
+                          }
+                          ml={2}
+                        >
+                          {team.PaymentDetails?.paymentStatus === "PAID"
+                            ? (<Icon as={FaCheckCircle} mr={1} />)
+                            : (<Icon as={FaExclamationTriangle} mr={1} />)}
+                          {team.PaymentDetails?.paymentStatus === "PAID"
+                            ? "Completed"
+                            : "Pending"}
+                        </Badge>
+                      </Td>
+                      <Td>
+                        <Button
+                          size="xs"
+                          colorScheme="teal"
+                          variant="ghost"
+                          onClick={() =>
+                            handleCopyToClipboard(team.verificationToken)
+                          }
+                          leftIcon={<FaClipboard />}
+                          ml={2}
+                        >
+                          Share Link
+                        </Button>
+                      </Td>
+                      <Td>
+                        <AccordionButton>
+                          <AccordionIcon />
+                        </AccordionButton>
+                      </Td>
+                      <AccordionPanel pb={4}>
+                        <VStack align="start" spacing={4}>
+                          <Heading as="h3" size="md" color="#F4AC18">
+                            Team Members
+                          </Heading>
+                          {team.TeamMembers.map((member, index) => (
+                            <Box key={member.id}>
+                              <Text fontSize="md">
+                                <strong>Player {index + 1}:</strong> {member.name}
+                              </Text>
+                              <Text fontSize="md">Email: {member.email}</Text>
+                              <Text fontSize="md">
+                                Roll Number: {member.rollNumber}
+                              </Text>
+                              <Text fontSize="md">Phone: {member.phone}</Text>
+                            </Box>
+                          ))}
+                        </VStack>
+                      </AccordionPanel>
+                    </Tr>
+                  </AccordionItem>
+                ))}
+              </Table>
+            </TableContainer>
+          </Accordion>
+        )}
+
+        <Spacer h="4rem" />
+      </Box>
       {/* Cart Button */}
       <Flex justifyContent="flex-end" mx="13rem" mb={8}>
         <Button
