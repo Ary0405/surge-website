@@ -20,16 +20,15 @@ import {
   TableContainer,
   Table,
   Thead,
+  Tbody,
   Tr,
   Th,
   Td
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
-  FaCalendarAlt,
   FaClipboard,
   FaHotel,
-  FaListAlt,
   FaShoppingCart,
   FaUserCircle,
   FaTrophy,
@@ -37,7 +36,6 @@ import {
   FaExclamationTriangle
 } from "react-icons/fa";
 import { Layout } from "~/components/layout";
-import { textBorder } from "~/components/landing/stats";
 import { Global } from "@emotion/react";
 import { api } from "~/utils/api";
 
@@ -94,82 +92,64 @@ function Dashboard() {
         }}
       />
 
-      {/* Dashboard Text in Three Lines */}
+      {/* Account information, cart, accomodation links */}
       <Flex
-        textTransform="uppercase"
-        fontFamily="Migra"
-        fontSize="100px"
-        fontWeight={800}
-        fontStyle="italic"
-        color="#F4AC17"
-        gap={4}
-        left="50%"
-        right="50%"
-        ml="-50vw"
-        mr="-50vw"
+        justifyContent="space-between"
+        alignItems="center"
+        mx="13rem"
+        mt={8}
+        mb={4}
       >
-        {[...Array<number>(8)].map((_, index) => (
-          <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Dashboard</Text>
-            <Text color="#121212" {...textBorder("#F4AC17")}>
-              Dashboard
-            </Text>
-          </Box>
-        ))}
+        <Heading as="h1" size="2xl" color="#F4AC17">
+          Account Information
+        </Heading>
+        <Flex>
+          <Button
+            size="lg"
+            colorScheme="yellow"
+            color="white"
+            bgColor="#F4AC17"
+            width="200px"
+            fontSize="xl"
+            onClick={() => router.push("/dashboard/cart")}
+          >
+            <Icon as={FaShoppingCart} w={8} h={8} />
+            <Text ml={4}>Cart</Text>
+            {cartItemCount > 0 && (
+              <Badge
+                colorScheme="red"
+                borderRadius="full"
+                position="absolute"
+                top="-5px"
+                right="-5px"
+                px={2}
+                py={1}
+                fontSize="xs"
+              >
+                {cartItemCount}
+              </Badge>
+            )}
+          </Button>
+          <Button
+            size="lg"
+            colorScheme="gray"
+            width="200px"
+            fontSize="xl"
+            isDisabled={true}
+          >
+            <Icon as={FaHotel} w={8} h={8} />
+            <Text ml={4}>Accommodation</Text>
+          </Button>
+        </Flex>
+
       </Flex>
-      <Flex
-        textTransform="uppercase"
-        fontFamily="Migra"
-        fontSize="100px"
-        fontWeight={800}
-        fontStyle="italic"
-        color="#F4AC17"
-        lineHeight="30px"
-        gap={4}
-        left="50%"
-        right="50%"
-        ml="-50vw"
-        mr="-50vw"
-        transform="translateX(400px)"
-      >
-        {[...Array<number>(8)].map((_, index) => (
-          <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Dashboard</Text>
-            <Text color="#121212" {...textBorder("#F4AC17")}>
-              Dashboard
-            </Text>
-          </Box>
-        ))}
-      </Flex>
-      <Flex
-        textTransform="uppercase"
-        fontFamily="Migra"
-        fontSize="100px"
-        fontWeight={800}
-        fontStyle="italic"
-        color="#F4AC17"
-        lineHeight="150px"
-        gap={2}
-        left="50%"
-        right="50%"
-        ml="-50vw"
-        mr="-50vw"
-        transform="translateX(-100px)"
-      >
-        {[...Array<number>(8)].map((_, index) => (
-          <Box key={index} display="flex" flexDir="row" gap={4}>
-            <Text>Dashboard</Text>
-            <Text color="#121212" {...textBorder("#F4AC17")}>
-              Dashboard
-            </Text>
-          </Box>
-        ))}
-      </Flex>
+
 
       {/* Profile Information Box */}
       <Box
         mx="13rem"
         mb={16}
+        mt={20}
         borderWidth={1}
         borderRadius="lg"
         bg="#181818"
@@ -222,8 +202,8 @@ function Dashboard() {
           </Text>
         </Flex>
         <Divider borderColor='#868686' />
-        {myEvents.length === 0 ? (
-          <Text fontSize="lg">
+        {isError || !myEvents || myEvents.length === 0 ? (
+          <Text fontSize="lg" textAlign="center" p={4}>
             You haven&apos;t registered for any events yet.
           </Text>
         ) : (
@@ -239,9 +219,9 @@ function Dashboard() {
                     <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Player Details</Th>
                   </Tr>
                 </Thead>
-                {myEvents.map((team) => (
-                  <AccordionItem key={team.id}>
-                    <Tr>
+                <Tbody>
+                  {myEvents.map((team) => (
+                    <AccordionItem key={team.id} as="tr">
                       <Td>
                         <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
                           {team.Event.name}
@@ -260,7 +240,6 @@ function Dashboard() {
                               ? "green"
                               : "yellow"
                           }
-                          ml={2}
                         >
                           {team.PaymentDetails?.paymentStatus === "PAID"
                             ? (<Icon as={FaCheckCircle} mr={1} />)
@@ -279,17 +258,16 @@ function Dashboard() {
                             handleCopyToClipboard(team.verificationToken)
                           }
                           leftIcon={<FaClipboard />}
-                          ml={2}
                         >
                           Share Link
                         </Button>
                       </Td>
                       <Td>
-                        <AccordionButton>
+                        <AccordionButton as="div" width="100%">
                           <AccordionIcon />
                         </AccordionButton>
                       </Td>
-                      <AccordionPanel pb={4}>
+                      <AccordionPanel pb={4} as="tr">
                         <VStack align="start" spacing={4}>
                           <Heading as="h3" size="md" color="#F4AC18">
                             Team Members
@@ -308,9 +286,9 @@ function Dashboard() {
                           ))}
                         </VStack>
                       </AccordionPanel>
-                    </Tr>
-                  </AccordionItem>
-                ))}
+                    </AccordionItem>
+                  ))}
+                </Tbody>
               </Table>
             </TableContainer>
           </Accordion>
@@ -318,95 +296,6 @@ function Dashboard() {
 
         <Spacer h="4rem" />
       </Box>
-      {/* Cart Button */}
-      <Flex justifyContent="flex-end" mx="13rem" mb={8}>
-        <Button
-          size="lg"
-          colorScheme="yellow"
-          color="white"
-          bgColor="#F4AC17"
-          width="200px"
-          fontSize="xl"
-          onClick={() => router.push("/dashboard/cart")}
-          position="relative"
-        >
-          <Icon as={FaShoppingCart} w={8} h={8} position="relative" />
-          <Text ml={4}>Cart</Text>
-          {cartItemCount > 0 && (
-            <Badge
-              colorScheme="red"
-              borderRadius="full"
-              position="absolute"
-              top="-5px"
-              right="-5px"
-              px={2}
-              py={1}
-              fontSize="xs"
-            >
-              {cartItemCount}
-            </Badge>
-          )}
-        </Button>
-      </Flex>
-
-      {/* Dashboard Options */}
-      <Flex
-        direction={{ base: "column", md: "row" }}
-        alignItems="center"
-        justifyContent="center"
-        height="auto"
-        gap={8}
-        mt="4rem"
-        mb={4}
-      >
-        {/* All Sports */}
-        <Button
-          size="lg"
-          colorScheme="yellow"
-          color="white"
-          bgColor="#F4AC17"
-          width="350px"
-          height="250px"
-          fontSize="2xl"
-          flexDirection="column"
-          onClick={() => router.push("/dashboard/all-events")}
-        >
-          <Icon as={FaCalendarAlt} w={16} h={16} mb={4} />
-          All Events
-        </Button>
-
-        {/* My Events */}
-        <Button
-          size="lg"
-          colorScheme="yellow"
-          color="white"
-          bgColor="#F4AC17"
-          width="350px"
-          height="250px"
-          fontSize="2xl"
-          flexDirection="column"
-          onClick={() => router.push("/dashboard/my-events")}
-        >
-          <Icon as={FaListAlt} w={16} h={16} mb={4} />
-          My Events
-        </Button>
-
-        {/* Accommodation */}
-        <Button
-          size="lg"
-          colorScheme="gray"
-          width="350px"
-          height="250px"
-          fontSize="2xl"
-          flexDirection="column"
-          isDisabled={true}
-        >
-          <Icon as={FaHotel} w={16} h={16} mb={4} />
-          Accommodation
-        </Button>
-      </Flex>
-
-      <Spacer h="8rem" />
     </Layout>
   );
 }
