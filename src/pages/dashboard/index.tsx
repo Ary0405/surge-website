@@ -135,7 +135,9 @@ function Dashboard() {
             colorScheme="gray"
             width="200px"
             fontSize="xl"
-            isDisabled={true}
+            isDisabled={userProfile?.accomActive === false}
+            bgColor={userProfile?.accomActive ? "#F4AC17" : "#181818"}
+            onClick={() => router.push("/dashboard/accommodation")}
           >
             <Icon as={FaHotel} w={8} h={8} />
             <Text ml={4}>Accommodation</Text>
