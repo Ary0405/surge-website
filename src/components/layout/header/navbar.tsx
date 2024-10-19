@@ -145,12 +145,12 @@ function Navbar() {
               >
                 All Events
               </MenuItem>
-              <MenuItem
+              {/* <MenuItem
                 onClick={() => router.push("/dashboard/my-events")}
                 icon={<Icon as={FiList} />}
               >
                 My Events
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 onClick={() => router.push("/dashboard/cart")}
                 icon={<Icon as={FiShoppingCart} />}
