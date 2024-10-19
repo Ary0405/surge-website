@@ -65,6 +65,7 @@ function Dashboard() {
       });
     });
   };
+
   if (isLoading) {
     return (
       <Layout title="Dashboard">
@@ -110,6 +111,7 @@ function Dashboard() {
             color="white"
             bgColor="#F4AC17"
             width="200px"
+            mr={4}
             fontSize="xl"
             onClick={() => router.push("/dashboard/cart")}
           >
@@ -125,6 +127,7 @@ function Dashboard() {
                 px={2}
                 py={1}
                 fontSize="xs"
+                background="#2b2926"
               >
                 {cartItemCount}
               </Badge>
