@@ -29,9 +29,8 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
-  FaClipboard,
-  FaHotel,
   FaShoppingCart,
+  FaClipboard,
   FaUserCircle,
   FaTrophy,
   FaCheckCircle,
@@ -67,6 +66,7 @@ function Dashboard() {
       });
     });
   };
+
   if (isLoading) {
     return (
       <Layout title="Dashboard">
@@ -96,13 +96,14 @@ function Dashboard() {
 
       {/* Account information, cart, accomodation links */}
       <Flex
-        justifyContent="space-between"
-        alignItems="center"
         mx="13rem"
         mt={8}
         mb={4}
+        alignItems="center"
+        justifyContent="space-between"
         fontFamily="poppins"
       >
+<<<<<<< HEAD
         <Flex
           justifyContent="flex-start"
           alignItems="center"
@@ -116,6 +117,41 @@ function Dashboard() {
             </Flex>
           </Flex>
           <Text
+=======
+        <Heading as="h1" size="2xl" color="#F4AC17">
+          Account Information
+        </Heading>
+        <Flex>
+          <Button
+            size="lg"
+            colorScheme="yellow"
+            color="white"
+            bgColor="#F4AC17"
+            width="200px"
+            mr={4}
+            fontSize="xl"
+            onClick={() => router.push("/dashboard/cart")}
+          >
+            <Icon as={FaShoppingCart} w={8} h={8} />
+            <Text ml={4}>Cart</Text>
+            {cartItemCount > 0 && (
+              <Badge
+                colorScheme="red"
+                borderRadius="full"
+                position="absolute"
+                top="-5px"
+                right="-5px"
+                px={2}
+                py={1}
+                fontSize="xs"
+                background="#2b2926"
+              >
+                {cartItemCount}
+              </Badge>
+            )}
+          </Button>
+          <Button
+>>>>>>> 21aeccdcfc5a82c80eb23792ca91d3969e90a816
             size="lg"
             colorScheme="gray"
             width="175px"
@@ -163,8 +199,6 @@ function Dashboard() {
           )}
         </Flex>
       </Flex>
-
-
       {/* Profile Information Box */}
       <Box
         mx="13rem"
