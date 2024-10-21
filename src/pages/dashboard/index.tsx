@@ -99,7 +99,7 @@ function Dashboard() {
         justifyContent="space-between"
         alignItems="center"
         mx="13rem"
-        mt={8}
+        mt="5rem"
         mb={4}
         fontFamily="poppins"
       >
@@ -196,10 +196,10 @@ function Dashboard() {
             <Text fontWeight="bold" color={"#bababa"}>College Name</Text>
             <Text>{userProfile?.collegeName}</Text>
           </Flex>
-          <Flex justifyContent="space-between" width="100%" pr={5} pl={5}>
+          {/* <Flex justifyContent="space-between" width="100%" pr={5} pl={5}>
             <Text fontWeight="bold" color={"#bababa"}>Roll Number</Text>
             <Text>{userProfile?.rollNumber}</Text>
-          </Flex>
+          </Flex> */}
           <Flex justifyContent="space-between" width="100%" pr={5} pl={5} pb={4}>
             <Text fontWeight="bold" color={"#bababa"}>Phone Number</Text>
             <Text>{userProfile?.phone}</Text>

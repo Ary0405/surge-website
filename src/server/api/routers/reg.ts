@@ -320,7 +320,7 @@ export const regRouter = createTRPCRouter({
 
     const myEvents = await ctx.db.team.findMany({
       where: {
-        registeredById: userId,
+        registeredById: "f7d6df73-072f-47de-8bed-180c4fb0cbef",
         paymentDetailsId: {
           not: null, // Ensure we only fetch teams that have been paid for
         },
