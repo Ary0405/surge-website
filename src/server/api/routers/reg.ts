@@ -508,6 +508,7 @@ export const regRouter = createTRPCRouter({
         ),
       };
     }),
+
   getUserProfile: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.user.findUnique({
       where: {
@@ -519,6 +520,7 @@ export const regRouter = createTRPCRouter({
         collegeName: true,
         rollNumber: true,
         phone: true,
+        accomActive: true,
       },
     });
 
