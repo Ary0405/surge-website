@@ -41,7 +41,7 @@ export const navItems = [
   },
   {
     title: "Brochure",
-    href: "https://drive.google.com/file/d/1eQwSsDOpv9duHohofzeNL_LvuyF0Lzao/view?usp=sharing",
+    href: "https://drive.google.com/file/d/1EdlqJ12xGgYFZq5stVGuJGyVmPNpmKQ_/view?usp=sharing",
   },
 ];
 
@@ -145,12 +145,12 @@ function Navbar() {
               >
                 All Events
               </MenuItem>
-              <MenuItem
+              {/* <MenuItem
                 onClick={() => router.push("/dashboard/my-events")}
                 icon={<Icon as={FiList} />}
               >
                 My Events
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem
                 onClick={() => router.push("/dashboard/cart")}
                 icon={<Icon as={FiShoppingCart} />}

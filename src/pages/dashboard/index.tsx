@@ -29,8 +29,9 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
-  FaShoppingCart,
   FaClipboard,
+  FaHotel,
+  FaShoppingCart,
   FaUserCircle,
   FaTrophy,
   FaCheckCircle,
@@ -95,6 +96,8 @@ function Dashboard() {
 
       {/* Account information, cart, accomodation links */}
       <Flex
+        justifyContent="space-between"
+        alignItems="center"
         mx="13rem"
         mt={8}
         mb={4}
@@ -162,6 +165,8 @@ function Dashboard() {
           )}
         </Flex>
       </Flex>
+
+
       {/* Profile Information Box */}
       <Box
         mx="13rem"
@@ -212,7 +217,6 @@ function Dashboard() {
         bg="#181818"
         color="white"
         borderColor='#868686'
-        fontFamily="poppins"
       >
         <Flex alignItems="center" p={5} pb={4}>
           <Icon as={FaTrophy} w={6} h={6} mr={4} color={"#F3AB17"} />
@@ -312,6 +316,8 @@ function Dashboard() {
             </TableContainer>
           </Accordion>
         )}
+
+        <Spacer h="4rem" />
       </Box>
     </Layout>
   );
