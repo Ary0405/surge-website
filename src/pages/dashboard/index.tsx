@@ -1,4 +1,6 @@
 import {
+  Link,
+  Avatar,
   Divider,
   Heading,
   Accordion,
@@ -97,40 +99,34 @@ function Dashboard() {
         justifyContent="space-between"
         alignItems="center"
         mx="13rem"
-        mt={8}
+        mt="5rem"
         mb={4}
+        fontFamily="poppins"
       >
-        <Heading as="h1" size="2xl" color="#F4AC17">
-          Account Information
-        </Heading>
-        <Flex>
-          <Button
+        <Flex
+          justifyContent="flex-start"
+          alignItems="center"
+          gap={8}
+        >
+          <Flex gap={3} pr={3}>
+            <Avatar name={userProfile?.name} bgColor="#F4AC17" />
+            <Flex direction="column">
+              <Text fontWeight="bold" >{userProfile?.name}</Text>
+              <Text fontSize="xs">{userProfile?.email}</Text>
+            </Flex>
+          </Flex>
+          <Text
             size="lg"
-            colorScheme="yellow"
-            color="white"
-            bgColor="#F4AC17"
-            width="200px"
-            fontSize="xl"
-            onClick={() => router.push("/dashboard/cart")}
+            colorScheme="gray"
+            width="175px"
+            fontSize="l"
+            fontWeight="bold"
+            color="#F4AC17"
           >
-            <Icon as={FaShoppingCart} w={8} h={8} />
-            <Text ml={4}>Cart</Text>
-            {cartItemCount > 0 && (
-              <Badge
-                colorScheme="red"
-                borderRadius="full"
-                position="absolute"
-                top="-5px"
-                right="-5px"
-                px={2}
-                py={1}
-                fontSize="xs"
-              >
-                {cartItemCount}
-              </Badge>
-            )}
-          </Button>
-          <Button
+            {/* <Icon as={FaHotel} w={8} h={8} /> */}
+            Account Information
+          </Text>
+          <Link
             size="lg"
             colorScheme="gray"
             width="200px"
@@ -138,12 +134,39 @@ function Dashboard() {
             isDisabled={userProfile?.accomActive === false}
             bgColor={userProfile?.accomActive ? "#F4AC17" : "#181818"}
             onClick={() => router.push("/dashboard/accommodation")}
+            width="175px"
+            fontSize="l"
           >
-            <Icon as={FaHotel} w={8} h={8} />
-            <Text ml={4}>Accommodation</Text>
-          </Button>
+            {/* <Icon as={FaHotel} w={8} h={8} /> */}
+            <Text ml={4}>Accommodations</Text>
+          </Link>
         </Flex>
-
+        <Flex>
+          <Icon as={FaShoppingCart} mt={1} />
+          <Link
+            size="lg"
+            colorScheme="gray"
+            // colorScheme="yellow"
+            color="white"
+            // bgColor="#F4AC17"
+            width="50px"
+            fontSize="l"
+            fontWeight="bold"
+            onClick={() => router.push("/dashboard/cart")}
+          >
+            <Text ml={2}>Cart</Text>
+          </Link>
+          {cartItemCount > 0 && (
+            <Badge
+              colorScheme="red"
+              borderRadius="full"
+              px={2}
+              fontSize="s"
+            >
+              {cartItemCount}
+            </Badge>
+          )}
+        </Flex>
       </Flex>
 
 
@@ -151,12 +174,13 @@ function Dashboard() {
       <Box
         mx="13rem"
         mb={16}
-        mt={20}
+        mt={10}
         borderWidth={1}
         borderRadius="lg"
         bg="#181818"
         color="white"
         borderColor='#868686'
+        fontFamily="poppins"
       >
         <VStack borderColor='#868686' divider={<StackDivider borderColor='#868686' />} spacing={4} align="">
           <Flex alignItems="center" pr={5} pl={5} pt={5} >
@@ -177,10 +201,10 @@ function Dashboard() {
             <Text fontWeight="bold" color={"#bababa"}>College Name</Text>
             <Text>{userProfile?.collegeName}</Text>
           </Flex>
-          <Flex justifyContent="space-between" width="100%" pr={5} pl={5}>
-            <Text fontWeight="bold" color={"#bababa"}>Roll Number</Text>
-            <Text>{userProfile?.rollNumber}</Text>
-          </Flex>
+          {/*<Flex justifyContent="space-between" width="100%" pr={5} pl={5}>*/}
+          {/*  <Text fontWeight="bold" color={"#bababa"}>Roll Number</Text>*/}
+          {/*  <Text>{userProfile?.rollNumber}</Text>*/}
+          {/*</Flex>*/}
           <Flex justifyContent="space-between" width="100%" pr={5} pl={5} pb={4}>
             <Text fontWeight="bold" color={"#bababa"}>Phone Number</Text>
             <Text>{userProfile?.phone}</Text>
@@ -196,6 +220,7 @@ function Dashboard() {
         bg="#181818"
         color="white"
         borderColor='#868686'
+        fontFamily="poppins"
       >
         <Flex alignItems="center" p={5} pb={4}>
           <Icon as={FaTrophy} w={6} h={6} mr={4} color={"#F3AB17"} />
@@ -211,14 +236,14 @@ function Dashboard() {
         ) : (
           <Accordion allowToggle>
             <TableContainer pt={1}>
-              <Table variant="simple">
+              <Table variant="simple" fontFamily="poppins" >
                 <Thead>
                   <Tr>
-                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Event Name</Th>
-                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Status</Th>
-                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Verification</Th>
-                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Share link</Th>
-                    <Th textTransform="none" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Player Details</Th>
+                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Event Name</Th>
+                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Status</Th>
+                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Verification</Th>
+                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Share link</Th>
+                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Player Details</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -295,8 +320,6 @@ function Dashboard() {
             </TableContainer>
           </Accordion>
         )}
-
-        <Spacer h="4rem" />
       </Box>
     </Layout>
   );

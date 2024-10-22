@@ -20,11 +20,6 @@ export const env = createEnv({
     R2_BUCKET_NAME: z.string(),
     R2_ENDPOINT: z.string(),
     R2_PUBLIC_BUCKET: z.string(),
-    EMAIL_SERVER_HOST: z.string().default("smtp.gmail.com"),
-    EMAIL_SERVER_PORT: z.string().default("587"),
-    EMAIL_SERVER_USER: z.string(), // Your Gmail address
-    EMAIL_SERVER_PASSWORD: z.string(), // Your Gmail app password
-    EMAIL_FROM: z.string().email(), // The "from" email address
   },
 
   client: {
@@ -40,12 +35,7 @@ export const env = createEnv({
     R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
     R2_BUCKET_NAME: process.env.R2_BUCKET_NAME,
     R2_ENDPOINT: process.env.R2_ENDPOINT,
-    R2_PUBLIC_BUCKET: process.env.R2_PUBLIC_BUCKET,
-    EMAIL_SERVER_HOST: process.env.EMAIL_SERVER_HOST,
-    EMAIL_SERVER_PORT: process.env.EMAIL_SERVER_PORT,
-    EMAIL_SERVER_USER: process.env.EMAIL_SERVER_USER,
-    EMAIL_SERVER_PASSWORD: process.env.EMAIL_SERVER_PASSWORD,
-    EMAIL_FROM: process.env.EMAIL_FROM,
+    R2_PUBLIC_BUCKET: process.env.R2_PUBLIC_BUCKET
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
   emptyStringAsUndefined: true,
