@@ -15,6 +15,7 @@ import { Global } from "@emotion/react";
 import { signIn } from "next-auth/react";
 import { Layout } from "~/components/layout";
 import { textBorder } from "~/components/landing/stats";
+import { validatePhone, validateEmail } from "~/utils/validators";
 
 export default function Register() {
   const router = useRouter();
@@ -31,6 +32,18 @@ export default function Register() {
     e.preventDefault();
     setIsLoading(true);
     setError(""); // Clear any previous errors
+
+    if (!validatePhone(phone)) {
+      setError("Invalid phone number.");
+      setIsLoading(false);
+      return;
+    }
+    
+    if (!validateEmail(email)) {
+      setError("Invalid email.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch("/api/register", {
