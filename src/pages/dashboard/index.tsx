@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Flex,
-  Spacer,
   Icon,
   Text,
   Badge,
@@ -30,7 +29,6 @@ import {
 import { useRouter } from "next/router";
 import {
   FaClipboard,
-  FaHotel,
   FaShoppingCart,
   FaUserCircle,
   FaTrophy,
