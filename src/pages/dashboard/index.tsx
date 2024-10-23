@@ -34,7 +34,7 @@ import {
 import { Layout } from "~/components/layout";
 import { Global } from "@emotion/react";
 import { api } from "~/utils/api";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 function Dashboard() {
   const router = useRouter();
   const { data: cartItems } = api.reg.getCart.useQuery();
@@ -42,11 +42,21 @@ function Dashboard() {
   const cartItemCount = cartItems?.length ?? 0;
 
   const { data: myEvents, isError } = api.reg.getMyEvents.useQuery();
+  
   const toast = useToast();
   const [teamStyle, setTeamStyle] = useState<{ [key: number | string]: string }>({
-    
-  });
 
+  });
+  useEffect(() => {
+    if (myEvents && Array.isArray(myEvents)) {
+      const initialStyles = myEvents.reduce((acc, event) => {
+        acc[event.id] = "none";
+        return acc;
+      }, {});
+  
+      setTeamStyle(initialStyles);
+    }
+  }, [myEvents]);
   const handleExpand = (team_id: number) => {
     if (teamStyle[team_id] === "none") {
       setTeamStyle({
