@@ -25,8 +25,7 @@ import {
   Tbody,
   Tr,
   Th,
-  Td
-} from "@chakra-ui/react";
+  Td} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
   FaClipboard,
@@ -40,7 +39,7 @@ import {
 import { Layout } from "~/components/layout";
 import { Global } from "@emotion/react";
 import { api } from "~/utils/api";
-
+import { useState } from "react";
 function Dashboard() {
   const router = useRouter();
   const { data: cartItems } = api.reg.getCart.useQuery();
@@ -49,6 +48,9 @@ function Dashboard() {
 
   const { data: myEvents, isError } = api.reg.getMyEvents.useQuery();
   const toast = useToast();
+  const [p_style, setStyle] = useState({
+    
+  });
 
   const handleCopyToClipboard = (verificationToken: string) => {
     const domain =
@@ -284,7 +286,7 @@ function Dashboard() {
                             leftIcon={<FaClipboard />}
                           >
                             Share Link
-                          </Button>
+                          </Button onClick=>
                         </Td>
                         <Td>
                           <Button />
