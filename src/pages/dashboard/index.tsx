@@ -2,7 +2,6 @@ import {
   Link,
   Avatar,
   Divider,
-  Heading,
   Accordion,
   Box,
   Button,
@@ -286,12 +285,12 @@ function Dashboard() {
                         </Td>
                       </Tr>
                       <Tr display="block" id={team.id + "Accordion"}>
-                        <VStack align="start" spacing={4} as="td">
-                          <Heading as="h3" size="md" color="#F4AC18">
-                            Team Members
-                          </Heading>
-                          {team.TeamMembers.map((member, index) => (
-                            <Box key={member.id}>
+                        {/*Heading as="h3" size="md" color="#F4AC18">
+                          Team Members
+                        </Heading>*/}
+                        {team.TeamMembers.map((member, index) => (
+                          <Td key={member.id}>
+                            <Fragment>
                               <Text fontSize="md">
                                 <strong>Player {index + 1}:</strong> {member.name}
                               </Text>
@@ -300,9 +299,9 @@ function Dashboard() {
                                 Roll Number: {member.rollNumber}
                               </Text>
                               <Text fontSize="md">Phone: {member.phone}</Text>
-                            </Box>
-                          ))}
-                        </VStack>
+                            </Fragment>
+                          </Td>
+                        ))}
                       </Tr>
                     </Fragment>
                   ))}
