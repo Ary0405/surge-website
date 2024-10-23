@@ -10,6 +10,7 @@ import {
   Text,
   Badge,
   VStack,
+  Heading,
   Spinner,
   StackDivider,
   useToast,
@@ -285,21 +286,19 @@ function Dashboard() {
                         </Td>
                       </Tr>
                       <Tr display="block" id={team.id + "Accordion"}>
-                        {/*Heading as="h3" size="md" color="#F4AC18">
+                        <Heading as="h3" size="md" color="#F4AC18">
                           Team Members
-                        </Heading>*/}
+                        </Heading>
                         {team.TeamMembers.map((member, index) => (
                           <Td key={member.id}>
-                            <Fragment>
-                              <Text fontSize="md">
-                                <strong>Player {index + 1}:</strong> {member.name}
-                              </Text>
-                              <Text fontSize="md">Email: {member.email}</Text>
-                              <Text fontSize="md">
-                                Roll Number: {member.rollNumber}
-                              </Text>
-                              <Text fontSize="md">Phone: {member.phone}</Text>
-                            </Fragment>
+                            <Text fontSize="md">
+                              <strong>Player {index + 1}:</strong> {member.name}
+                            </Text>
+                            <Text fontSize="md">Email: {member.email}</Text>
+                            <Text fontSize="md">
+                              Roll Number: {member.rollNumber}
+                            </Text>
+                            <Text fontSize="md">Phone: {member.phone}</Text>
                           </Td>
                         ))}
                       </Tr>
@@ -311,7 +310,7 @@ function Dashboard() {
           </Accordion>
         )}
       </Box>
-    </Layout>
+    </Layout >
   );
 }
 
