@@ -44,7 +44,7 @@ function Dashboard() {
   const { data: myEvents, isError } = api.reg.getMyEvents.useQuery();
   const toast = useToast();
   const [teamStyle, setTeamStyle] = useState<{ [key: number | string]: string }>({
-    
+
   });
 
   const handleExpand = (team_id: number) => {
@@ -58,7 +58,7 @@ function Dashboard() {
         ...teamStyle,
         [team_id]: "none",
       });
-  }
+    }
   };
   const handleCopyToClipboard = (verificationToken: string) => {
     const domain =
@@ -297,25 +297,27 @@ function Dashboard() {
                           </Button>
                         </Td>
                         <Td>
-                          <Button onClick={()=>handleExpand(team.id)}> </Button>
+                          <Button onClick={() => handleExpand(team.id)}> </Button>
                         </Td>
                       </Tr>
                       <Tr display={teamStyle[team.id]} id={team.id + "Accordion"}>
-                        <Heading as="h3" size="md" color="#F4AC18">
-                          Team Members
-                        </Heading>
-                        {team.TeamMembers.map((member, index) => (
-                          <Td key={member.id}>
-                            <Text fontSize="md">
-                              <strong>Player {index + 1}:</strong> {member.name}
-                            </Text>
-                            <Text fontSize="md">Email: {member.email}</Text>
-                            <Text fontSize="md">
-                              Roll Number: {member.rollNumber}
-                            </Text>
-                            <Text fontSize="md">Phone: {member.phone}</Text>
-                          </Td>
-                        ))}
+                        <Td colSpan={5}>
+                          <Heading as="h3" size="md" color="#F4AC18">
+                            Team Members
+                          </Heading>
+                          {team.TeamMembers.map((member, index) => (
+                            <Fragment key={member.id}>
+                              <Text fontSize="md">
+                                <strong>Player {index + 1}:</strong> {member.name}
+                              </Text>
+                              <Text fontSize="md">Email: {member.email}</Text>
+                              <Text fontSize="md">
+                                Roll Number: {member.rollNumber}
+                              </Text>
+                              <Text fontSize="md">Phone: {member.phone}</Text>
+                            </Fragment>
+                          ))}
+                        </Td>
                       </Tr>
                     </Fragment>
                   ))}
