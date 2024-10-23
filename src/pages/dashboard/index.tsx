@@ -67,6 +67,7 @@ function Dashboard() {
       });
     });
   };
+
   if (isLoading) {
     return (
       <Layout title="Dashboard">
@@ -243,54 +244,54 @@ function Dashboard() {
                 </Thead>
                 <Tbody>
                   {myEvents.map((team) => (
-                    <AccordionItem key={team.id} as="tr">
-                      <Td>
-                        <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
-                          {team.Event.name}
-                        </Box>
-                      </Td>
-                      <Td>
-                        <Badge colorScheme="green" px={2} py={1} borderRadius="full">
-                          <Icon as={FaCheckCircle} mr={1} />
-                          Paid
-                        </Badge>
-                      </Td>
-                      <Td>
-                        <Badge px={2} py={1} borderRadius="full"
-                          colorScheme={
-                            team.PaymentDetails?.paymentStatus === "PAID"
-                              ? "green"
-                              : "yellow"
-                          }
-                        >
-                          {team.PaymentDetails?.paymentStatus === "PAID"
-                            ? (<Icon as={FaCheckCircle} mr={1} />)
-                            : (<Icon as={FaExclamationTriangle} mr={1} />)}
-                          {team.PaymentDetails?.paymentStatus === "PAID"
-                            ? "Completed"
-                            : "Pending"}
-                        </Badge>
-                      </Td>
-                      <Td>
-                        <Button
-                          size="xs"
-                          colorScheme="teal"
-                          variant="ghost"
-                          onClick={() =>
-                            handleCopyToClipboard(team.verificationToken)
-                          }
-                          leftIcon={<FaClipboard />}
-                        >
-                          Share Link
-                        </Button>
-                      </Td>
-                      <Td>
-                        <AccordionButton as="div" width="100%">
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </Td>
-                      <AccordionPanel pb={4} as="tr">
-                        <VStack align="start" spacing={4}>
+                    <Box key={team.id}>
+                      <Tr>
+                        <Td>
+                          <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
+                            {team.Event.name}
+                          </Box>
+                        </Td>
+                        <Td>
+                          <Badge colorScheme="green" px={2} py={1} borderRadius="full">
+                            <Icon as={FaCheckCircle} mr={1} />
+                            Paid
+                          </Badge>
+                        </Td>
+                        <Td>
+                          <Badge px={2} py={1} borderRadius="full"
+                            colorScheme={
+                              team.PaymentDetails?.paymentStatus === "PAID"
+                                ? "green"
+                                : "yellow"
+                            }
+                          >
+                            {team.PaymentDetails?.paymentStatus === "PAID"
+                              ? (<Icon as={FaCheckCircle} mr={1} />)
+                              : (<Icon as={FaExclamationTriangle} mr={1} />)}
+                            {team.PaymentDetails?.paymentStatus === "PAID"
+                              ? "Completed"
+                              : "Pending"}
+                          </Badge>
+                        </Td>
+                        <Td>
+                          <Button
+                            size="xs"
+                            colorScheme="teal"
+                            variant="ghost"
+                            onClick={() =>
+                              handleCopyToClipboard(team.verificationToken)
+                            }
+                            leftIcon={<FaClipboard />}
+                          >
+                            Share Link
+                          </Button>
+                        </Td>
+                        <Td>
+                          <Button />
+                        </Td>
+                      </Tr>
+                      <Tr display="none" id={team.id + "Accordion"}>
+                        <VStack align="start" spacing={4} as="td">
                           <Heading as="h3" size="md" color="#F4AC18">
                             Team Members
                           </Heading>
@@ -307,8 +308,8 @@ function Dashboard() {
                             </Box>
                           ))}
                         </VStack>
-                      </AccordionPanel>
-                    </AccordionItem>
+                      </Tr>
+                    </Box>
                   ))}
                 </Tbody>
               </Table>
