@@ -285,7 +285,7 @@ function Dashboard() {
                           <Button />
                         </Td>
                       </Tr>
-                      <Tr display="none" id={team.id + "Accordion"}>
+                      <Tr display="block" id={team.id + "Accordion"}>
                         <VStack align="start" spacing={4} as="td">
                           <Heading as="h3" size="md" color="#F4AC18">
                             Team Members
