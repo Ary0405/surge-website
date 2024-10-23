@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Flex,
-  Spacer,
   Icon,
   Text,
   Badge,
@@ -15,10 +14,6 @@ import {
   Spinner,
   StackDivider,
   useToast,
-  AccordionItem,
-  AccordionButton,
-  AccordionIcon,
-  AccordionPanel,
   TableContainer,
   Table,
   Thead,
@@ -30,7 +25,6 @@ import {
 import { useRouter } from "next/router";
 import {
   FaClipboard,
-  FaHotel,
   FaShoppingCart,
   FaUserCircle,
   FaTrophy,
@@ -40,6 +34,7 @@ import {
 import { Layout } from "~/components/layout";
 import { Global } from "@emotion/react";
 import { api } from "~/utils/api";
+import { Fragment } from "react";
 
 function Dashboard() {
   const router = useRouter();
@@ -244,7 +239,7 @@ function Dashboard() {
                 </Thead>
                 <Tbody>
                   {myEvents.map((team) => (
-                    <Box key={team.id}>
+                    <Fragment key={team.id}>
                       <Tr>
                         <Td>
                           <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
@@ -309,7 +304,7 @@ function Dashboard() {
                           ))}
                         </VStack>
                       </Tr>
-                    </Box>
+                    </Fragment>
                   ))}
                 </Tbody>
               </Table>
