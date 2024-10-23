@@ -2,7 +2,6 @@ import {
   Link,
   Avatar,
   Divider,
-  Heading,
   Accordion,
   Box,
   Button,
@@ -305,9 +304,9 @@ function Dashboard() {
                                 Roll Number: {member.rollNumber}
                               </Text>
                               <Text fontSize="md">Phone: {member.phone}</Text>
-                            </Box>
-                          ))}
-                        </VStack>
+                            </Fragment>
+                          </Td>
+                        ))}
                       </Tr>
                     </Box>
                   ))}
