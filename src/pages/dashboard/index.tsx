@@ -124,15 +124,18 @@ function Dashboard() {
             {/* <Icon as={FaHotel} w={8} h={8} /> */}
             Account Information
           </Text>
-          <Link
+          <Button
             size="lg"
             colorScheme="gray"
+            isDisabled={userProfile?.accomActive === false}
+            color={userProfile?.accomActive ? "#F4AC17" : "#181818"}
+            onClick={() => router.push("/dashboard/accommodation")}
             width="175px"
             fontSize="l"
+            variant={"unstyled"}
           >
-            {/* <Icon as={FaHotel} w={8} h={8} /> */}
             <Text ml={4}>Accommodations</Text>
-          </Link>
+          </Button>
         </Flex>
         <Flex>
           <Icon as={FaShoppingCart} mt={1} />
