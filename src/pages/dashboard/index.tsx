@@ -34,8 +34,7 @@ import {
 import { Layout } from "~/components/layout";
 import { Global } from "@emotion/react";
 import { api } from "~/utils/api";
-import { Fragment } from "react";
-
+import { Fragment, useState } from "react";
 function Dashboard() {
   const router = useRouter();
   const { data: cartItems } = api.reg.getCart.useQuery();
@@ -44,7 +43,23 @@ function Dashboard() {
 
   const { data: myEvents, isError } = api.reg.getMyEvents.useQuery();
   const toast = useToast();
+  const [teamStyle, setTeamStyle] = useState<{ [key: number | string]: string }>({
+    
+  });
 
+  const handleExpand = (team_id: number) => {
+    if (teamStyle[team_id] === "none") {
+      setTeamStyle({
+        ...teamStyle,
+        [team_id]: "block",
+      });
+    } else {
+      setTeamStyle({
+        ...teamStyle,
+        [team_id]: "none",
+      });
+  }
+  };
   const handleCopyToClipboard = (verificationToken: string) => {
     const domain =
       process.env.NODE_ENV === "development"
@@ -282,10 +297,10 @@ function Dashboard() {
                           </Button>
                         </Td>
                         <Td>
-                          <Button />
+                          <Button onClick={()=>handleExpand(team.id)}> </Button>
                         </Td>
                       </Tr>
-                      <Tr display="block" id={team.id + "Accordion"}>
+                      <Tr display={teamStyle[team.id]} id={team.id + "Accordion"}>
                         <Heading as="h3" size="md" color="#F4AC18">
                           Team Members
                         </Heading>
