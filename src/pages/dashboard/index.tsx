@@ -2,7 +2,6 @@ import {
   Link,
   Avatar,
   Divider,
-  Heading,
   Accordion,
   Box,
   Button,
@@ -11,13 +10,10 @@ import {
   Text,
   Badge,
   VStack,
+  Heading,
   Spinner,
   StackDivider,
   useToast,
-  AccordionItem,
-  AccordionButton,
-  AccordionIcon,
-  AccordionPanel,
   TableContainer,
   Table,
   Thead,
@@ -38,7 +34,7 @@ import {
 import { Layout } from "~/components/layout";
 import { Global } from "@emotion/react";
 import { api } from "~/utils/api";
-
+import { Fragment, useState, useEffect } from "react";
 function Dashboard() {
   const router = useRouter();
   const { data: cartItems } = api.reg.getCart.useQuery();
@@ -47,7 +43,32 @@ function Dashboard() {
 
   const { data: myEvents, isError } = api.reg.getMyEvents.useQuery();
   const toast = useToast();
+  const [teamStyle, setTeamStyle] = useState<{ [key: number | string]: string }>({
 
+  });
+  useEffect(() => {
+    if (myEvents && Array.isArray(myEvents)) {
+      const initialStyles = myEvents.reduce((acc, event) => {
+        acc[event.id] = "none";
+        return acc;
+      }, {});
+
+      setTeamStyle(initialStyles);
+    }
+  }, [myEvents]);
+  const handleExpand = (team_id: number) => {
+    if (teamStyle[team_id] === "none") {
+      setTeamStyle({
+        ...teamStyle,
+        [team_id]: "block",
+      });
+    } else {
+      setTeamStyle({
+        ...teamStyle,
+        [team_id]: "none",
+      });
+    }
+  };
   const handleCopyToClipboard = (verificationToken: string) => {
     const domain =
       process.env.NODE_ENV === "development"
@@ -65,6 +86,7 @@ function Dashboard() {
       });
     });
   };
+
   if (isLoading) {
     return (
       <Layout title="Dashboard">
@@ -139,7 +161,9 @@ function Dashboard() {
           <Link
             size="lg"
             colorScheme="gray"
+            // colorScheme="yellow"
             color="white"
+            // bgColor="#F4AC17"
             width="50px"
             fontSize="l"
             fontWeight="bold"
@@ -192,12 +216,17 @@ function Dashboard() {
             <Text fontWeight="bold" color={"#bababa"}>College Name</Text>
             <Text>{userProfile?.collegeName}</Text>
           </Flex>
+          {/*<Flex justifyContent="space-between" width="100%" pr={5} pl={5}>*/}
+          {/*  <Text fontWeight="bold" color={"#bababa"}>Roll Number</Text>*/}
+          {/*  <Text>{userProfile?.rollNumber}</Text>*/}
+          {/*</Flex>*/}
           <Flex justifyContent="space-between" width="100%" pr={5} pl={5} pb={4}>
             <Text fontWeight="bold" color={"#bababa"}>Phone Number</Text>
             <Text>{userProfile?.phone}</Text>
           </Flex>
         </VStack>
       </Box>
+
       <Box
         mx="13rem"
         mb={16}
@@ -234,72 +263,70 @@ function Dashboard() {
                 </Thead>
                 <Tbody>
                   {myEvents.map((team) => (
-                    <AccordionItem key={team.id} as="tr">
-                      <Td>
-                        <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
-                          {team.Event.name}
-                        </Box>
-                      </Td>
-                      <Td>
-                        <Badge colorScheme="green" px={2} py={1} borderRadius="full">
-                          <Icon as={FaCheckCircle} mr={1} />
-                          Paid
-                        </Badge>
-                      </Td>
-                      <Td>
-                        <Badge px={2} py={1} borderRadius="full"
-                          colorScheme={
-                            team.PaymentDetails?.paymentStatus === "PAID"
-                              ? "green"
-                              : "yellow"
-                          }
-                        >
-                          {team.PaymentDetails?.paymentStatus === "PAID"
-                            ? (<Icon as={FaCheckCircle} mr={1} />)
-                            : (<Icon as={FaExclamationTriangle} mr={1} />)}
-                          {team.PaymentDetails?.paymentStatus === "PAID"
-                            ? "Completed"
-                            : "Pending"}
-                        </Badge>
-                      </Td>
-                      <Td>
-                        <Button
-                          size="xs"
-                          colorScheme="teal"
-                          variant="ghost"
-                          onClick={() =>
-                            handleCopyToClipboard(team.verificationToken)
-                          }
-                          leftIcon={<FaClipboard />}
-                        >
-                          Share Link
-                        </Button>
-                      </Td>
-                      <Td>
-                        <AccordionButton as="div" width="100%">
-                          <AccordionIcon />
-                        </AccordionButton>
-                      </Td>
-                      <AccordionPanel pb={4} as="tr">
-                        <VStack align="start" spacing={4}>
-                          <Heading as="h3" size="md" color="#F4AC18">
-                            Team Members
-                          </Heading>
-                          {team.TeamMembers.map((member, index) => (
-                            <Box key={member.id}>
-                              <Text fontSize="md">
-                                <strong>Player {index + 1}:</strong> {member.name}
-                              </Text>
-                              <Text fontSize="md">Email: {member.email}</Text>
-                              <Text fontSize="md">
-                                Roll Number: {member.rollNumber}
-                              </Text>
-                              <Text fontSize="md">Phone: {member.phone}</Text>
-                            </Box>
-                          ))}
-                        </VStack>
-                      </AccordionPanel>
-                    </AccordionItem>
+                    <Fragment key={team.id}>
+                      <Tr>
+                        <Td>
+                          <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
+                            {team.Event.name}
+                          </Box>
+                        </Td>
+                        <Td>
+                          <Badge colorScheme="green" px={2} py={1} borderRadius="full">
+                            <Icon as={FaCheckCircle} mr={1} />
+                            Paid
+                          </Badge>
+                        </Td>
+                        <Td>
+                          <Badge px={2} py={1} borderRadius="full"
+                            colorScheme={
+                              team.PaymentDetails?.paymentStatus === "PAID"
+                                ? "green"
+                                : "yellow"
+                            }
+                          >
+                            {team.PaymentDetails?.paymentStatus === "PAID"
+                              ? (<Icon as={FaCheckCircle} mr={1} />)
+                              : (<Icon as={FaExclamationTriangle} mr={1} />)}
+                            {team.PaymentDetails?.paymentStatus === "PAID"
+                              ? "Completed"
+                              : "Pending"}
+                          </Badge>
+                        </Td>
+                        <Td>
+                          <Button
+                            size="xs"
+                            colorScheme="teal"
+                            variant="ghost"
+                            onClick={() =>
+                              handleCopyToClipboard(team.verificationToken)
+                            }
+                            leftIcon={<FaClipboard />}
+                          >
+                            Share Link
+                          </Button>
+                        </Td>
+                        <Td>
+                          <Button onClick={() => handleExpand(team.id)}> </Button>
+                        </Td>
+                      </Tr>
+                      <Tr display={teamStyle[team.id]} id={team.id + "Accordion"}>
+                        <Heading as="h3" size="md" color="#F4AC18">
+                          Team Members
+                        </Heading>
+                        {team.TeamMembers.map((member, index) => (
+                          <Td key={member.id}>
+                            <Text fontSize="md">
+                              <strong>Player {index + 1}:</strong> {member.name}
+                            </Text>
+                            <Text fontSize="md">Email: {member.email}</Text>
+                            <Text fontSize="md">
+                              Roll Number: {member.rollNumber}
+                            </Text>
+                            <Text fontSize="md">Phone: {member.phone}</Text>
+                          </Td>
+                        ))}
+                      </Tr>
+                    </Fragment>
                   ))}
                 </Tbody>
               </Table>
@@ -307,7 +334,7 @@ function Dashboard() {
           </Accordion>
         )}
       </Box>
-    </Layout>
+    </Layout >
   );
 }
 
