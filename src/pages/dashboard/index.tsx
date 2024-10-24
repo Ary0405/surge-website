@@ -139,9 +139,7 @@ function Dashboard() {
           <Link
             size="lg"
             colorScheme="gray"
-            // colorScheme="yellow"
             color="white"
-            // bgColor="#F4AC17"
             width="50px"
             fontSize="l"
             fontWeight="bold"
@@ -194,17 +192,12 @@ function Dashboard() {
             <Text fontWeight="bold" color={"#bababa"}>College Name</Text>
             <Text>{userProfile?.collegeName}</Text>
           </Flex>
-          {/*<Flex justifyContent="space-between" width="100%" pr={5} pl={5}>*/}
-          {/*  <Text fontWeight="bold" color={"#bababa"}>Roll Number</Text>*/}
-          {/*  <Text>{userProfile?.rollNumber}</Text>*/}
-          {/*</Flex>*/}
           <Flex justifyContent="space-between" width="100%" pr={5} pl={5} pb={4}>
             <Text fontWeight="bold" color={"#bababa"}>Phone Number</Text>
             <Text>{userProfile?.phone}</Text>
           </Flex>
         </VStack>
       </Box>
-
       <Box
         mx="13rem"
         mb={16}
