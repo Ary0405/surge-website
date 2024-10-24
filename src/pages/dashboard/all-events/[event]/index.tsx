@@ -50,6 +50,10 @@ const EventPage = () => {
   }
 
   const handleRegisterClick = () => {
+    if(event === "valorant") {
+      router.push(`https://unstop.com/events/valorant-cup-surge-2024-shiv-nadar-university-snu-greater-noida-1185707`);
+      return;
+    }
     void router.push(`${router.asPath}/register`);
   };
 
