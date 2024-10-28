@@ -539,7 +539,8 @@ export const regRouter = createTRPCRouter({
         registeredById: userId,
         PaymentDetails: {
           paymentStatus: "PAID"
-        }
+        },
+        accommodationPaymentId: null,
       },
       include: {
         Event: {
@@ -571,7 +572,7 @@ export const regRouter = createTRPCRouter({
       isUpdate: z.boolean().optional(),
       accomId: z.string().optional(),
     })).mutation(async ({ ctx, input }) => {
-      
+
       const { teamId, startDate, endDate, maleCount, femaleCount, isUpdate } = input;
 
       if (isUpdate) {
@@ -612,4 +613,44 @@ export const regRouter = createTRPCRouter({
       });
     }),
 
+  accommodationCheckout: protectedProcedure.input(
+    z.object({
+      teamIds: z.array(z.string()),
+      accomDetailsIds: z.array(z.string()),
+      amount: z.number(),
+      transactionId: z.string(),
+    })
+  ).mutation(async ({ ctx, input }) => {
+    const { teamIds, accomDetailsIds, amount, transactionId } = input;
+    const accomPayment = await ctx.db.accommodationPayment.create({
+      data: {
+        amount,
+        paymentProofUrl: transactionId,
+      },
+    });
+
+    await ctx.db.team.updateMany({
+      where: {
+        id: {
+          in: teamIds,
+        },
+      },
+      data: {
+        accommodationPaymentId: accomPayment.id,
+      },
+    });
+
+    await ctx.db.accommodationDetails.updateMany({
+      where: {
+        id: {
+          in: accomDetailsIds,
+        },
+      },
+      data: {
+        accommodationPaymentId: accomPayment.id,
+      },
+    });
+
+    return accomPayment;
+  }),
 });

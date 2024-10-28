@@ -14,6 +14,16 @@ import {
 	Input,
 	FormLabel,
 	useToast,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalCloseButton,
+	ModalBody,
+	useDisclosure,
+	Flex,
+	Image,
+	ModalFooter,
 } from "@chakra-ui/react";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
@@ -31,7 +41,14 @@ const Accommodation = () => {
 
 	const [accommodation, setAccommodation] = useState<AccommodationProps[]>([]);
 	const [selectedAccommodation, setSelectedAccommodation] = useState<string[]>([]);
+	const [transactionId, setTransactionId] = useState<string>('');
 	const toast = useToast();
+
+	const {
+		isOpen: isModalOpen,
+		onOpen: onModalOpen,
+		onClose: onModalClose,
+	} = useDisclosure();
 
 	const {
 		data: teams,
@@ -53,21 +70,60 @@ const Accommodation = () => {
 		}
 	}, [teams]);
 
-
 	const saveAccom = api.reg.saveAccommodationDetails.useMutation();
-
+	const accomCheckout = api.reg.accommodationCheckout.useMutation();
 
 	if (isLoading) {
-		return <div>Loading...</div>;
+		return (
+			<Layout>
+				<Box>Loading...</Box>
+			</Layout>
+		)
 	}
 
 	if (isError) {
-		return <div>Error...</div>;
+		return (
+			<Layout>
+				<Box>Error...</Box>
+			</Layout>
+		)
 	}
 
 	if (!teams) {
-		return <div>No data...</div>;
+		return (
+			<Layout>
+				<Box>No teams found</Box>
+			</Layout>
+		)
 	}
+
+	const rates = {
+		1: 500,
+		2: 800,
+		3: 1000,
+	};
+
+	const calculateDays = (startDate: string, endDate: string) => {
+		const start = new Date(startDate);
+		const end = new Date(endDate);
+		const diffTime = Math.abs(end.getTime() - start.getTime());
+		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+		return diffDays;
+	}
+
+	const calculateTotal = (data: AccommodationProps) => {
+		const days = calculateDays(data.startDate, data.endDate) as 1 | 2 | 3;
+		const maleTotal = data.maleCount * rates[days];
+		const femaleTotal = data.femaleCount * rates[days];
+		return maleTotal + femaleTotal;
+	}
+
+	const selectedTeams = teams.filter((team) => selectedAccommodation.includes(team.id));
+	const total = selectedTeams.reduce((acc, team) => {
+		const data = accommodation.find((acc) => acc.teamId === team.id);
+		if (!data) return 0;
+		return acc + calculateTotal(data);
+	}, 0);
 
 
 	const handleSelectTeam = (id: string) => {
@@ -96,6 +152,9 @@ const Accommodation = () => {
 				];
 			} else {
 				const updatedAccommodation = [...prevAccommodation];
+				if (!updatedAccommodation[index]) {
+					return updatedAccommodation;
+				}
 				updatedAccommodation[index] = {
 					...updatedAccommodation[index],
 					[name]: type === 'number' ? parseInt(value) : value,
@@ -196,34 +255,6 @@ const Accommodation = () => {
 		await refetch();
 	}
 
-	const rates = {
-		1: 500,
-		2: 800,
-		3: 1000,
-	};
-
-	const calculateDays = (startDate: string, endDate: string) => {
-		const start = new Date(startDate);
-		const end = new Date(endDate);
-		const diffTime = Math.abs(end.getTime() - start.getTime());
-		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-		return diffDays;
-	}
-
-	const calculateTotal = (data: AccommodationProps) => {
-		const days = calculateDays(data.startDate, data.endDate) as 1 | 2 | 3;
-		const maleTotal = data.maleCount * rates[days];
-		const femaleTotal = data.femaleCount * rates[days];
-		return maleTotal + femaleTotal;
-	}
-
-	const selectedTeams = teams.filter((team) => selectedAccommodation.includes(team.id));
-	const total = selectedTeams.reduce((acc, team) => {
-		const data = accommodation.find((acc) => acc.teamId === team.id);
-		if (!data) return 0;
-		return acc + calculateTotal(data);
-	}, 0);
-
 	const handleCheckout = async () => {
 		if (selectedAccommodation.length === 0) {
 			toast({
@@ -234,6 +265,46 @@ const Accommodation = () => {
 			});
 			return;
 		}
+
+		if (!transactionId) {
+			toast({
+				title: "Enter transaction ID",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+			return;
+		}
+
+		const confirmed = window.confirm(`Are you sure you want to checkout? Once checked out, the data cannot be modified.`);
+		if (!confirmed) {
+			return;
+		}
+
+		const payload = {
+			teamIds: selectedAccommodation,
+			accomDetailsIds: selectedTeams.map((team) => team.AccommodationDetails?.id ?? ""),
+			amount: total,
+			transactionId: transactionId
+		};
+
+		try {
+			await accomCheckout.mutateAsync(payload);
+			toast({
+				title: "Payment successful",
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		} catch (error) {
+			toast({
+				title: "Error processing payment",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+
 	}
 
 	return (
@@ -356,13 +427,79 @@ const Accommodation = () => {
 					<Button
 						colorScheme="red"
 						size="lg"
-						onClick={handleCheckout}
+						onClick={onModalOpen}
 						isDisabled={selectedAccommodation.length === 0}
 					>
 						Checkout
 					</Button>
 				</Box>
 			</Box>
+			<Modal isOpen={isModalOpen} onClose={onModalClose}>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalHeader>Enter Transaction ID</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody>
+						<Flex
+							direction="column"
+							alignItems="center"
+							justifyContent="center"
+						>
+							<Box
+								width="200px"
+								height="200px"
+								bg="gray.800"
+								borderRadius="10px"
+								display="flex"
+								alignItems="center"
+								justifyContent="center"
+							>
+								<Image
+									src="/images/qr2.jpg"
+									alt="QR Code"
+									width="200px"
+									height="200px"
+								/>
+							</Box>
+							<Text fontSize="3xl" fontWeight="bold" color="white" mb={4}>
+								Amount: Rs. {total}
+							</Text>
+							<Text fontSize="sm" color="gray.300" textAlign="left" mb={4}>
+								1. Scan the QR Code using any UPI app <br />
+								2. Make the payment of the amount shown above <br />
+								3. Once the payment is successful, put the UPI transaction ID
+								in the box below and press submit
+							</Text>
+							<Input
+								placeholder="Transaction ID"
+								size="lg"
+								value={transactionId}
+								onChange={(e) => setTransactionId(e.target.value)}
+								color="white"
+								bg="gray.900"
+								border="1px solid #F4AC18"
+							/>
+						</Flex>
+					</ModalBody>
+					<ModalFooter>
+						<Button
+							size="lg"
+							bg="#F4AC18"
+							color="white"
+							boxShadow="lg"
+							onClick={handleCheckout}
+							_hover={{
+								bg: "#D49516",
+								boxShadow: "xl",
+								transform: "translateY(-2px)",
+							}}
+							transition="all 0.3s ease"
+						>
+							Finish Payment
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</Layout>
 	)
 }
