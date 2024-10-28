@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface AccommodationProps {
 	teamId: string;
@@ -40,7 +40,19 @@ const Accommodation = () => {
 		refetch,
 	} = api.reg.getAccomodationTeams.useQuery();
 
-	
+	useEffect(() => {
+		if (teams) {
+			const initialAccommodation = teams.map((team) => ({
+				teamId: team.id,
+				startDate: team.AccommodationDetails?.startDate ?? '',
+				endDate: team.AccommodationDetails?.endDate ?? '',
+				maleCount: team.AccommodationDetails?.maleCount ?? 0,
+				femaleCount: team.AccommodationDetails?.femaleCount ?? 0,
+			}));
+			setAccommodation(initialAccommodation);
+		}
+	}, [teams]);
+
 
 	const saveAccom = api.reg.saveAccommodationDetails.useMutation();
 
@@ -97,13 +109,8 @@ const Accommodation = () => {
 		return category === field ? true : category === "MIXED" ? true : false;
 	}
 
-	const rates = {
-		1: 500,
-		2: 800,
-		3: 1000,
-	};
+	const handleSaveOrUpdate = async (teamId: string, isUpdate: boolean, count: number) => {
 
-	const handleSaveOrUpdate = async (teamId: string, isUpdate: boolean) => {
 		const data = accommodation.find((acc) => acc.teamId === teamId);
 
 		if (!data) {
@@ -115,7 +122,6 @@ const Accommodation = () => {
 			});
 			return;
 		}
-
 		const { startDate, endDate, maleCount, femaleCount } = data;
 
 		const accomId = teams.find((team) => team.id === teamId)?.AccommodationDetails?.id;
@@ -123,6 +129,36 @@ const Accommodation = () => {
 		if (!startDate || !endDate || (maleCount === 0 && femaleCount === 0)) {
 			toast({
 				title: "Enter all details",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+			return;
+		}
+
+		if (startDate === endDate) {
+			toast({
+				title: "Start and end date cannot be the same",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+			return;
+		}
+
+		if (startDate > endDate) {
+			toast({
+				title: "Start date cannot be greater than end date",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+			return;
+		}
+
+		if (maleCount + femaleCount > count) {
+			toast({
+				title: "Number of beds exceed team size",
 				status: "error",
 				duration: 3000,
 				isClosable: true,
@@ -160,6 +196,34 @@ const Accommodation = () => {
 		await refetch();
 	}
 
+	const rates = {
+		1: 500,
+		2: 800,
+		3: 1000,
+	};
+
+	const calculateDays = (startDate: string, endDate: string) => {
+		const start = new Date(startDate);
+		const end = new Date(endDate);
+		const diffTime = Math.abs(end.getTime() - start.getTime());
+		const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+		return diffDays;
+	}
+
+	const calculateTotal = (data: AccommodationProps) => {
+		const days = calculateDays(data.startDate, data.endDate) as 1 | 2 | 3;
+		const maleTotal = data.maleCount * rates[days];
+		const femaleTotal = data.femaleCount * rates[days];
+		return maleTotal + femaleTotal;
+	}
+
+	const selectedTeams = teams.filter((team) => selectedAccommodation.includes(team.id));
+	const total = selectedTeams.reduce((acc, team) => {
+		const data = accommodation.find((acc) => acc.teamId === team.id);
+		if (!data) return 0;
+		return acc + calculateTotal(data);
+	}, 0);
+
 	const handleCheckout = async () => {
 		if (selectedAccommodation.length === 0) {
 			toast({
@@ -170,8 +234,6 @@ const Accommodation = () => {
 			});
 			return;
 		}
-
-
 	}
 
 	return (
@@ -235,7 +297,6 @@ const Accommodation = () => {
 												defaultValue={team.AccommodationDetails?.endDate}
 												onChange={handleInputChange}
 											/>
-
 											{fieldDisabled(team.Event.category, "MALE") ? (
 												<>
 													<FormLabel>Male Beds</FormLabel>
@@ -262,12 +323,15 @@ const Accommodation = () => {
 													/>
 												</>
 											) : null}
-
 											<Divider mt={4} />
 											<Button
 												colorScheme="red"
 												size="sm"
-												onClick={() => handleSaveOrUpdate(team.id, team.AccommodationDetails ? true : false)}
+												onClick={() => handleSaveOrUpdate(
+													team.id,
+													team.AccommodationDetails ? true : false,
+													team._count.TeamMembers
+												)}
 											>
 												{team.AccommodationDetails ? "Update" : "Save"}
 											</Button>
@@ -280,13 +344,24 @@ const Accommodation = () => {
 						<br />
 					</Accordion>
 				)}
-				<Button
-					colorScheme="red"
-					size="lg"
-					onClick={handleCheckout}
+				<Box mt={8}
+					display="flex"
+					flexDirection="row"
+					justifyContent="space-between"
+					alignItems="center"
 				>
-					Checkout
-				</Button>
+					<Text fontSize="xl" mt={8}>
+						Total: {total}
+					</Text>
+					<Button
+						colorScheme="red"
+						size="lg"
+						onClick={handleCheckout}
+						isDisabled={selectedAccommodation.length === 0}
+					>
+						Checkout
+					</Button>
+				</Box>
 			</Box>
 		</Layout>
 	)
