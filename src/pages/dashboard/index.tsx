@@ -317,6 +317,80 @@ function Dashboard() {
           </Accordion>
         )}
       </Box>
+      {userProfile?.accomActive ? (
+        <Box
+          mx="13rem"
+          mb={16}
+          borderWidth={1}
+          borderRadius="lg"
+          bg="#181818"
+          color="white"
+          borderColor='#868686'
+          fontFamily="poppins"
+        >
+          <Flex alignItems="center" p={5} pb={4}>
+            <Icon as={FaTrophy} w={6} h={6} mr={4} color={"#F3AB17"} />
+            <Text fontWeight="bold">
+              My Accommodation
+            </Text>
+          </Flex>
+          <Divider borderColor='#868686' />
+          {isError || !myEvents || myEvents.length === 0 ? (
+            <Text fontSize="lg" textAlign="center" p={4}>
+              You haven&apos;t been alloted any accommodations yet.
+            </Text>
+          ) : (
+            <TableContainer pt={1}>
+              <Table variant="simple" fontFamily="poppins" >
+                <Thead>
+                  <Tr>
+                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Event Name</Th>
+                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Payment Verification</Th>
+                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Allocation</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {myEvents.map((team) => (
+                    <Tr key={team.id}>
+                      <Td>
+                        <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
+                          {team.Event.name}
+                        </Box>
+                      </Td>
+                      <Td>
+                        <Badge colorScheme="green" px={2} py={1} borderRadius="full"
+                          color={team.AccommodationPayment?.paymentStatus === "PAID" ? "green" : "yellow"}
+                        >
+                          {team.AccommodationPayment?.paymentStatus === "PAID"
+                            ? (<Icon as={FaCheckCircle} mr={1} />)
+                            : (<Icon as={FaExclamationTriangle} mr={1} />)}
+                          {team.AccommodationPayment?.paymentStatus}
+                        </Badge>
+                      </Td>
+                      <Td>
+                        <Badge px={2} py={1} borderRadius="full"
+                          colorScheme={
+                            team.AccommodationDetails?.isAlloted === true
+                              ? "green"
+                              : "yellow"
+                          }
+                        >
+                          {team.AccommodationDetails?.isAlloted === true
+                            ? (<Icon as={FaCheckCircle} mr={1} />)
+                            : (<Icon as={FaExclamationTriangle} mr={1} />)}
+                          {team.AccommodationDetails?.isAlloted === true
+                            ? "Completed"
+                            : "Pending"}
+                        </Badge>
+                      </Td>
+                    </Tr>
+                  ))}
+                </Tbody>
+              </Table>
+            </TableContainer>
+          )}
+        </Box>
+      ) : null}
     </Layout>
   );
 }

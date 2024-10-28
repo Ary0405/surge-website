@@ -329,6 +329,16 @@ export const regRouter = createTRPCRouter({
         Event: true,
         PaymentDetails: true,
         TeamMembers: true, // Include team members in the response
+        AccommodationPayment: {
+          select: {
+            paymentStatus: true,
+          }
+        },
+        AccommodationDetails: {
+          select: {
+            isAlloted: true,
+          }
+        }
       },
     });
 
@@ -653,4 +663,7 @@ export const regRouter = createTRPCRouter({
 
     return accomPayment;
   }),
+
+
+
 });
