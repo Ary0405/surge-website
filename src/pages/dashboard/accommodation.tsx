@@ -28,6 +28,7 @@ import {
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 interface AccommodationProps {
 	teamId: string;
@@ -43,6 +44,7 @@ const Accommodation = () => {
 	const [selectedAccommodation, setSelectedAccommodation] = useState<string[]>([]);
 	const [transactionId, setTransactionId] = useState<string>('');
 	const toast = useToast();
+	const router = useRouter();
 
 	const {
 		isOpen: isModalOpen,
@@ -256,6 +258,7 @@ const Accommodation = () => {
 	}
 
 	const handleCheckout = async () => {
+
 		if (selectedAccommodation.length === 0) {
 			toast({
 				title: "Select a team to checkout",
@@ -265,6 +268,9 @@ const Accommodation = () => {
 			});
 			return;
 		}
+
+		console.log(total);
+		return;
 
 		if (!transactionId) {
 			toast({
@@ -296,6 +302,7 @@ const Accommodation = () => {
 				duration: 3000,
 				isClosable: true,
 			});
+			await router.push('/dashboard');
 		} catch (error) {
 			toast({
 				title: "Error processing payment",
@@ -427,7 +434,20 @@ const Accommodation = () => {
 					<Button
 						colorScheme="red"
 						size="lg"
-						onClick={onModalOpen}
+						onClick={
+							() => {
+								if (isNaN(total) || total === 0) {
+									toast({
+										title: "Save Accommodation Details before checkout",
+										status: "error",
+										duration: 3000,
+										isClosable: true,
+									});
+									return;
+								}
+								onModalOpen();
+							}
+						}
 						isDisabled={selectedAccommodation.length === 0}
 					>
 						Checkout

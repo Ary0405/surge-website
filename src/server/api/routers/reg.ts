@@ -57,16 +57,16 @@ export const regRouter = createTRPCRouter({
       const { eventId } = input;
       const userId = ctx.session.user.id;
 
-      const existingTeam = await ctx.db.team.findFirst({
-        where: {
-          registeredById: userId,
-          eventId: eventId,
-        },
-      });
+      // const existingTeam = await ctx.db.team.findFirst({
+      //   where: {
+      //     registeredById: userId,
+      //     eventId: eventId,
+      //   },
+      // });
 
-      if (existingTeam) {
-        throw new Error("User is already registered for the event");
-      }
+      // if (existingTeam) {
+      //   throw new Error("User is already registered for the event");
+      // }
 
       return await ctx.db.team.create({
         data: {
@@ -141,16 +141,16 @@ export const regRouter = createTRPCRouter({
         throw new Error("User is not authenticated.");
       }
 
-      const existingTeam = await ctx.db.team.findFirst({
-        where: {
-          registeredById: userId,
-          eventId: eventId,
-        },
-      });
+      // const existingTeam = await ctx.db.team.findFirst({
+      //   where: {
+      //     registeredById: userId,
+      //     eventId: eventId,
+      //   },
+      // });
 
-      if (existingTeam) {
-        throw new Error("User is already registered for the event");
-      }
+      // if (existingTeam) {
+      //   throw new Error("User is already registered for the event");
+      // }
 
       const team = await ctx.db.team.create({
         data: {
@@ -549,6 +549,11 @@ export const regRouter = createTRPCRouter({
         registeredById: userId,
         PaymentDetails: {
           paymentStatus: "PAID"
+        },
+        TeamMembers:{
+          every:{
+            isVerified: "VERIFIED",
+          }
         },
         accommodationPaymentId: null,
       },

@@ -128,7 +128,7 @@ function Dashboard() {
             size="lg"
             colorScheme="gray"
             isDisabled={userProfile?.accomActive === false}
-            color={userProfile?.accomActive ? "#F4AC17" : "#181818"}
+            color={userProfile?.accomActive ? "#F4AC17" : "#ffffff"}
             onClick={() => router.push("/dashboard/accommodation")}
             width="175px"
             fontSize="l"
@@ -165,8 +165,6 @@ function Dashboard() {
         </Flex>
       </Flex>
 
-
-      {/* Profile Information Box */}
       <Box
         mx="13rem"
         mb={16}
@@ -237,7 +235,7 @@ function Dashboard() {
                   <Tr>
                     <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Event Name</Th>
                     <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Status</Th>
-                    <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Verification</Th>
+                    {/* <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Verification</Th> */}
                     <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Share link</Th>
                     <Th textTransform="none" fontFamily="poppins" fontWeight="bold" color={"#F3AB17"} fontSize="lg">Player Details</Th>
                   </Tr>
@@ -250,12 +248,12 @@ function Dashboard() {
                           {team.Event.name}
                         </Box>
                       </Td>
-                      <Td>
+                      {/* <Td>
                         <Badge colorScheme="green" px={2} py={1} borderRadius="full">
                           <Icon as={FaCheckCircle} mr={1} />
                           Paid
                         </Badge>
-                      </Td>
+                      </Td> */}
                       <Td>
                         <Badge px={2} py={1} borderRadius="full"
                           colorScheme={
@@ -351,6 +349,7 @@ function Dashboard() {
                 </Thead>
                 <Tbody>
                   {myEvents.map((team) => (
+                    team.AccommodationDetails && team.AccommodationPayment &&
                     <Tr key={team.id}>
                       <Td>
                         <Box flex="1" textAlign="left" fontSize="l" color="#F4AC18">
@@ -359,26 +358,26 @@ function Dashboard() {
                       </Td>
                       <Td>
                         <Badge colorScheme="green" px={2} py={1} borderRadius="full"
-                          color={team.AccommodationPayment?.paymentStatus === "PAID" ? "green" : "yellow"}
+                          color={team.AccommodationPayment.paymentStatus === "PAID" ? "green" : "yellow"}
                         >
-                          {team.AccommodationPayment?.paymentStatus === "PAID"
+                          {team.AccommodationPayment.paymentStatus === "PAID"
                             ? (<Icon as={FaCheckCircle} mr={1} />)
                             : (<Icon as={FaExclamationTriangle} mr={1} />)}
-                          {team.AccommodationPayment?.paymentStatus}
+                          {team.AccommodationPayment.paymentStatus}
                         </Badge>
                       </Td>
                       <Td>
                         <Badge px={2} py={1} borderRadius="full"
                           colorScheme={
-                            team.AccommodationDetails?.isAlloted === true
+                            team.AccommodationDetails.isAlloted === true
                               ? "green"
                               : "yellow"
                           }
                         >
-                          {team.AccommodationDetails?.isAlloted === true
+                          {team.AccommodationDetails.isAlloted === true
                             ? (<Icon as={FaCheckCircle} mr={1} />)
                             : (<Icon as={FaExclamationTriangle} mr={1} />)}
-                          {team.AccommodationDetails?.isAlloted === true
+                          {team.AccommodationDetails.isAlloted === true
                             ? "Completed"
                             : "Pending"}
                         </Badge>
