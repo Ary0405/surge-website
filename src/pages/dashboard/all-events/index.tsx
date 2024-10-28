@@ -145,9 +145,6 @@ function EventsPage() {
             },
             i
           ) => {
-            if (name === "Chess") {
-              return null;
-            }
             return (
               <GridItem
                 key={i}
