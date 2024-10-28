@@ -101,8 +101,8 @@ model AccommodationDetails {
   teamId                 String
   createdAt              DateTime              @default(now())
   Teams                  Team[]
-  startDate              DateTime
-  endDate                DateTime
+  startDate              String
+  endDate                String
   maleCount              Int
   femaleCount            Int
   isAlloted              Boolean               @default(false)

@@ -530,4 +530,86 @@ export const regRouter = createTRPCRouter({
 
     return user;
   }),
+
+  getAccomodationTeams: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+
+    const teams = await ctx.db.team.findMany({
+      where: {
+        registeredById: userId,
+        PaymentDetails: {
+          paymentStatus: "PAID"
+        }
+      },
+      include: {
+        Event: {
+          select: {
+            category: true,
+            name: true,
+          },
+        },
+        AccommodationDetails: true,
+        _count: {
+          select: {
+            TeamMembers: true,
+          }
+        },
+      },
+    });
+
+    return teams;
+
+  }),
+
+  saveAccommodationDetails: protectedProcedure.input(
+    z.object({
+      teamId: z.string(),
+      startDate: z.string(),
+      endDate: z.string(),
+      maleCount: z.number(),
+      femaleCount: z.number(),
+      isUpdate: z.boolean().optional(),
+      accomId: z.string().optional(),
+    })).mutation(async ({ ctx, input }) => {
+      
+      const { teamId, startDate, endDate, maleCount, femaleCount, isUpdate } = input;
+
+      if (isUpdate) {
+        return await ctx.db.accommodationDetails.update({
+          where: {
+            id: input.accomId,
+          },
+          data: {
+            startDate,
+            endDate,
+            maleCount,
+            femaleCount,
+          },
+        });
+      }
+
+      const accom = await ctx.db.accommodationDetails.create({
+        data: {
+          teamId,
+          startDate,
+          endDate,
+          maleCount,
+          femaleCount,
+        },
+      });
+
+      return await ctx.db.team.update({
+        where: {
+          id: teamId,
+        },
+        data: {
+          AccommodationDetails: {
+            connect: {
+              id: accom.id,
+            },
+          },
+        },
+      });
+    }),
+
 });
