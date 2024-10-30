@@ -96,7 +96,8 @@ export const regRouter = createTRPCRouter({
       });
 
       // Update all related teams to reference the created payment details
-      const updatedTeams = await ctx.db.team.updateMany({
+      // const updatedTeams = 
+      await ctx.db.team.updateMany({
         where: {
           id: {
             in: teamIds,
@@ -549,11 +550,6 @@ export const regRouter = createTRPCRouter({
         registeredById: userId,
         PaymentDetails: {
           paymentStatus: "PAID"
-        },
-        TeamMembers:{
-          every:{
-            isVerified: "VERIFIED",
-          }
         },
         accommodationPaymentId: null,
       },
