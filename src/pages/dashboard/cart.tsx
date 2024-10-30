@@ -25,6 +25,7 @@ import {
   useToast,
   Image,
   Checkbox,
+  Spinner,
 } from "@chakra-ui/react";
 import { Layout } from "~/components/layout";
 import { api } from "~/utils/api";
@@ -60,13 +61,23 @@ const CartPage = () => {
   const finalizePaymentMutation = api.reg.finalizePayment.useMutation();
   const [checked, setChecked] = useState(false);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
+  const [spinner, setSpinner] = useState(false);
+  const [checkout, setCheckout] = useState(true);
 
   const deleteFromCartMutation = api.reg.removeFromCart.useMutation();
 
   if (isLoading) {
     return (
       <Layout title="Cart">
-        <Text>Loading...</Text>
+        <Box display="flex" justifyContent="center" alignItems="center" zIndex={1000} position="fixed" top="0" left="0" right="0" bottom="0" bg="rgba(0, 0, 0, 0.5)">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="#F4AC17"
+            size="xl"
+          />
+        </Box>
       </Layout>
     );
   }
@@ -74,7 +85,16 @@ const CartPage = () => {
   if (isError || !cartItems) {
     return (
       <Layout title="Cart">
-        <Text>Unable to load cart items.</Text>
+        <Box display="flex" justifyContent="center" alignItems="center" zIndex={1000} position="fixed" top="0" left="0" right="0" bottom="0" bg="rgba(0, 0, 0, 0.5)">
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="#F4AC17"
+            size="xl"
+          />
+          Unable to load cart items.
+        </Box>
       </Layout>
     );
   }
@@ -117,6 +137,7 @@ const CartPage = () => {
   };
 
   const handleFinishPayment = async () => {
+    setCheckout(false);
     if (!transactionId) {
       toast({
         title: "Transaction ID is required.",
@@ -125,9 +146,10 @@ const CartPage = () => {
         duration: 3000,
         isClosable: true,
       });
+      setCheckout(true);
       return;
     }
-
+    setSpinner(true);
     try {
       const teamIds = selectedTeams;
       await finalizePaymentMutation.mutateAsync({
@@ -153,6 +175,8 @@ const CartPage = () => {
         isClosable: true,
       });
     }
+    setSpinner(false);
+    setCheckout(true);
   };
 
   const handleNoteAcknowledge = () => {
@@ -186,6 +210,18 @@ const CartPage = () => {
         <Heading as="h1" size="2xl" mb={8} color="#F4AC18">
           Your Cart
         </Heading>
+
+        {spinner ? (
+          <Box display="flex" justifyContent="center" alignItems="center" zIndex={1000} position="fixed" top="0" left="0" right="0" bottom="0" bg="rgba(0, 0, 0, 0.5)">
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="#F4AC17"
+              size="xl"
+            />
+          </Box>
+        ) : null}
 
         {cartItems.length === 0 ? (
           <Text fontSize="lg">Your cart is empty.</Text>
@@ -477,6 +513,7 @@ const CartPage = () => {
                 color="white"
                 boxShadow="lg"
                 onClick={handleFinishPayment}
+                isDisabled={!checkout}
                 _hover={{
                   bg: "#D49516",
                   boxShadow: "xl",
