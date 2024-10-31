@@ -410,7 +410,7 @@ export const regRouter = createTRPCRouter({
       };
     }),
 
-  uploadDocument: protectedProcedure
+  uploadDocument: publicProcedure
     .input(
       z.object({
         memberId: z.string(),
@@ -455,7 +455,7 @@ export const regRouter = createTRPCRouter({
       };
     }),
 
-  updateDocumentStatus: protectedProcedure
+  updateDocumentStatus: publicProcedure
     .input(
       z.object({
         documentId: z.string(),

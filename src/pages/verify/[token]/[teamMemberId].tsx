@@ -180,7 +180,7 @@ const TeamMemberVerificationPage = () => {
     };
     input.click();
   }
-  
+
   if (isLoading) {
     return (
       <Layout title="Verification Portal">
