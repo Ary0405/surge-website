@@ -43,6 +43,7 @@ const Accommodation = () => {
 	const [accommodation, setAccommodation] = useState<AccommodationProps[]>([]);
 	const [selectedAccommodation, setSelectedAccommodation] = useState<string[]>([]);
 	const [transactionId, setTransactionId] = useState<string>('');
+	const [isDisabled, setIsDisabled] = useState<boolean>(false);
 	const toast = useToast();
 	const router = useRouter();
 
@@ -217,6 +218,16 @@ const Accommodation = () => {
 			return;
 		}
 
+		if(startDate < "2024-11-14" || endDate > "2024-11-17") {
+			toast({
+				title: "Invalid date range",
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+			return;
+		}
+
 		if (maleCount + femaleCount > count) {
 			toast({
 				title: "Number of beds exceed team size",
@@ -258,6 +269,7 @@ const Accommodation = () => {
 	}
 
 	const handleCheckout = async () => {
+		setIsDisabled(true);
 
 		if (selectedAccommodation.length === 0) {
 			toast({
@@ -266,11 +278,9 @@ const Accommodation = () => {
 				duration: 3000,
 				isClosable: true,
 			});
+			setIsDisabled(false);
 			return;
 		}
-
-		console.log(total);
-		return;
 
 		if (!transactionId) {
 			toast({
@@ -279,11 +289,13 @@ const Accommodation = () => {
 				duration: 3000,
 				isClosable: true,
 			});
+			setIsDisabled(false);
 			return;
 		}
 
 		const confirmed = window.confirm(`Are you sure you want to checkout? Once checked out, the data cannot be modified.`);
 		if (!confirmed) {
+			setIsDisabled(false);
 			return;
 		}
 
@@ -311,7 +323,7 @@ const Accommodation = () => {
 				isClosable: true,
 			});
 		}
-
+		setIsDisabled(false);
 	}
 
 	return (
@@ -508,6 +520,7 @@ const Accommodation = () => {
 							color="white"
 							boxShadow="lg"
 							onClick={handleCheckout}
+							isDisabled={isDisabled}
 							_hover={{
 								bg: "#D49516",
 								boxShadow: "xl",
