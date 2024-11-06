@@ -298,7 +298,7 @@ const EventRegistrationPage = () => {
                   <FormControl isRequired>
                     <FormLabel color="gray.400" fontSize="sm">Phone</FormLabel>
                     <Input
-                      placeholder="+91 9898989898"
+                      placeholder="9898989898"
                       value={player.phone}
                       onChange={(e) => handleInputChange(index, "phone", e.target.value)}
                     />

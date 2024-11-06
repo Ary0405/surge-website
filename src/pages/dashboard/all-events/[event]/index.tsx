@@ -230,22 +230,7 @@ const EventPage = () => {
                   DATE
                 </Text>
                 <Text fontSize="l" color="gray.100" mb={6}>
-                  {new Date(data.dateFrom).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                  {" - "}
-                  {new Date(data.dateFrom).getMonth() ===
-                  new Date(data.dateTo).getMonth()
-                    ? new Date(data.dateTo).toLocaleDateString("en-US", {
-                        day: "numeric",
-                      })
-                    : new Date(data.dateTo).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                      })}
-                  {", "}
-                  {new Date(data.dateTo).getFullYear()}
+                  Nov 15 - 17, 2024
                 </Text>
                 <Text as="h1" fontSize="xl" mb={4} fontWeight="bold">
                   Location
