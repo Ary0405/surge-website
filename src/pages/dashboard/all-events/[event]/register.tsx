@@ -133,11 +133,6 @@ const EventRegistrationPage = () => {
     );
   }
 
-  const validateChessTeam = () => {
-    // At least one female player
-    return players.some((player) => player.gender === "female");
-  };
-
   const handleSubmit = async () => {
     if (!data) return;
 
@@ -167,17 +162,6 @@ const EventRegistrationPage = () => {
       toast({
         title: "Incomplete Information",
         description: "Please fill in all required fields for all players.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
-
-    if (data.name === 'Chess' && !validateChessTeam()) {
-      toast({
-        title: "Invalid Team",
-        description: "Please ensure that there is at least one female player in the team.",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -303,20 +287,6 @@ const EventRegistrationPage = () => {
                       onChange={(e) => handleInputChange(index, "phone", e.target.value)}
                     />
                   </FormControl>
-                  {data.name === 'Chess' && (
-                    <FormControl isRequired>
-                      <FormLabel color="gray.400" fontSize="sm">Gender</FormLabel>
-                      <Select
-                        placeholder="Select Gender"
-                        value={player.gender}
-                        onChange={(e) => handleInputChange(index, "gender", e.target.value)}
-                      >
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                      </Select>
-                    </FormControl>
-                  )}
                 </Stack>
                 {index < players.length - 1 && <Divider mt={8} />}
               </Box>
