@@ -45,7 +45,7 @@ const EventRegistrationPage = () => {
 
   const [closingTime, setClosingTime] = useState("");
 
-  const closingDate = useMemo(() => new Date("2024-11-14T23:59:59"), []);
+  const closingDate = useMemo(() => new Date("2024-11-09T23:59:59"), []);
 
   const calculateTimeLeft = useCallback(() => {
     const now = new Date();
