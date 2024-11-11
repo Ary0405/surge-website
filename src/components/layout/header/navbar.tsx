@@ -39,10 +39,10 @@ export const navItems = [
     title: "Rule Book",
     href: "https://docs.google.com/document/d/1EhKOktx51yRpVABZCCIf8BIiZR-GEgwt1bRIvwpYj9g/edit?usp=sharing",
   },
-  {
-    title: "Brochure",
-    href: "https://drive.google.com/file/d/1EdlqJ12xGgYFZq5stVGuJGyVmPNpmKQ_/view?usp=sharing",
-  },
+  // {
+  //   title: "Brochure",
+  //   href: "https://drive.google.com/file/d/1EdlqJ12xGgYFZq5stVGuJGyVmPNpmKQ_/view?usp=sharing",
+  // },
 ];
 
 interface NavbarItemProps {

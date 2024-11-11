@@ -41,7 +41,7 @@ function Footer() {
         >
           <Link href="/">
             <Image
-              src="/images/surge_logo_black.png"
+              src="/images/logo_hcl.png"
               width={256}
               height={75}
               alt="Surge Logo"
