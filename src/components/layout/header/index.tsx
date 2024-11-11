@@ -46,8 +46,8 @@ function Header() {
           transition={{ duration: 1, delay: 0.3 }}
         >
           <MotionImage
-            src="/images/surge_logo.png"
-            width={isMobile ? 190 : 256}
+            src="/images/logo_hcl.png"
+            width={isMobile ? 90 : 156}
             height={1}
             alt="Surge Logo"
             initial={{ opacity: 0, y: -50 }}
