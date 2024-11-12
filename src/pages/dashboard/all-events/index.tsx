@@ -145,6 +145,10 @@ function EventsPage() {
             },
             i
           ) => {
+            console.log(name);
+            if (name === "Cricket (Men)") {
+              return null;
+            }
             return (
               <GridItem
                 key={i}
