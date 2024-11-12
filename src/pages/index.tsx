@@ -80,7 +80,7 @@ function HomePage() {
         <SportsSection />
         {/* </Box> */}
 
-        <SponsorsSection />
+        {/* <SponsorsSection /> */}
         {/* <BlogsSection /> */}
 
         <Spacer h="5rem" />
