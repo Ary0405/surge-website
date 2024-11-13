@@ -28,6 +28,7 @@ function Scoreboard() {
         w="100%"
         maxW="700px"
         mx="auto"
+        my={50}
         boxShadow="2xl"
         backgroundSize="cover"
         fontFamily="poppins"
