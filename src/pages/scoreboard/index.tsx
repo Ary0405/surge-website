@@ -63,8 +63,6 @@ function Scoreboard() {
                       </Flex>
                       <Flex align="center" justify="center" flex="0.4">
                         <Box
-                          bg="yellow.400"
-                          color="black"
                           fontSize="xl"
                           fontWeight="bold"
                           p={2}
@@ -75,6 +73,8 @@ function Scoreboard() {
                           minW="40px"
                           textAlign="center"
                           ml={-3}
+                          color="black"
+                          bg={(match.win == 1) ? "#97eb0f" : ((match.win == 2) ? "#d93300" : "yellow.400")}
                         >
                           <Text transform="skew(20deg)">{match.score1}</Text>
                         </Box>
@@ -82,8 +82,6 @@ function Scoreboard() {
                           :
                         </Text>
                         <Box
-                          bg="yellow.400"
-                          color="black"
                           fontSize="xl"
                           fontWeight="bold"
                           p={2}
@@ -94,6 +92,8 @@ function Scoreboard() {
                           minW="40px"
                           textAlign="center"
                           zIndex="1"
+                          color="black"
+                          bg={(match.win == 2) ? "#97eb0f" : ((match.win == 1) ? "#d93300" : "yellow.400")}
                         >
                           <Text transform="skew(-20deg)">{match.score2}</Text>
                         </Box>
