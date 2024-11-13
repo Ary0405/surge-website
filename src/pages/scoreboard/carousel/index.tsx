@@ -36,7 +36,7 @@ function Scoreboard() {
         p={6}
         borderRadius="lg"
         w="100%"
-        maxW="700px"
+        maxW="80%"
         mx="auto"
         my={50}
         boxShadow="2xl"

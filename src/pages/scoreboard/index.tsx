@@ -31,7 +31,7 @@ function Scoreboard() {
         p={6}
         borderRadius="lg"
         w="100%"
-        maxW="700px"
+        maxW="80%"
         mx="auto"
         my={50}
         boxShadow="2xl"
@@ -55,9 +55,6 @@ function Scoreboard() {
         </Select>
         {selectedSport && selectedSportData && (
           <Box mb={3} key={selectedSport}>
-            <Text fontSize="4xl" fontWeight="bold" mb={3} textAlign="center" color={"#F3AB17"}>
-              {selectedSport}
-            </Text>
             {isMultiPlayerEvent(selectedSportData[0]) ? (
               <MultiPlayerComponent match={selectedSportData as MultiPlayerEvent[]} />
             ) : (

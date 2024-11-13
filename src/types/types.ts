@@ -47,6 +47,87 @@ export const matchFixtures: MatchData = {
             win: 2,
             location: "Location 3",
             time: "2021-06-27T19:00:00"
+        },
+        {
+            team1: "Team 1",
+            team2: "Team 2",
+            score1: 100,
+            score2: 90,
+            win: 1,
+            location: "Location 1",
+            time: "2021-06-25T19:00:00"
+        },
+        {
+            team1: "Team 3",
+            team2: "Team 4",
+            score1: 80,
+            score2: 70,
+            win: 2,
+            location: "Location 2",
+            time: "2021-06-26T19:00:00"
+        },
+        {
+            team1: "Team 5",
+            team2: "Team 6",
+            score1: 70,
+            score2: 80,
+            win: 2,
+            location: "Location 3",
+            time: "2021-06-27T19:00:00"
+        },
+        {
+            team1: "Team 1",
+            team2: "Team 2",
+            score1: 100,
+            score2: 90,
+            win: 1,
+            location: "Location 1",
+            time: "2021-06-25T19:00:00"
+        },
+        {
+            team1: "Team 3",
+            team2: "Team 4",
+            score1: 80,
+            score2: 70,
+            win: 2,
+            location: "Location 2",
+            time: "2021-06-26T19:00:00"
+        },
+        {
+            team1: "Team 5",
+            team2: "Team 6",
+            score1: 70,
+            score2: 80,
+            win: 2,
+            location: "Location 3",
+            time: "2021-06-27T19:00:00"
+        },
+        {
+            team1: "Team 1",
+            team2: "Team 2",
+            score1: 100,
+            score2: 90,
+            win: 1,
+            location: "Location 1",
+            time: "2021-06-25T19:00:00"
+        },
+        {
+            team1: "Team 3",
+            team2: "Team 4",
+            score1: 80,
+            score2: 70,
+            win: 2,
+            location: "Location 2",
+            time: "2021-06-26T19:00:00"
+        },
+        {
+            team1: "Team 5",
+            team2: "Team 6",
+            score1: 70,
+            score2: 80,
+            win: 2,
+            location: "Location 3",
+            time: "2021-06-27T19:00:00"
         }
     ],
     "Basketball": [
