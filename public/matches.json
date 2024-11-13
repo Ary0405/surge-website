@@ -1,0 +1,24 @@
+{
+  "Cricket": {
+    "Finals": [
+      { "team1": "Molde", "score1": 2, "team2": "Granada", "score2": 1 }
+    ],
+    "Semi-Finals": [
+      { "team1": "Dinamo Zagreb", "score1": 0, "team2": "Tottenham", "score2": 3 },
+      { "team1": "Arsenal", "score1": 0, "team2": "Olympiacos", "score2": 1 }
+    ]
+  },
+  "Football": {
+    "Finals": [
+      { "team1": "Shakhtar", "score1": 1, "team2": "Roma", "score2": 2 }
+    ],
+    "Semi-Finals": [
+      { "team1": "Rangers", "score1": 0, "team2": "Slavia Praha", "score2": 2 },
+      { "team1": "Milan", "score1": 0, "team2": "Man. United", "score2": 1 }
+    ],
+    "Quarter-Finals": [
+      { "team1": "Villarreal", "score1": 2, "team2": "Dynamo Kyiv", "score2": 0 },
+      { "team1": "Young Boys", "score1": 0, "team2": "Ajax", "score2": 2 }
+    ]
+  }
+}
