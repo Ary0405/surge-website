@@ -2,6 +2,7 @@
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import { MultiPlayerEvent } from "~/types/types";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isMultiPlayerEvent = (event: any): event is MultiPlayerEvent => {
     return 'team1' in event && 'team2' in event;
 };
