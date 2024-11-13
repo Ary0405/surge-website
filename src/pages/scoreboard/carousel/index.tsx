@@ -15,7 +15,7 @@ function Scoreboard() {
     return () => clearInterval(interval); // Clear interval on component unmount
   }, [sports.length]);
 
-  const activeSport = sports[activeSportIndex];
+  const activeSport = sports[activeSportIndex]; // change this varible to integer
 
   return (
     <Layout title="Dashboard">
