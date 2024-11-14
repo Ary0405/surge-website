@@ -1,4 +1,3 @@
-
 export type MultiPlayerEvent = {
     team1: string;
     team2: string;
@@ -1181,6 +1180,253 @@ export const matchFixtures: MatchData = {
             time: "2024-11-15T13:00:00"
         }
     ],
+    "Tennis - Men": [
+        {
+            team1: "SNU A",
+            team2: "Munjal",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-15T10:00:00",
+            win: 0
+        },
+        {
+            team1: "SNU A",
+            team2: "MUJ B",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-15T19:30:00",
+            win: 0
+        },
+        {
+            team1: "Munjal",
+            team2: "MUJ B",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T20:30:00",
+            win: 0
+        },
+        {
+            team1: "Bennett B",
+            team2: "Venky",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-15T11:30:00",
+            win: 0
+        },
+        {
+            team1: "Khalsa",
+            team2: "Ashoka A",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-15T13:00:00",
+            win: 0
+        },
+        {
+            team1: "Ashoka A",
+            team2: "Bennett B",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-16T09:00:00",
+            win: 0
+        },
+        {
+            team1: "Venky",
+            team2: "Khalsa",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-16T12:00:00",
+            win: 0
+        },
+        {
+            team1: "Khalsa",
+            team2: "Bennett B",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-16T18:00:00",
+            win: 0
+        },
+        {
+            team1: "Ashoka A",
+            team2: "Venky",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-16T19:30:00",
+            win: 0
+        },
+        {
+            team1: "Bennett A",
+            team2: "Ashoka B",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-15T15:00:00",
+            win: 0
+        },
+        {
+            team1: "Ashoka B",
+            team2: "Hansraj",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-15T19:30:00",
+            win: 0
+        },
+        {
+            team1: "Hansraj",
+            team2: "Bennett A",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-16T16:30:00",
+            win: 0
+        },
+        {
+            team1: "SNU Alum",
+            team2: "MUJ A",
+            score1: 0,
+            score2: 0,
+            location: "Court 2",
+            time: "2024-11-15T18:00:00",
+            win: 0
+        },
+        {
+            team1: "MUJ A",
+            team2: "SNU B",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T19:30:00",
+            win: 0
+        },
+        {
+            team1: "SNU B",
+            team2: "SNU Alum",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T18:00:00",
+            win: 0
+        }
+    ],
+    "Tennis - Women": [
+        {
+            team1: "Bennett",
+            team2: "Ashoka B",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T15:00:00",
+            win: 0
+        },
+        {
+            team1: "SNU",
+            team2: "Bennett",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T16:30:00",
+            win: 0
+        },
+        {
+            team1: "Ashoka B",
+            team2: "MUJ",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-16T09:00:00",
+            win: 0
+        },
+        {
+            team1: "MUJ",
+            team2: "Bennett",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-16T12:00:00",
+            win: 0
+        },
+        {
+            team1: "SNU",
+            team2: "Ashoka B",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-16T16:30:00",
+            win: 0
+        },
+        {
+            team1: "SNU",
+            team2: "MUJ",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-16T19:30:00",
+            win: 0
+        },
+        {
+            team1: "SRCC",
+            team2: "IPCW",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T10:00:00",
+            win: 0
+        },
+        {
+            team1: "Venky",
+            team2: "IPCW",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T23:30:00",
+            win: 0
+        },
+        {
+            team1: "SRCC",
+            team2: "Ashoka A",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T13:00:00",
+            win: 0
+        },
+        {
+            team1: "Venky",
+            team2: "Ashoka A",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-15T18:00:00",
+            win: 0
+        },
+        {
+            team1: "SRCC",
+            team2: "Venky",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-16T10:30:00",
+            win: 0
+        },
+        {
+            team1: "IPCW",
+            team2: "Ashoka A",
+            score1: 0,
+            score2: 0,
+            location: "Court 1",
+            time: "2024-11-16T15:00:00",
+            win: 0
+        }
+    ],
     "Table Tennis - Men": [
         {
             "team1": "SNU",
@@ -2154,4 +2400,3 @@ export const matchFixtures: MatchData = {
 // finals and quarterfinals not added, add later
 // chess mixed no data in excel, add later
 // powerlifitng men and women confirm once
-// Tennis men and women time location and collages
