@@ -2394,9 +2394,24 @@ export const matchFixtures: MatchData = {
             silver: "-",
             bronze: "-"
         }
+    ],
+    "Powerlifting": [
+        {
+            name: "Powerlifting - Men",
+            gold: "-",
+            silver: "-",
+            bronze: "-",
+            time: "2024-11-16T09:00:00"
+        },
+        {
+            name: "Powerlifting - Women",
+            gold: "-",
+            silver: "-",
+            bronze: "-",
+            time: "2024-11-16T09:00:00"
+        }
     ]
 }
 
 // finals and quarterfinals not added, add later
 // chess mixed no data in excel, add later
-// powerlifitng men and women confirm once

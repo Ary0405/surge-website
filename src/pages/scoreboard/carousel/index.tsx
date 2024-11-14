@@ -24,7 +24,7 @@ function Scoreboard() {
   useEffect(() => {
     if (!activeSportData) return;
 
-    const intervalDuration = (activeSportData.length / 6) * 6000; // Calculate interval duration based on number of matches
+    const intervalDuration = ((activeSportData.length / 6) + 1) * 6000; // Calculate interval duration based on number of matches
     const interval = setInterval(() => {
       setActiveSportIndex((prevIndex) => (prevIndex + 1) % sports.length);
     }, intervalDuration); // Use calculated interval duration
