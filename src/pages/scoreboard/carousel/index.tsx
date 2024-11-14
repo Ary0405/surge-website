@@ -46,15 +46,15 @@ function Scoreboard() {
         overflowY="auto"  // Allow vertical scrolling within the box
       >{activeSport && activeSportData ? (
         <Box mb={3} key={activeSport}>
-          <Text fontSize="4xl" fontWeight="bold" mb={3} textAlign="center" color={"#F3AB17"}>
+          {/* <Text fontSize="4xl" fontWeight="bold" mb={3} textAlign="center" color={"#F3AB17"}>
             {activeSport}
-          </Text>
+          </Text> */}
           {
             isMultiPlayerEvent(activeSportData[0]) ? (
-              <MultiPlayerComponent match={activeSportData as MultiPlayerEvent[]} />
+              <MultiPlayerComponent match={activeSportData as MultiPlayerEvent[]} title={activeSport} />
             ) : (
               isSinglePlayerEvent(activeSportData[0]) &&
-              <SinglePlayerComponent match={activeSportData as SinglePlayerEvent[]} category={activeSport} />
+              <SinglePlayerComponent match={activeSportData as SinglePlayerEvent[]} title={activeSport} />
             )
           }
         </Box>
