@@ -2,6 +2,18 @@ import { SinglePlayerEvent } from "~/types/types";
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
 
+const formatDateTime = (dateTime: string) => {
+    const date = new Date(dateTime);
+    const formattedDate = date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+    });
+    const formattedTime = date.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+    return `${formattedDate}, ${formattedTime}`;
+};
 export const isSinglePlayerEvent = (event: any): event is SinglePlayerEvent => {
     return 'name' in event && 'gold' in event && 'silver' in event && 'bronze' in event && 'time' in event;
 };
@@ -68,7 +80,7 @@ export const SinglePlayerComponent = ({ match, title }: { match: SinglePlayerEve
                                     {event.bronze}
                                 </Box>
                             </Td>
-                            <Td>{event.time}</Td>
+                            <Td>{formatDateTime(event.time)}</Td>
                         </Tr>
                     ))}
                 </Tbody>

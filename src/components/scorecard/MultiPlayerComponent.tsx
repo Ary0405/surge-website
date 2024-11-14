@@ -8,6 +8,18 @@ export const isMultiPlayerEvent = (event: any): event is MultiPlayerEvent => {
     return 'team1' in event && 'team2' in event;
 };
 
+const formatDateTime = (dateTime: string) => {
+    const date = new Date(dateTime);
+    const formattedDate = date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+    });
+    const formattedTime = date.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+    return `${formattedDate}, ${formattedTime}`;
+};
 const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: string, score1: number, score2: number, win: number }) => {
 
     return (
@@ -115,7 +127,7 @@ export const MultiPlayerComponent = ({ match, title }: { match: MultiPlayerEvent
                                 <Match {...match} />
                             </Td>
                             <Td>{match.location}</Td>
-                            <Td>{match.time}</Td>
+                            <Td>{formatDateTime(match.time)}</Td>
                         </Tr>
                     ))}
                 </Tbody>
