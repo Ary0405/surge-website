@@ -94,27 +94,32 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
 
 }
 
-export const MultiPlayerComponent = ({ match }: { match: MultiPlayerEvent[] }) => {
+export const MultiPlayerComponent = ({ match, title }: { match: MultiPlayerEvent[]; title: String }) => {
     return (
-        <Table variant="simple">
-            <Thead>
-                <Tr>
-                    <Th>Match</Th>
-                    <Th>Location</Th>
-                    <Th>Time</Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                {match.map((match, index) => (
-                    <Tr key={index}>
-                        <Td>
-                            <Match {...match} />
-                        </Td>
-                        <Td>{match.location}</Td>
-                        <Td>{match.time}</Td>
+        <Box>
+            <Text fontSize="4xl" fontWeight="bold" mb={4} textAlign="center" color="yellow.400">
+                {title}
+            </Text>
+            <Table variant="simple">
+                <Thead>
+                    <Tr>
+                        <Th>Match</Th>
+                        <Th>Location</Th>
+                        <Th>Time</Th>
                     </Tr>
-                ))}
-            </Tbody>
-        </Table>
+                </Thead>
+                <Tbody>
+                    {match.map((match, index) => (
+                        <Tr key={index}>
+                            <Td>
+                                <Match {...match} />
+                            </Td>
+                            <Td>{match.location}</Td>
+                            <Td>{match.time}</Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        </Box>
     );
 }

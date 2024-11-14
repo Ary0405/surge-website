@@ -56,10 +56,10 @@ function Scoreboard() {
         {selectedSport && selectedSportData && (
           <Box mb={3} key={selectedSport}>
             {isMultiPlayerEvent(selectedSportData[0]) ? (
-              <MultiPlayerComponent match={selectedSportData as MultiPlayerEvent[]} />
+              <MultiPlayerComponent match={selectedSportData as MultiPlayerEvent[]} title={selectedSport} />
             ) : (
               isSinglePlayerEvent(selectedSportData[0]) &&
-              <SinglePlayerComponent match={selectedSportData as SinglePlayerEvent[]} category={selectedSport} />
+              <SinglePlayerComponent match={selectedSportData as SinglePlayerEvent[]} title={selectedSport} />
             )}
           </Box>
         )}
