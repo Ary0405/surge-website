@@ -26,12 +26,12 @@ function Scoreboard() {
         }}
       />
       <Box
-        bg="linear-gradient(135deg, #1f1f1f, #333333)"
+        bg="linear-gradient(180deg, rgba(29,4,83,1) 0%, rgba(16,2,33,1) 100%)"
         color="white"
         p={6}
         borderRadius="lg"
         w="100%"
-        maxW="80%"
+        maxW="95%"
         mx="auto"
         my={50}
         boxShadow="2xl"
@@ -42,8 +42,6 @@ function Scoreboard() {
           mb={4}
           value={selectedSport ?? ""}
           onChange={handleSportChange}
-          color="black"
-          bg="white"
           fontWeight="bold"
           textAlign="center"
         >

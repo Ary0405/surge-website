@@ -46,7 +46,7 @@ export const SinglePlayerComponent = ({ match, title, mode }: { match: SinglePla
         return dateA.getTime() - dateB.getTime();
     });
 
-    const displayedMatches = mode === 1 ? sortedMatches.slice(currentIndex, currentIndex + 6) : sortedMatches;
+    const displayedMatches = mode === 1 ? sortedMatches.slice(currentIndex, currentIndex + 7) : sortedMatches;
     const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     return (
