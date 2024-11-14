@@ -1,7 +1,8 @@
 import { SinglePlayerEvent } from "~/types/types";
-import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Image } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@chakra-ui/react";
 
 const formatDateTime = (dateTime: string) => {
     try {
@@ -46,10 +47,13 @@ export const SinglePlayerComponent = ({ match, title, mode }: { match: SinglePla
     });
 
     const displayedMatches = mode === 1 ? sortedMatches.slice(currentIndex, currentIndex + 6) : sortedMatches;
-
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     return (
         <Box w="100%" p={4} borderRadius="lg" color="white" boxShadow="md">
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <Image src="/images/surge-color.png" alt="SURGE" width={isMobile ? 90 : "15rem"} height="auto" style={{ margin: "0.5rem", objectFit: "fill" }} />
+            </div>
             <Text fontSize="4xl" fontWeight="bold" mb={4} textAlign="center" color="yellow.400">
                 {title}
             </Text>

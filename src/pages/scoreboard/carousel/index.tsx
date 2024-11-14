@@ -43,7 +43,7 @@ function Scoreboard() {
         }}
       />
       <Box
-        bg="linear-gradient(135deg, #1f1f1f, #333333)"
+        bg="linear-gradient(180deg, rgba(29,4,83,1) 0%, rgba(16,2,33,1) 100%)"
         color="white"
         p={6}
         borderRadius="lg"
@@ -54,8 +54,8 @@ function Scoreboard() {
         boxShadow="2xl"
         backgroundSize="cover"
         fontFamily="poppins"
-        h="750px"  // Fixed height for the box
-        overflowY="auto"  // Allow vertical scrolling within the box
+        h="760"  // Fixed height for the box
+        overflowY="hidden"
       >{activeSport && activeSportData ? (
         <Box mb={3} key={activeSport}>
           {

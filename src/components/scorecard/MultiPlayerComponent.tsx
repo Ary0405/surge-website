@@ -1,7 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { MultiPlayerEvent } from "~/types/types";
-import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@chakra-ui/react";
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,12 +40,12 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
             <Flex
                 align="center"
                 justify="flex-start"
-                bg="orange.500"
+                bg={(win === 1) ? "linear-gradient(180deg, rgba(245,175,20,1) 0%, rgba(233,90,9,1) 100%)" : "linear-gradient(270deg, rgba(75,0,90,1) 0%, rgba(15,6,75,1) 100%)"}
                 color="white"
                 transform="skew(-20deg)"
                 px={4}
                 py={2}
-                borderRadius="md"
+                borderRadius="0%"
                 boxShadow="md"
                 flex="1"
             >
@@ -57,7 +58,9 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
                     fontSize="xl"
                     fontWeight="bold"
                     p={2}
-                    borderRadius="md"
+                    pr={3}
+                    pl={3}
+                    borderRadius="0%"
                     transform="skew(-20deg)"
                     mx={1}
                     boxShadow="md"
@@ -65,7 +68,8 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
                     textAlign="center"
                     ml={-3}
                     color="black"
-                    bg={(win === 1) ? "#97eb0f" : ((win === 2) ? "#d93300" : "yellow.400")}
+                    bg={(win === 2) ? "linear-gradient(90deg, rgba(241,148,16,1) 0%, rgba(255,115,43,1) 100%)" : ((win === 1) ? "#FFF" : "yellow.400")}
+                    filter="drop-shadow(-5px 6px 4px #000000)"
                 >
                     <Text transform="skew(20deg)">{score1}</Text>
                 </Box>
@@ -76,7 +80,10 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
                     fontSize="xl"
                     fontWeight="bold"
                     p={2}
-                    borderRadius="md"
+                    pr={3}
+                    pl={3}
+                    alignItems="center"
+                    borderRadius="0%"
                     transform="skew(20deg)"
                     mx={1}
                     boxShadow="md"
@@ -84,7 +91,8 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
                     textAlign="center"
                     zIndex="1"
                     color="black"
-                    bg={(win === 2) ? "#97eb0f" : ((win === 1) ? "#d93300" : "yellow.400")}
+                    bg={(win === 1) ? "linear-gradient(90deg, rgba(241,148,16,1) 0%, rgba(255,115,43,1) 100%)" : ((win === 2) ? "#FFF" : "yellow.400")}
+                    filter="drop-shadow(6px 6px 4px #000000)"
                 >
                     <Text transform="skew(-20deg)">{score2}</Text>
                 </Box>
@@ -92,12 +100,12 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
             <Flex
                 align="center"
                 justify="flex-end"
-                bg="orange.500"
+                bg={(win === 2) ? "linear-gradient(180deg, rgba(245,175,20,1) 0%, rgba(233,90,9,1) 100%)" : "linear-gradient(270deg, rgba(75,0,90,1) 0%, rgba(15,6,75,1) 100%)"}
                 color="white"
                 transform="skew(20deg)"
                 px={4}
                 py={2}
-                borderRadius="md"
+                borderRadius="0%"
                 boxShadow="md"
                 flex="1"
                 ml={-3}
@@ -113,6 +121,7 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
 }
 export const MultiPlayerComponent = ({ match, title, mode }: { match: MultiPlayerEvent[]; title: string, mode: number }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isMobile] = useMediaQuery("(max-width: 768px)");
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -134,6 +143,9 @@ export const MultiPlayerComponent = ({ match, title, mode }: { match: MultiPlaye
 
     return (
         <Box>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <Image src="/images/surge-color.png" alt="SURGE" width={isMobile ? 90 : "15rem"} height="auto" style={{ margin: "0.5rem", objectFit: "fill" }} />
+            </div>
             <Text fontSize="4xl" fontWeight="bold" mb={4} textAlign="center" color="yellow.400">
                 {title}
             </Text>
