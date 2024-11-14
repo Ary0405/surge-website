@@ -14,6 +14,8 @@ const formatDateTime = (dateTime: string) => {
     });
     return `${formattedDate}, ${formattedTime}`;
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isSinglePlayerEvent = (event: any): event is SinglePlayerEvent => {
     return 'name' in event && 'gold' in event && 'silver' in event && 'bronze' in event && 'time' in event;
 };

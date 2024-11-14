@@ -106,7 +106,7 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
 
 }
 
-export const MultiPlayerComponent = ({ match, title }: { match: MultiPlayerEvent[]; title: String }) => {
+export const MultiPlayerComponent = ({ match, title }: { match: MultiPlayerEvent[]; title: string }) => {
     return (
         <Box>
             <Text fontSize="4xl" fontWeight="bold" mb={4} textAlign="center" color="yellow.400">
