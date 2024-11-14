@@ -34,7 +34,7 @@ function Scoreboard() {
 
 
   return (
-    <Layout title="Dashboard">
+    <Layout title="Score Board">
       <Global
         styles={{
           body: {

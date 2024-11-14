@@ -17,7 +17,7 @@ function Scoreboard() {
   const selectedSportData = selectedSport ? matchFixtures[selectedSport] : null;
 
   return (
-    <Layout title="Dashboard">
+    <Layout title="Fixture Board">
       <Global
         styles={{
           body: {
