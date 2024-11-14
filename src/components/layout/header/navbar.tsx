@@ -36,6 +36,10 @@ export const navItems = [
     href: "/dashboard/all-events",
   },
   {
+    title:"Sponsors",
+    href:"/sponsorsSection"
+  },
+  {
     title: "Rule Book",
     href: "https://docs.google.com/document/d/1EhKOktx51yRpVABZCCIf8BIiZR-GEgwt1bRIvwpYj9g/edit?usp=sharing",
   },
