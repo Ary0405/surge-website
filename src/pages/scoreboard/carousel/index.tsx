@@ -13,14 +13,26 @@ function Scoreboard() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveSportIndex((prevIndex) => (prevIndex + 1) % sports.length);
-    }, 5000); // Switch every 5 seconds
-    return () => clearInterval(interval); // Clear interval on component unmount
-  }, [sports.length]);
+      window.location.reload();
+    }, 3600000);
+    return () => clearInterval(interval);
+  }, []);
 
   const activeSport = sports[activeSportIndex];
   const activeSportData = activeSport ? matchFixtures[activeSport] : undefined;
-  
+
+  useEffect(() => {
+    if (!activeSportData) return;
+
+    const intervalDuration = (activeSportData.length / 6) * 6000; // Calculate interval duration based on number of matches
+    const interval = setInterval(() => {
+      setActiveSportIndex((prevIndex) => (prevIndex + 1) % sports.length);
+    }, intervalDuration); // Use calculated interval duration
+
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, [activeSportData, sports.length]);
+
+
   return (
     <Layout title="Dashboard">
       <Global
@@ -36,7 +48,7 @@ function Scoreboard() {
         p={6}
         borderRadius="lg"
         w="100%"
-        maxW="80%"
+        maxW="95%"
         mx="auto"
         my={50}
         boxShadow="2xl"
@@ -46,15 +58,12 @@ function Scoreboard() {
         overflowY="auto"  // Allow vertical scrolling within the box
       >{activeSport && activeSportData ? (
         <Box mb={3} key={activeSport}>
-          {/* <Text fontSize="4xl" fontWeight="bold" mb={3} textAlign="center" color={"#F3AB17"}>
-            {activeSport}
-          </Text> */}
           {
             isMultiPlayerEvent(activeSportData[0]) ? (
-              <MultiPlayerComponent match={activeSportData as MultiPlayerEvent[]} title={activeSport} />
+              <MultiPlayerComponent match={activeSportData as MultiPlayerEvent[]} title={activeSport} mode={1} />
             ) : (
               isSinglePlayerEvent(activeSportData[0]) &&
-              <SinglePlayerComponent match={activeSportData as SinglePlayerEvent[]} title={activeSport} />
+              <SinglePlayerComponent match={activeSportData as SinglePlayerEvent[]} title={activeSport} mode={1} />
             )
           }
         </Box>

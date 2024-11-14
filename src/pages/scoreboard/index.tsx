@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Layout } from "~/components/layout";
 import { Global } from "@emotion/react";
-import { Box, Text, Select } from "@chakra-ui/react";
+import { Box, Select } from "@chakra-ui/react";
 import { matchFixtures, SinglePlayerEvent, MultiPlayerEvent } from "~/types/types";
 import { MultiPlayerComponent, isMultiPlayerEvent } from "~/components/scorecard/MultiPlayerComponent";
 import { SinglePlayerComponent, isSinglePlayerEvent } from "~/components/scorecard/SinglePlayerComponent";
@@ -56,10 +56,10 @@ function Scoreboard() {
         {selectedSport && selectedSportData && (
           <Box mb={3} key={selectedSport}>
             {isMultiPlayerEvent(selectedSportData[0]) ? (
-              <MultiPlayerComponent match={selectedSportData as MultiPlayerEvent[]} title={selectedSport} />
+              <MultiPlayerComponent match={selectedSportData as MultiPlayerEvent[]} title={selectedSport} mode={0} />
             ) : (
               isSinglePlayerEvent(selectedSportData[0]) &&
-              <SinglePlayerComponent match={selectedSportData as SinglePlayerEvent[]} title={selectedSport} />
+              <SinglePlayerComponent match={selectedSportData as SinglePlayerEvent[]} title={selectedSport} mode={0} />
             )}
           </Box>
         )}

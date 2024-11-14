@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { MultiPlayerEvent } from "~/types/types";
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -9,16 +10,21 @@ export const isMultiPlayerEvent = (event: any): event is MultiPlayerEvent => {
 };
 
 const formatDateTime = (dateTime: string) => {
-    const date = new Date(dateTime);
-    const formattedDate = date.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "long",
-    });
-    const formattedTime = date.toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-    });
-    return `${formattedDate}, ${formattedTime}`;
+    try {
+
+        const date = new Date(dateTime);
+        const formattedDate = date.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "long",
+        });
+        const formattedTime = date.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+        return `${formattedDate}, ${formattedTime}`;
+    } catch (e) {
+        return dateTime;
+    }
 };
 const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: string, score1: number, score2: number, win: number }) => {
 
@@ -105,8 +111,27 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
     )
 
 }
+export const MultiPlayerComponent = ({ match, title, mode }: { match: MultiPlayerEvent[]; title: string, mode: number }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-export const MultiPlayerComponent = ({ match, title }: { match: MultiPlayerEvent[]; title: string }) => {
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 6) % match.length);
+        }, 6000); // Switch every 6 seconds
+
+        return () => clearInterval(interval); // Clear interval on component unmount
+    }, [match.length]);
+
+    const sortedMatches = [...match].sort((a, b) => {
+        const dateA = new Date(a.time);
+        const dateB = new Date(b.time);
+        if (isNaN(dateA.getTime())) return 1; // Treat invalid dates as very new dates
+        if (isNaN(dateB.getTime())) return -1; // Treat invalid dates as very new dates
+        return dateA.getTime() - dateB.getTime();
+    });
+
+    const displayedMatches = mode === 1 ? sortedMatches.slice(currentIndex, currentIndex + 6) : sortedMatches;
+
     return (
         <Box>
             <Text fontSize="4xl" fontWeight="bold" mb={4} textAlign="center" color="yellow.400">
@@ -121,10 +146,12 @@ export const MultiPlayerComponent = ({ match, title }: { match: MultiPlayerEvent
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {match.map((match, index) => (
+                    {displayedMatches.map((match, index) => (
                         <Tr key={index}>
                             <Td>
-                                <Match {...match} />
+                                <Text fontWeight="bold" fontSize="lg">
+                                    <Match team1={match.team1} team2={match.team2} score1={match.score1} score2={match.score2} win={match.win} />
+                                </Text>
                             </Td>
                             <Td>{match.location}</Td>
                             <Td>{formatDateTime(match.time)}</Td>
@@ -134,4 +161,4 @@ export const MultiPlayerComponent = ({ match, title }: { match: MultiPlayerEvent
             </Table>
         </Box>
     );
-}
+};
