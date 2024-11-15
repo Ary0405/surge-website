@@ -2,36 +2,58 @@ import { useState, useEffect } from "react";
 import { Layout } from "~/components/layout";
 import { Global } from "@emotion/react";
 import { Box, Text } from "@chakra-ui/react";
-import { matchFixtures, SinglePlayerEvent, MultiPlayerEvent } from "~/types/types";
+import { SinglePlayerEvent, MultiPlayerEvent } from "~/types/types";
 import { MultiPlayerComponent, isMultiPlayerEvent } from "~/components/scorecard/MultiPlayerComponent";
 import { SinglePlayerComponent, isSinglePlayerEvent } from "~/components/scorecard/SinglePlayerComponent";
-
+import { api } from "~/utils/api";
 
 function Scoreboard() {
   const [activeSportIndex, setActiveSportIndex] = useState(0);
-  const sports = Object.keys(matchFixtures);
+  const { data: matchFixtures } = api.reg.getSportFixtures.useQuery();
+  const sports = matchFixtures ? Object.keys(matchFixtures) : [];
+  const activeSport = sports[activeSportIndex];
+  const activeSportData = activeSport && matchFixtures ? matchFixtures[activeSport] : undefined;
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const reloadInterval = setInterval(() => {
       window.location.reload();
-    }, 3600000);
-    return () => clearInterval(interval);
-  }, []);
+    }, 3600000); // Reload every hour
 
-  const activeSport = sports[activeSportIndex];
-  const activeSportData = activeSport ? matchFixtures[activeSport] : undefined;
+    return () => clearInterval(reloadInterval);
+  }, []);
 
   useEffect(() => {
     if (!activeSportData) return;
 
     const intervalDuration = ((activeSportData.length / 6) + 1) * 6000; // Calculate interval duration based on number of matches
-    const interval = setInterval(() => {
+    const switchInterval = setInterval(() => {
       setActiveSportIndex((prevIndex) => (prevIndex + 1) % sports.length);
     }, intervalDuration); // Use calculated interval duration
 
-    return () => clearInterval(interval); // Clear interval on component unmount
+    return () => clearInterval(switchInterval); // Clear interval on component unmount
   }, [activeSportData, sports.length]);
 
+  const renderContent = () => {
+    if (!activeSport || !activeSportData) {
+      return (
+        <Text fontSize="2xl" textAlign="center" color="gray.300">
+          Loading...
+        </Text>
+      );
+    }
+
+    return (
+      <Box mb={3} key={activeSport}>
+        {isMultiPlayerEvent(activeSportData[0]) ? (
+          <MultiPlayerComponent match={activeSportData as MultiPlayerEvent[]} title={activeSport} mode={1} />
+        ) : (
+          isSinglePlayerEvent(activeSportData[0]) && (
+            <SinglePlayerComponent match={activeSportData as SinglePlayerEvent[]} title={activeSport} mode={1} />
+          )
+        )}
+      </Box>
+    );
+  };
 
   return (
     <Layout title="Score Board">
@@ -54,24 +76,10 @@ function Scoreboard() {
         boxShadow="2xl"
         backgroundSize="cover"
         fontFamily="poppins"
-        h="760"  // Fixed height for the box
+        h="760px" // Fixed height for the box
         overflowY="hidden"
-      >{activeSport && activeSportData ? (
-        <Box mb={3} key={activeSport}>
-          {
-            isMultiPlayerEvent(activeSportData[0]) ? (
-              <MultiPlayerComponent match={activeSportData as MultiPlayerEvent[]} title={activeSport} mode={1} />
-            ) : (
-              isSinglePlayerEvent(activeSportData[0]) &&
-              <SinglePlayerComponent match={activeSportData as SinglePlayerEvent[]} title={activeSport} mode={1} />
-            )
-          }
-        </Box>
-      ) : (
-        <Text fontSize="2xl" textAlign="center" color="gray.300">
-          Loading...
-        </Text>
-      )}
+      >
+        {renderContent()}
       </Box>
     </Layout>
   );

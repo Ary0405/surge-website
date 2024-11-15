@@ -1,20 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "~/components/layout";
 import { Global } from "@emotion/react";
 import { Box, Select } from "@chakra-ui/react";
-import { matchFixtures, SinglePlayerEvent, MultiPlayerEvent } from "~/types/types";
+import { SinglePlayerEvent, MultiPlayerEvent } from "~/types/types";
 import { MultiPlayerComponent, isMultiPlayerEvent } from "~/components/scorecard/MultiPlayerComponent";
 import { SinglePlayerComponent, isSinglePlayerEvent } from "~/components/scorecard/SinglePlayerComponent";
-
+import { api } from "~/utils/api";
 
 function Scoreboard() {
-  const [selectedSport, setSelectedSport] = useState<string | null>(Object.keys(matchFixtures)[0] ?? null);
+  const { data: matchFixtures } = api.reg.getSportFixtures.useQuery();
+  const [selectedSport, setSelectedSport] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (matchFixtures && !selectedSport) {
+      setSelectedSport(Object.keys(matchFixtures)[0] ?? null);
+    }
+  }, [matchFixtures, selectedSport]);
 
   const handleSportChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSport(event.target.value);
   };
 
-  const selectedSportData = selectedSport ? matchFixtures[selectedSport] : null;
+  const selectedSportData = selectedSport && matchFixtures ? matchFixtures[selectedSport] : null;
 
   return (
     <Layout title="Fixture Board">
@@ -45,7 +52,7 @@ function Scoreboard() {
           fontWeight="bold"
           textAlign="center"
         >
-          {Object.keys(matchFixtures).map((sport) => (
+          {matchFixtures && Object.keys(matchFixtures).map((sport) => (
             <option key={sport} value={sport}>
               {sport}
             </option>

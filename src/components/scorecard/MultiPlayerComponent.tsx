@@ -41,7 +41,7 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
                 align="center"
                 justify="flex-start"
                 bg={(win === 1) ? "linear-gradient(180deg, rgba(245,175,20,1) 0%, rgba(233,90,9,1) 100%)" : "linear-gradient(270deg, rgba(75,0,90,1) 0%, rgba(15,6,75,1) 100%)"}
-                color="white"
+                color={(win === 1) ? "black" : "white"}
                 transform="skew(-20deg)"
                 px={4}
                 py={2}
@@ -101,7 +101,7 @@ const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: st
                 align="center"
                 justify="flex-end"
                 bg={(win === 2) ? "linear-gradient(180deg, rgba(245,175,20,1) 0%, rgba(233,90,9,1) 100%)" : "linear-gradient(270deg, rgba(75,0,90,1) 0%, rgba(15,6,75,1) 100%)"}
-                color="white"
+                color={(win === 2) ? "black" : "white"}
                 transform="skew(20deg)"
                 px={4}
                 py={2}

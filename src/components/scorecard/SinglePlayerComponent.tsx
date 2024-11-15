@@ -33,7 +33,7 @@ export const SinglePlayerComponent = ({ match, title, mode }: { match: SinglePla
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 6) % match.length);
-        }, 10000); // Switch every 6 seconds
+        }, 6000); // Switch every 6 seconds
 
         return () => clearInterval(interval); // Clear interval on component unmount
     }, [match.length]);
