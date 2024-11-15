@@ -8,19 +8,17 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique @db.VarChar(100)
-  password      String    @db.VarChar(255)
-  name          String    @db.VarChar(100)
-  collegeName   String    @db.VarChar(100)
-  rollNumber    String    @db.VarChar(100)
-  phone         String    @db.VarChar(100)
-  emailVerified DateTime?
-  image         String?
-  Team          Team[]
-  accomActive   Boolean   @default(false)
-
-  // New relation to VerificationToken
+  id                 String              @id @default(uuid())
+  email              String              @unique @db.VarChar(100)
+  password           String              @db.VarChar(255)
+  name               String              @db.VarChar(100)
+  collegeName        String              @db.VarChar(100)
+  rollNumber         String              @db.VarChar(100)
+  phone              String              @db.VarChar(100)
+  emailVerified      DateTime?
+  image              String?
+  accomActive        Boolean             @default(false)
+  Team               Team[]
   verificationTokens VerificationToken[] @relation("UserVerificationTokens")
 }
 
@@ -36,33 +34,31 @@ model VerificationToken {
 }
 
 model Event {
-  id             String     @id @default(cuid())
-  name           String     @unique @db.VarChar(100)
-  slug           String     @unique
-  category       Categories @default(MALE)
-  dateTo         String
-  dateFrom       String
-  venue          String
-  location       Locations  @default(INDOOR)
-  rules          String?    @db.Text
-  winnerPrize    Int
-  runnerUpPrize  Int
-  minPlayers     Int
-  maxPlayers     Int
-  pricePerPlayer Int
-  about          String?
-
-  eventImg String?
-
+  id                String             @id @default(cuid())
+  name              String             @unique @db.VarChar(100)
+  slug              String             @unique
+  category          Categories         @default(MALE)
+  dateTo            String
+  dateFrom          String
+  venue             String
+  location          Locations          @default(INDOOR)
+  rules             String?
+  winnerPrize       Int
+  runnerUpPrize     Int
+  minPlayers        Int
+  maxPlayers        Int
+  pricePerPlayer    Int
+  eventImg          String?
+  about             String?
   Team              Team[]
-  requiredDocuments RequiredDocument[]
+  requiredDocuments RequiredDocument[] @relation("EventToRequiredDocument")
 }
 
 model RequiredDocument {
   id           String       @id @default(cuid())
   documentType DocumentType
-  description  String       @db.Text
-  events       Event[]
+  description  String
+  events       Event[]      @relation("EventToRequiredDocument")
 }
 
 model TeamMember {
@@ -74,40 +70,40 @@ model TeamMember {
   eventId    String
   playerType PlayerType               @default(PLAYER)
   teamId     String
-  Team       Team                     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  Documents  Document[]
   createdAt  DateTime                 @default(now())
   isVerified PlayerVerificationStatus @default(NOT_VERIFIED)
+  Documents  Document[]
+  Team       Team                     @relation(fields: [teamId], references: [id], onDelete: Cascade)
 }
 
 model Team {
   id                     String                @id @default(cuid())
   registeredById         String
-  registeredBy           User                  @relation(fields: [registeredById], references: [id])
   eventId                String
-  Event                  Event                 @relation(fields: [eventId], references: [id], onDelete: Cascade)
   verificationToken      String                @unique @default(cuid())
-  TeamMembers            TeamMember[]
-  PaymentDetails         PaymentDetails?       @relation(fields: [paymentDetailsId], references: [id], onDelete: Cascade)
   paymentDetailsId       String?
-  AccommodationPayment   AccommodationPayment? @relation(fields: [accommodationPaymentId], references: [id], onDelete: Cascade)
-  accommodationPaymentId String?
-  AccommodationDetails   AccommodationDetails?  @relation(fields: [accommodationDetailsId], references: [id], onDelete: Cascade)
   accommodationDetailsId String?
+  accommodationPaymentId String?
+  AccommodationDetails   AccommodationDetails? @relation(fields: [accommodationDetailsId], references: [id], onDelete: Cascade)
+  AccommodationPayment   AccommodationPayment? @relation(fields: [accommodationPaymentId], references: [id], onDelete: Cascade)
+  Event                  Event                 @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  PaymentDetails         PaymentDetails?       @relation(fields: [paymentDetailsId], references: [id], onDelete: Cascade)
+  registeredBy           User                  @relation(fields: [registeredById], references: [id])
+  TeamMembers            TeamMember[]
 }
 
 model AccommodationDetails {
   id                     String                @id @default(cuid())
   teamId                 String
   createdAt              DateTime              @default(now())
-  Teams                  Team[]
   startDate              String
   endDate                String
   maleCount              Int
   femaleCount            Int
   isAlloted              Boolean               @default(false)
-  AccommodationPayment   AccommodationPayment? @relation(fields: [accommodationPaymentId], references: [id])
   accommodationPaymentId String?
+  AccommodationPayment   AccommodationPayment? @relation(fields: [accommodationPaymentId], references: [id])
+  Teams                  Team[]
 }
 
 model AccommodationPayment {
@@ -117,8 +113,8 @@ model AccommodationPayment {
   changedStatus        DateTime               @default(now())
   createdAt            DateTime               @default(now())
   paymentStatus        PaymentStatus          @default(PENDING)
-  Teams                Team[]
   AccommodationDetails AccommodationDetails[]
+  Teams                Team[]
 }
 
 model PaymentDetails {
@@ -158,6 +154,28 @@ model Document {
   documentType     DocumentType
   teamMemberId     String
   TeamMember       TeamMember   @relation(fields: [teamMemberId], references: [id], onDelete: Cascade)
+}
+
+model MultiPlayerEventData {
+  id        String @id
+  team1     String
+  team2     String
+  score1    String
+  score2    String
+  win       Int
+  location  String
+  time      String
+  eventName String
+}
+
+model SinglePlayerEventData {
+  id        String @id
+  time      String
+  gold      String
+  silver    String
+  bronze    String
+  name      String
+  eventName String
 }
 
 enum PaymentStatus {
