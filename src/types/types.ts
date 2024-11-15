@@ -300,8 +300,8 @@ export const matchFixtures: MatchData = {
             score1: "-",
             score2: "-",
             win: 0,
-            location: "DH2 1",
-            time: "2024-11-15T19:00:00"
+            location: "DH2 2",
+            time: "2024-11-15T20:00:00"
         },
         {
             team1: "Motilal Nehru",
@@ -309,8 +309,8 @@ export const matchFixtures: MatchData = {
             score1: "-",
             score2: "-",
             win: 0,
-            location: "Minimart",
-            time: "2024-11-16T09:00:00"
+            location: "DH2 1",
+            time: "2024-11-15T12:00:00"
         },
         {
             team1: "Ramjas",
@@ -318,8 +318,8 @@ export const matchFixtures: MatchData = {
             score1: "-",
             score2: "-",
             win: 0,
-            location: "DH2 1",
-            time: "2024-11-16T10:00:00"
+            location: "Minimart",
+            time: "2024-11-16T09:00:00"
         },
         {
             team1: "Hansraj A",
@@ -328,7 +328,7 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "DH2 1",
-            time: "2024-11-15T19:00:00"
+            time: "2024-11-15T17:00:00"
         },
         {
             team1: "Jamia",
@@ -337,7 +337,7 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "DH2 1",
-            time: "2024-11-16T10:00:00"
+            time: "2024-11-16T12:00:00"
         },
         {
             team1: "KMC",
@@ -346,7 +346,25 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "DH2 1",
-            time: "2024-11-15T12:00:00"
+            time: "2024-11-16T08:00:00"
+        },
+        {
+            team1: "Ashoka",
+            team2: "IIIT D",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "DH2 2",
+            time: "2024-11-15T16:00:00"
+        },
+        {
+            team1: "Shaheed Bhagat",
+            team2: "NIIT",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "DH2 1",
+            time: "2024-11-15T16:00:00"
         },
         {
             team1: "CVS",
@@ -364,7 +382,7 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "DH2 1",
-            time: "2024-11-15T20:00:00"
+            time: "2024-11-15T19:00:00"
         },
         {
             team1: "CVS",
@@ -372,8 +390,8 @@ export const matchFixtures: MatchData = {
             score1: "-",
             score2: "-",
             win: 0,
-            location: "Minimart",
-            time: "2024-11-15T16:00:00"
+            location: "DH2 1",
+            time: "2024-11-16T10:00:00"
         },
         {
             team1: "VIPS",
@@ -382,25 +400,25 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "Minimart",
-            time: "2024-11-15T11:00:00"
+            time: "2024-11-15T15:00:00"
         },
         {
             team1: "Bennett B",
-            team2: "SNU ALUMNI",
+            team2: "SNU Alumni",
             score1: "-",
             score2: "-",
             win: 0,
-            location: "DH2 1",
+            location: "DH2 2",
             time: "2024-11-16T11:00:00"
         },
         {
-            team1: "SNU ALUMNI",
+            team1: "SNU Alumni",
             team2: "VIPS",
             score1: "-",
             score2: "-",
             win: 0,
             location: "DH2 1",
-            time: "2024-11-15T18:00:00"
+            time: "2024-11-15T20:00:00"
         },
         {
             team1: "JIIT",
@@ -418,7 +436,7 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "DH2 1",
-            time: "2024-11-16T12:00:00"
+            time: "2024-11-16T11:00:00"
         },
         {
             team1: "SNU B",
@@ -427,7 +445,7 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "DH2 2",
-            time: "2024-11-15T17:00:00"
+            time: "2024-11-15T18:00:00"
         },
         {
             team1: "UPES",
@@ -435,8 +453,8 @@ export const matchFixtures: MatchData = {
             score1: "-",
             score2: "-",
             win: 0,
-            location: "DH2 1",
-            time: "2024-11-15T10:00:00"
+            location: "DH2 2",
+            time: "2024-11-15T11:00:00"
         },
         {
             team1: "Bennett A",
@@ -455,27 +473,18 @@ export const matchFixtures: MatchData = {
             win: 0,
             location: "DH2 1",
             time: "2024-11-16T15:00:00"
-        },
-        {
-            team1: "Shaheed Bhagat",
-            team2: "NIIT",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "DH2 1",
-            time: "2024-11-15T16:00:00"
-        },
-        {
-            team1: "Ashoka",
-            team2: "IIIT D",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Minimart",
-            time: "2024-11-15T15:00:00"
-        },
+        }
     ],
     "Basketball - Women": [
+        {
+            team1: "JIIT",
+            team2: "SNU A",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "DH2 2",
+            time: "2024-11-15T17:00:00"
+        },
         {
             team1: "SNU A",
             team2: "Bennett",
@@ -495,8 +504,8 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T15:00:00"
         },
         {
-            team1: "JIIT",
-            team2: "SNU A",
+            team1: "Jamia",
+            team2: "Hindu",
             score1: "-",
             score2: "-",
             win: 0,
@@ -510,16 +519,7 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "DH2 2",
-            time: "2024-11-15T11:00:00"
-        },
-        {
-            team1: "Jamia",
-            team2: "Hindu",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "DH2 2",
-            time: "2024-11-15T16:00:00"
+            time: "2024-11-16T08:00:00"
         },
         {
             team1: "Hindu",
@@ -527,35 +527,8 @@ export const matchFixtures: MatchData = {
             score1: "-",
             score2: "-",
             win: 0,
-            location: "DH2 2",
+            location: "Minimart",
             time: "2024-11-16T11:00:00"
-        },
-        {
-            team1: "GBU",
-            team2: "BML",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "DH2 2",
-            time: "2024-11-15T20:00:00"
-        },
-        {
-            team1: "BML",
-            team2: "SRM",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "DH2 2",
-            time: "2024-11-16T09:00:00"
-        },
-        {
-            team1: "SRM",
-            team2: "GBU",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "DH2 2",
-            time: "2024-11-15T15:00:00"
         },
         {
             team1: "GGSIPU",
@@ -563,8 +536,8 @@ export const matchFixtures: MatchData = {
             score1: "-",
             score2: "-",
             win: 0,
-            location: "DH2 2",
-            time: "2024-11-15T12:00:00"
+            location: "Minimart",
+            time: "2024-11-15T11:00:00"
         },
         {
             team1: "Amity",
@@ -573,7 +546,7 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "DH2 2",
-            time: "2024-11-15T17:00:00"
+            time: "2024-11-15T18:00:00"
         },
         {
             team1: "SNU Alumni",
@@ -583,6 +556,33 @@ export const matchFixtures: MatchData = {
             win: 0,
             location: "DH2 2",
             time: "2024-11-16T12:00:00"
+        },
+        {
+            team1: "SRM",
+            team2: "GBU",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Minimart",
+            time: "2024-11-15T12:00:00"
+        },
+        {
+            team1: "GBU",
+            team2: "BML",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "DH2 2",
+            time: "2024-11-15T15:00:00"
+        },
+        {
+            team1: "BML",
+            team2: "SRM",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "DH2 2",
+            time: "2024-11-16T09:00:00"
         }
     ],
     "Cricket - Men": [
@@ -591,7 +591,7 @@ export const matchFixtures: MatchData = {
             team2: "Jaypee",
             score1: "-",
             score2: "-",
-            win: 0,
+            win: 2,
             location: "Cricket Ground",
             time: "2024-11-14T15:00:00"
         },
@@ -609,7 +609,7 @@ export const matchFixtures: MatchData = {
             team2: "Galgotias",
             score1: "-",
             score2: "-",
-            win: 0,
+            win: 2,
             location: "Cricket Ground",
             time: "2024-11-14T11:30:00"
         },
@@ -645,7 +645,7 @@ export const matchFixtures: MatchData = {
             team2: "SGGSCC",
             score1: "-",
             score2: "-",
-            win: 0,
+            win: 1,
             location: "Cricket Ground",
             time: "2024-11-14T17:30:00"
         },
@@ -926,13 +926,13 @@ export const matchFixtures: MatchData = {
             time: "2024-11-15T12:20:00"
         },
         {
-            team1: "Ashoka Red",
-            team2: "KNC",
+            team1: "KNC",
+            team2: "OP Jindal",
             score1: "-",
             score2: "-",
             win: 0,
             location: "Football Ground",
-            time: "2024-11-15T19:00:00"
+            time: "2024-11-15T16:20:00"
         },
         {
             team1: "Ashoka Red",
@@ -944,15 +944,6 @@ export const matchFixtures: MatchData = {
             time: "2024-11-15T17:00:00"
         },
         {
-            team1: "KNC",
-            team2: "OP Jindal",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Football Ground",
-            time: "2024-11-15T16:20:00"
-        },
-        {
             team1: "OP Jindal",
             team2: "JMC",
             score1: "-",
@@ -962,13 +953,13 @@ export const matchFixtures: MatchData = {
             time: "2024-11-15T18:20:00"
         },
         {
-            team1: "SNU B",
-            team2: "JMC",
+            team1: "Ashoka Red",
+            team2: "KNC",
             score1: "-",
             score2: "-",
             win: 0,
             location: "Football Ground",
-            time: "2024-11-16T17:40:00"
+            time: "2024-11-15T19:00:00"
         },
         {
             team1: "Ashoka Red",
@@ -978,15 +969,6 @@ export const matchFixtures: MatchData = {
             win: 0,
             location: "Football Ground",
             time: "2024-11-16T10:00:00"
-        },
-        {
-            team1: "JMC",
-            team2: "KNC",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Football Ground",
-            time: "2024-11-16T16:20:00"
         },
         {
             team1: "JMC",
@@ -1007,31 +989,31 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T15:40:00"
         },
         {
-            team1: "SNU A",
-            team2: "BML",
+            team1: "JMC",
+            team2: "KNC",
             score1: "-",
             score2: "-",
             win: 0,
             location: "Football Ground",
-            time: "2024-11-16T15:00:00"
+            time: "2024-11-16T16:20:00"
+        },
+        {
+            team1: "SNU B",
+            team2: "JMC",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Football Ground",
+            time: "2024-11-16T17:40:00"
         },
         {
             team1: "Ashoka Blue",
             team2: "UPES",
-            score1: "-",
-            score2: "-",
+            score1: "2",
+            score2: "2",
             win: 0,
             location: "Football Ground",
             time: "2024-11-15T11:40:00"
-        },
-        {
-            team1: "UPES",
-            team2: "SNU A",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Football Ground",
-            time: "2024-11-15T17:40:00"
         },
         {
             team1: "Ashoka Blue",
@@ -1045,11 +1027,29 @@ export const matchFixtures: MatchData = {
         {
             team1: "UPES",
             team2: "BML",
-            score1: "-",
+            score1: "2",
             score2: "-",
             win: 0,
             location: "Football Ground",
             time: "2024-11-15T15:40:00"
+        },
+        {
+            team1: "Ashoka Blue",
+            team2: "SNU A",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Football Ground",
+            time: "2024-11-15T17:40:00"
+        },
+        {
+            team1: "UPES",
+            team2: "SNU A",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Football Ground",
+            time: "2024-11-15T19:40:00"
         },
         {
             team1: "BML",
@@ -1061,24 +1061,6 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T10:40:00"
         },
         {
-            team1: "Ashoka Blue",
-            team2: "SNU A",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Football Ground",
-            time: "2024-11-15T19:40:00"
-        },
-        {
-            team1: "SNU A",
-            team2: "Amity Noida",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Football Ground",
-            time: "2024-11-16T18:20:00"
-        },
-        {
             team1: "UPES",
             team2: "Amity Noida",
             score1: "-",
@@ -1088,6 +1070,15 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T12:20:00"
         },
         {
+            team1: "SNU A",
+            team2: "BML",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Football Ground",
+            time: "2024-11-16T15:00:00"
+        },
+        {
             team1: "BML",
             team2: "Amity Noida",
             score1: "-",
@@ -1095,6 +1086,15 @@ export const matchFixtures: MatchData = {
             win: 0,
             location: "Football Ground",
             time: "2024-11-16T17:00:00"
+        },
+        {
+            team1: "SNU A",
+            team2: "Amity Noida",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Football Ground",
+            time: "2024-11-16T18:20:00"
         }
     ],
     "Squash - Men": [
@@ -1178,253 +1178,6 @@ export const matchFixtures: MatchData = {
             win: 0,
             location: "Court 4",
             time: "2024-11-15T13:00:00"
-        }
-    ],
-    "Tennis - Men": [
-        {
-            team1: "SNU A",
-            team2: "Munjal",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-15T10:00:00",
-            win: 0
-        },
-        {
-            team1: "SNU A",
-            team2: "MUJ B",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-15T19:30:00",
-            win: 0
-        },
-        {
-            team1: "Munjal",
-            team2: "MUJ B",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T20:30:00",
-            win: 0
-        },
-        {
-            team1: "Bennett B",
-            team2: "Venky",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-15T11:30:00",
-            win: 0
-        },
-        {
-            team1: "Khalsa",
-            team2: "Ashoka A",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-15T13:00:00",
-            win: 0
-        },
-        {
-            team1: "Ashoka A",
-            team2: "Bennett B",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-16T09:00:00",
-            win: 0
-        },
-        {
-            team1: "Venky",
-            team2: "Khalsa",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-16T12:00:00",
-            win: 0
-        },
-        {
-            team1: "Khalsa",
-            team2: "Bennett B",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-16T18:00:00",
-            win: 0
-        },
-        {
-            team1: "Ashoka A",
-            team2: "Venky",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-16T19:30:00",
-            win: 0
-        },
-        {
-            team1: "Bennett A",
-            team2: "Ashoka B",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-15T15:00:00",
-            win: 0
-        },
-        {
-            team1: "Ashoka B",
-            team2: "Hansraj",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-15T19:30:00",
-            win: 0
-        },
-        {
-            team1: "Hansraj",
-            team2: "Bennett A",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-16T16:30:00",
-            win: 0
-        },
-        {
-            team1: "SNU Alum",
-            team2: "MUJ A",
-            score1: "-",
-            score2: "-",
-            location: "Court 2",
-            time: "2024-11-15T18:00:00",
-            win: 0
-        },
-        {
-            team1: "MUJ A",
-            team2: "SNU B",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T19:30:00",
-            win: 0
-        },
-        {
-            team1: "SNU B",
-            team2: "SNU Alum",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T18:00:00",
-            win: 0
-        }
-    ],
-    "Tennis - Women": [
-        {
-            team1: "Bennett",
-            team2: "Ashoka B",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T15:00:00",
-            win: 0
-        },
-        {
-            team1: "SNU",
-            team2: "Bennett",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T16:30:00",
-            win: 0
-        },
-        {
-            team1: "Ashoka B",
-            team2: "MUJ",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-16T09:00:00",
-            win: 0
-        },
-        {
-            team1: "MUJ",
-            team2: "Bennett",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-16T12:00:00",
-            win: 0
-        },
-        {
-            team1: "SNU",
-            team2: "Ashoka B",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-16T16:30:00",
-            win: 0
-        },
-        {
-            team1: "SNU",
-            team2: "MUJ",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-16T19:30:00",
-            win: 0
-        },
-        {
-            team1: "SRCC",
-            team2: "IPCW",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T10:00:00",
-            win: 0
-        },
-        {
-            team1: "Venky",
-            team2: "IPCW",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T23:30:00",
-            win: 0
-        },
-        {
-            team1: "SRCC",
-            team2: "Ashoka A",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T13:00:00",
-            win: 0
-        },
-        {
-            team1: "Venky",
-            team2: "Ashoka A",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-15T18:00:00",
-            win: 0
-        },
-        {
-            team1: "SRCC",
-            team2: "Venky",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-16T10:30:00",
-            win: 0
-        },
-        {
-            team1: "IPCW",
-            team2: "Ashoka A",
-            score1: "-",
-            score2: "-",
-            location: "Court 1",
-            time: "2024-11-16T15:00:00",
-            win: 0
         }
     ],
     "Table Tennis - Men": [
@@ -1701,121 +1454,13 @@ export const matchFixtures: MatchData = {
     ],
     "Table Tennis - Women": [
         {
-            team1: "SNU",
-            team2: "Ashoka B",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 4",
-            time: "2024-11-15T11:00:00"
-        },
-        {
-            team1: "Ashoka A",
-            team2: "NIIT",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 6",
-            time: "2024-11-15T11:00:00"
-        },
-        {
-            team1: "Ashoka B",
-            team2: "NIIT",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 4",
-            time: "2024-11-15T12:00:00"
-        },
-        {
-            team1: "Jaypee",
-            team2: "Ashoka A",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 6",
-            time: "2024-11-15T12:00:00"
-        },
-        {
-            team1: "SRCC",
-            team2: "NIIT",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 4",
-            time: "2024-11-15T14:00:00"
-        },
-        {
-            team1: "Ashoka B",
-            team2: "Bennett",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 6",
-            time: "2024-11-15T14:00:00"
-        },
-        {
-            team1: "SNU",
-            team2: "IGDTUW",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 4",
-            time: "2024-11-15T15:00:00"
-        },
-        {
-            team1: "Ashoka B",
-            team2: "SRCC",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 6",
-            time: "2024-11-15T15:00:00"
-        },
-        {
-            team1: "Ashoka B",
-            team2: "KMC",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 4",
-            time: "2024-11-15T16:00:00"
-        },
-        {
-            team1: "Ashoka A",
-            team2: "NIIT",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 6",
-            time: "2024-11-15T16:00:00"
-        },
-        {
-            team1: "SNU",
+            team1: "Ashoka",
             team2: "Jaypee",
             score1: "-",
             score2: "-",
             win: 0,
             location: "Table 4",
-            time: "2024-11-15T17:00:00"
-        },
-        {
-            team1: "Ashoka A",
-            team2: "Ashoka B",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 6",
-            time: "2024-11-15T17:00:00"
-        },
-        {
-            team1: "Ashoka B",
-            team2: "IGDTUW",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 4",
-            time: "2024-11-15T18:00:00"
+            time: "2024-11-15T11:00:00"
         },
         {
             team1: "SRCC",
@@ -1824,51 +1469,132 @@ export const matchFixtures: MatchData = {
             score2: "-",
             win: 0,
             location: "Table 6",
-            time: "2024-11-15T18:00:00"
+            time: "2024-11-15T11:00:00"
         },
         {
-            team1: "Ashoka B",
-            team2: "Jaypee",
+            team1: "KMC",
+            team2: "NIIT",
             score1: "-",
             score2: "-",
             win: 0,
-            location: "Table 6",
-            time: "2024-11-16T19:00:00"
+            location: "Table 4",
+            time: "2024-11-15T12:00:00"
         },
         {
             team1: "IGDTUW",
-            team2: "KMC",
+            team2: "SNU",
             score1: "-",
             score2: "-",
             win: 0,
             location: "Table 6",
-            time: "2024-11-16T19:00:00"
+            time: "2024-11-15T12:00:00"
         },
         {
-            team1: "Jaypee",
-            team2: "KMC",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Table 4",
-            time: "2024-11-16T09:00:00"
-        },
-        {
-            team1: "Ashoka A",
+            team1: "Ashoka",
             team2: "SRCC",
             score1: "-",
             score2: "-",
             win: 0,
-            location: "Table 6",
-            time: "2024-11-16T09:00:00"
+            location: "Table 4",
+            time: "2024-11-15T14:00:00"
         },
         {
-            team1: "SNU",
+            team1: "Jaypee",
             team2: "Bennett",
             score1: "-",
             score2: "-",
             win: 0,
+            location: "Table 6",
+            time: "2024-11-15T14:00:00"
+        },
+        {
+            team1: "KMC",
+            team2: "IGDTUW",
+            score1: "-",
+            score2: "-",
+            win: 0,
             location: "Table 4",
+            time: "2024-11-15T15:00:00"
+        },
+        {
+            team1: "SNU",
+            team2: "NIIT",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 6",
+            time: "2024-11-15T15:00:00"
+        },
+        {
+            team1: "Ashoka",
+            team2: "KMC",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 4",
+            time: "2024-11-15T16:00:00"
+        },
+        {
+            team1: "Bennett",
+            team2: "IGDTUW",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 6",
+            time: "2024-11-15T16:00:00"
+        },
+        {
+            team1: "Jaypee",
+            team2: "NIIT",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 4",
+            time: "2024-11-15T17:00:00"
+        },
+        {
+            team1: "SRCC",
+            team2: "SNU",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 6",
+            time: "2024-11-15T17:00:00"
+        },
+        {
+            team1: "Ashoka",
+            team2: "NIIT",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 4",
+            time: "2024-11-16T09:00:00"
+        },
+        {
+            team1: "Jaypee",
+            team2: "IGDTUW",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 6",
+            time: "2024-11-16T09:00:00"
+        },
+        {
+            team1: "SRCC",
+            team2: "IGDTUW",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 4",
+            time: "2024-11-16T10:00:00"
+        },
+        {
+            team1: "KMC",
+            team2: "SNU",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 6",
             time: "2024-11-16T10:00:00"
         },
         {
@@ -1877,21 +1603,12 @@ export const matchFixtures: MatchData = {
             score1: "-",
             score2: "-",
             win: 0,
-            location: "Table 6",
-            time: "2024-11-16T10:00:00"
-        },
-        {
-            team1: "SNU",
-            team2: "SRCC",
-            score1: "-",
-            score2: "-",
-            win: 0,
             location: "Table 4",
             time: "2024-11-16T11:00:00"
         },
         {
-            team1: "Jaypee",
-            team2: "IGDTUW",
+            team1: "SRCC",
+            team2: "NIIT",
             score1: "-",
             score2: "-",
             win: 0,
@@ -1899,8 +1616,8 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T11:00:00"
         },
         {
-            team1: "Ashoka A",
-            team2: "IGDTUW",
+            team1: "Ashoka",
+            team2: "Bennett",
             score1: "-",
             score2: "-",
             win: 0,
@@ -1908,8 +1625,8 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T12:00:00"
         },
         {
-            team1: "SRCC",
-            team2: "KMC",
+            team1: "Jaypee",
+            team2: "SNU",
             score1: "-",
             score2: "-",
             win: 0,
@@ -1927,7 +1644,7 @@ export const matchFixtures: MatchData = {
         },
         {
             team1: "NIIT",
-            team2: "KMC",
+            team2: "Bennett",
             score1: "-",
             score2: "-",
             win: 0,
@@ -1935,8 +1652,8 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T14:00:00"
         },
         {
-            team1: "SNU",
-            team2: "Ashoka A",
+            team1: "KMC",
+            team2: "SRCC",
             score1: "-",
             score2: "-",
             win: 0,
@@ -1944,34 +1661,299 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T15:00:00"
         },
         {
-            team1: "IGDTUW",
-            team2: "Bennett",
+            team1: "SNU",
+            team2: "Ashoka",
             score1: "-",
             score2: "-",
             win: 0,
             location: "Table 6",
             time: "2024-11-16T15:00:00"
-        }
-    ],
-    "Volleyball - Men": [
+        },
         {
-            team1: "GL Bajaj",
-            team2: "SNU A",
+            team1: "Jaypee",
+            team2: "KMC",
             score1: "-",
             score2: "-",
             win: 0,
-            location: "Mens Court",
-            time: "2024-11-16T09:00:00"
+            location: "Table 4",
+            time: "2024-11-17T09:00:00"
+        },
+        {
+            team1: "Ashoka",
+            team2: "IGDTUW",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 6",
+            time: "2024-11-17T09:00:00"
+        },
+        {
+            team1: "Bennett",
+            team2: "SNU",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 4",
+            time: "2024-11-17T10:00:00"
+        },
+        {
+            team1: "IGDTUW",
+            team2: "NIIT",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Table 6",
+            time: "2024-11-17T10:00:00"
+        }
+    ],
+    "Tennis - Men": [
+        {
+            team1: "SNU A",
+            team2: "Munjal",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-15T10:00:00",
+            win: 0
         },
         {
             team1: "SNU A",
-            team2: "JIIT",
+            team2: "MUJ B",
             score1: "-",
             score2: "-",
-            win: 0,
-            location: "Mens Court",
-            time: "2024-11-15T19:00:00"
+            location: "Court 2",
+            time: "2024-11-15T19:30:00",
+            win: 0
         },
+        {
+            team1: "Munjal",
+            team2: "MUJ B",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T20:30:00",
+            win: 0
+        },
+        {
+            team1: "Bennett B",
+            team2: "Venky",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-15T11:30:00",
+            win: 0
+        },
+        {
+            team1: "Khalsa",
+            team2: "Ashoka A",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-15T13:00:00",
+            win: 0
+        },
+        {
+            team1: "Ashoka A",
+            team2: "Bennett B",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-16T09:00:00",
+            win: 0
+        },
+        {
+            team1: "Venky",
+            team2: "Khalsa",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-16T12:00:00",
+            win: 0
+        },
+        {
+            team1: "Khalsa",
+            team2: "Bennett B",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-16T18:00:00",
+            win: 0
+        },
+        {
+            team1: "Ashoka A",
+            team2: "Venky",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-16T19:30:00",
+            win: 0
+        },
+        {
+            team1: "Bennett A",
+            team2: "Ashoka B",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-15T15:00:00",
+            win: 0
+        },
+        {
+            team1: "Ashoka B",
+            team2: "Hansraj",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-15T19:30:00",
+            win: 0
+        },
+        {
+            team1: "Hansraj",
+            team2: "Bennett A",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-16T16:30:00",
+            win: 0
+        },
+        {
+            team1: "SNU Alum",
+            team2: "MUJ A",
+            score1: "-",
+            score2: "-",
+            location: "Court 2",
+            time: "2024-11-15T18:00:00",
+            win: 0
+        },
+        {
+            team1: "MUJ A",
+            team2: "SNU B",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T19:30:00",
+            win: 0
+        },
+        {
+            team1: "SNU B",
+            team2: "SNU Alum",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T18:00:00",
+            win: 0
+        }
+    ],
+    "Tennis - Women": [
+        {
+            team1: "Bennett",
+            team2: "Ashoka B",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T15:00:00",
+            win: 0
+        },
+        {
+            team1: "SNU",
+            team2: "Bennett",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T16:30:00",
+            win: 0
+        },
+        {
+            team1: "Ashoka B",
+            team2: "MUJ",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-16T09:00:00",
+            win: 0
+        },
+        {
+            team1: "MUJ",
+            team2: "Bennett",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-16T12:00:00",
+            win: 0
+        },
+        {
+            team1: "SNU",
+            team2: "Ashoka B",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-16T16:30:00",
+            win: 0
+        },
+        {
+            team1: "SNU",
+            team2: "MUJ",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-16T19:30:00",
+            win: 0
+        },
+        {
+            team1: "SRCC",
+            team2: "IPCW",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T10:00:00",
+            win: 0
+        },
+        {
+            team1: "Venky",
+            team2: "IPCW",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T23:30:00",
+            win: 0
+        },
+        {
+            team1: "SRCC",
+            team2: "Ashoka A",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T13:00:00",
+            win: 0
+        },
+        {
+            team1: "Venky",
+            team2: "Ashoka A",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-15T18:00:00",
+            win: 0
+        },
+        {
+            team1: "SRCC",
+            team2: "Venky",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-16T10:30:00",
+            win: 0
+        },
+        {
+            team1: "IPCW",
+            team2: "Ashoka A",
+            score1: "-",
+            score2: "-",
+            location: "Court 1",
+            time: "2024-11-16T15:00:00",
+            win: 0
+        }
+    ],
+    "Volleyball - Men": [
         {
             team1: "JIIT",
             team2: "GL Bajaj",
@@ -1980,6 +1962,33 @@ export const matchFixtures: MatchData = {
             win: 0,
             location: "Mens Court",
             time: "2024-11-15T16:00:00"
+        },
+        {
+            team1: "SNU A",
+            team2: "GL Bajaj",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Mens Court",
+            time: "2024-11-15T19:00:00"
+        },
+        {
+            team1: "JIIT",
+            team2: "SNU A",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Womens Court",
+            time: "2024-11-16T14:30:00"
+        },
+        {
+            team1: "UPES",
+            team2: "Bennett",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Mens Court",
+            time: "2024-11-15T14:30:00"
         },
         {
             team1: "Swami Vivekanand",
@@ -2000,13 +2009,13 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T13:00:00"
         },
         {
-            team1: "UPES",
-            team2: "Bennett",
+            team1: "Bennett",
+            team2: "Amity",
             score1: "-",
             score2: "-",
             win: 0,
             location: "Mens Court",
-            time: "2024-11-15T14:30:00"
+            time: "2024-11-16T19:00:00"
         },
         {
             team1: "Swami Vivekanand",
@@ -2027,13 +2036,13 @@ export const matchFixtures: MatchData = {
             time: "2024-11-16T20:30:00"
         },
         {
-            team1: "Bennett",
-            team2: "Amity",
+            team1: "SNU B",
+            team2: "SNU C",
             score1: "-",
             score2: "-",
             win: 0,
             location: "Mens Court",
-            time: "2024-11-16T19:00:00"
+            time: "2024-11-15T20:30:00"
         },
         {
             team1: "SNU C",
@@ -2052,15 +2061,6 @@ export const matchFixtures: MatchData = {
             win: 0,
             location: "Mens Court",
             time: "2024-11-16T14:30:00"
-        },
-        {
-            team1: "SNU B",
-            team2: "SNU C",
-            score1: "-",
-            score2: "-",
-            win: 0,
-            location: "Mens Court",
-            time: "2024-11-15T20:30:00"
         },
         {
             team1: "PGDAV",
@@ -2119,94 +2119,76 @@ export const matchFixtures: MatchData = {
     ],
     "Volleyball - Women": [
         {
-            team1: "Kanori",
+            team1: "Gargi",
             team2: "UPES",
             score1: "-",
             score2: "-",
+            win: 0,
             location: "Womens Court",
-            time: "2024-11-16T14:30:00",
-            win: 0
+            time: "2024-11-16T11:00:00"
         },
         {
-            team1: "UPES",
-            team2: "Gargi",
-            score1: "-",
-            score2: "-",
-            location: "Womens Court",
-            time: "2024-11-16T09:00:00",
-            win: 0
-        },
-        {
-            team1: "Gargi",
-            team2: "Kanori",
-            score1: "-",
-            score2: "-",
-            location: "Womens Court",
-            time: "2024-11-16T20:30:00",
-            win: 0
-        },
-        {
-            team1: "Rajasthan Uni",
+            team1: "Kanoria",
             team2: "Ashoka",
             score1: "-",
             score2: "-",
+            win: 0,
             location: "Womens Court",
-            time: "2024-11-15T13:00:00",
-            win: 0
+            time: "2024-11-15T13:00:00"
         },
         {
             team1: "Bennett",
             team2: "Munjal",
             score1: "-",
             score2: "-",
+            win: 0,
             location: "Womens Court",
-            time: "2024-11-15T14:30:00",
-            win: 0
+            time: "2024-11-15T14:30:00"
         },
         {
             team1: "Bennett",
             team2: "SNU A",
             score1: "-",
             score2: "-",
+            win: 0,
             location: "Womens Court",
-            time: "2024-11-15T19:00:00",
-            win: 0
+            time: "2024-11-15T19:00:00"
         },
         {
             team1: "SNU A",
             team2: "Munjal",
             score1: "-",
             score2: "-",
+            win: 0,
             location: "Womens Court",
-            time: "2024-11-16T19:30:00",
-            win: 0
-        },
-        {
-            team1: "SNU B",
-            team2: "Amity",
-            score1: "-",
-            score2: "-",
-            location: "Womens Court",
-            time: "2024-11-16T17:30:00",
-            win: 0
+            time: "2024-11-16T19:30:00"
         },
         {
             team1: "GL Bajaj",
             team2: "Amity",
             score1: "-",
             score2: "-",
+            win: 0,
             location: "Womens Court",
-            time: "2024-11-15T10:30:00",
-            win: 0
+            time: "2024-11-15T10:30:00"
         },
         {
             team1: "GL Bajaj",
             team2: "SNU B",
             score1: "-",
             score2: "-",
+            win: 0,
             location: "Womens Court",
-            time: "2024-11-15T16:00:00",
-            win: 0
+            time: "2024-11-15T16:00:00"
+        },
+        {
+            team1: "SNU B",
+            team2: "Amity",
+            score1: "-",
+            score2: "-",
+            win: 0,
+            location: "Womens Court",
+            time: "2024-11-16T17:30:00"
         }
     ],
     "Athletics - Men": [
