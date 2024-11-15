@@ -27,7 +27,7 @@ const formatDateTime = (dateTime: string) => {
         return dateTime;
     }
 };
-const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: string, score1: number, score2: number, win: number }) => {
+const Match = ({ team1, team2, score1, score2, win }: { team1: string, team2: string, score1: string, score2: string, win: number }) => {
 
     return (
         <Flex
