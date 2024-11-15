@@ -10,7 +10,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { env } from "~/env";
 import { DocumentType } from "@prisma/client";
-import { MatchData, matchFixtures } from "~/types/types";
+import { MatchData, SinglePlayerEvent, MultiPlayerEvent } from "~/types/types";
 
 const r2Client = new S3Client({
   region: "auto",
@@ -666,8 +666,47 @@ export const regRouter = createTRPCRouter({
     return accomPayment;
   }),
 
-  getSportFixtures: publicProcedure.query(async () => {
-    return matchFixtures;
+  getSportFixtures: publicProcedure.query(async ({ ctx }) => {
+    const events = await ctx.db.$transaction([
+      ctx.db.multiPlayerEventData.findMany(),
+      ctx.db.singlePlayerEventData.findMany()
+    ]);
+
+    const [multiPlayerEvents, singlePlayerEvents] = events;
+
+    const matchData: MatchData = {};
+
+    multiPlayerEvents.forEach(event => {
+      const eventName = event.eventName;
+      if (!matchData[eventName]) {
+        matchData[eventName] = [];
+      }
+      (matchData[eventName] as MultiPlayerEvent[]).push({
+        team1: event.team1,
+        team2: event.team2,
+        score1: event.score1,
+        score2: event.score2,
+        win: event.win,
+        location: event.location,
+        time: event.time
+      });
+    });
+
+    singlePlayerEvents.forEach(event => {
+      const eventName = event.eventName;
+      if (!matchData[eventName]) {
+        matchData[eventName] = [];
+      }
+      (matchData[eventName] as SinglePlayerEvent[]).push({
+        time: event.time,
+        gold: event.gold,
+        silver: event.silver,
+        bronze: event.bronze,
+        name: event.name
+      });
+    });
+
+    return matchData;
   }),
 
 });
