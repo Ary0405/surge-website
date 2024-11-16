@@ -37,7 +37,7 @@ const sponsors = [
     title: "MyAdvice",
     image: "/images/landing/sponsors/myadvice.jpg",
     href: "https://myadvice.com/",
-    level:"....."
+    level:"Marketing platform"
   },
   {
     title: "Sodexo",
