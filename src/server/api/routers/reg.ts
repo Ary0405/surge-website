@@ -678,18 +678,20 @@ export const regRouter = createTRPCRouter({
 
     multiPlayerEvents.forEach(event => {
       const eventName = event.eventName;
-      if (!matchData[eventName]) {
-        matchData[eventName] = [];
+      if (eventName.toLowerCase().includes("final")) {
+        if (!matchData[eventName]) {
+          matchData[eventName] = [];
+        }
+        (matchData[eventName] as MultiPlayerEvent[]).push({
+          team1: event.team1,
+          team2: event.team2,
+          score1: event.score1,
+          score2: event.score2,
+          win: event.win,
+          location: event.location,
+          time: event.time
+        });
       }
-      (matchData[eventName] as MultiPlayerEvent[]).push({
-        team1: event.team1,
-        team2: event.team2,
-        score1: event.score1,
-        score2: event.score2,
-        win: event.win,
-        location: event.location,
-        time: event.time
-      });
     });
 
     singlePlayerEvents.forEach(event => {
