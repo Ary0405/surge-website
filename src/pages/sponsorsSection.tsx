@@ -34,9 +34,9 @@ const sponsors = [
     level: "Travel Partner"
   },
   {
-    title: "MyAdvice",
+    title: "MyAdvise",
     image: "/images/landing/sponsors/myadvice.jpg",
-    href: "https://myadvice.com/",
+    href: "http://www.myadvise.info",
     level:"....."
   },
   {
